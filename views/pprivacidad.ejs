@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - Germain</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #44006b;
+            --accent-color: #FF7200;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --light-orange-1: #FFF3E0;
+            --light-orange-2: #FFEACC;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            height: 50px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* MAIN CONTENT */
+        main {
+            margin-top: 10vh;
+            padding: 60px 5% 40px;
+        }
+
+        .privacy-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .privacy-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .privacy-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .privacy-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .privacy-subtitle {
+            font-size: 1.5em;
+            color: var(--accent-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .privacy-section {
+            background-color: var(--light-orange-1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .privacy-section p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .privacy-section ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .privacy-section li {
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb-container {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            margin-top: 80px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-color);
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        /* FLOATING BUTTONS */
+        .floating-btn {
+            position: fixed;
+            bottom: 25px;
+            z-index: 99;
+            border-radius: 50px;
+            padding: 12px 25px;
+            color: white;
+            font-size: 16px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warehouse-btn {
+            left: 20px;
+            background-color: var(--accent-color);
+        }
+
+        .warehouse-btn:hover {
+            background-color: #E56700;
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        .exit-btn {
+            right: 20px;
+            background-color: #dc3545;
+        }
+
+        .exit-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-section {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 4%;
+            }
+            
+            .privacy-container {
+                padding: 30px 20px;
+            }
+            
+            .privacy-title {
+                font-size: 2.2em;
+            }
+            
+            .privacy-section {
+                padding: 25px 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .floating-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active">Políticas de Privacidad</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <div class="privacy-container">
+            <h1 class="privacy-title">Política de Privacidad - Germain</h1>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">1. Objeto del documento</h2>
+                <p>
+                    La presente Política de Privacidad tiene como finalidad informar sobre el tratamiento de los datos personales recabados a través de la plataforma digital GERMAIN, un sistema de comercio electrónico educativo implementado en instituciones de nivel medio superior. El proyecto ofrece una experiencia real de compra de artículos escolares dentro de un entorno institucional, bajo control académico y con fines formativos.
+                </p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">2. Responsable del tratamiento</h2>
+                <p>
+                    El tratamiento de los datos personales es responsabilidad del equipo académico y técnico del proyecto GERMAIN, bajo la supervisión de las autoridades escolares correspondientes. Para cualquier asunto relacionado con la protección de datos personales, solicitudes o aclaraciones, se pone a disposición el siguiente medio de contacto: germain.error404@gmail.com
+                </p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">3. Datos personales recabados</h2>
+                <p>
+                    Durante el uso de la plataforma GERMAIN, se recaban los siguientes datos personales del usuario:
+                </p>
+                <ul>
+                    <li>Nombre de usuario</li>
+                    <li>Correo electrónico institucional o personal</li>
+                    <li>Contraseña (almacenada de forma cifrada)</li>
+                    <li>Historial de compras realizadas</li>
+                    <li>Productos seleccionados, cantidades y fechas</li>
+                    <li>Datos de interacción dentro de la plataforma</li>
+                </ul>
+                <p>
+                    También se registran datos técnicos como:
+                </p>
+                <ul>
+                    <li>Dirección IP</li>
+                    <li>Fecha y hora de acceso</li>
+                    <li>Navegador y sistema operativo</li>
+                </ul>
+                <p>
+                    La experiencia de compra es completa y representada como real. No obstante, las transacciones bancarias son simuladas para fines educativos, por lo que los datos financieros solicitados no corresponden a datos reales:
+                </p>
+                <ul>
+                    <li>Nombre del titular (ficticio)</li>
+                    <li>Número de tarjeta (simulado)</li>
+                    <li>CVV y fecha de vencimiento (simulados)</li>
+                </ul>
+                <p>
+                    No se procesan datos bancarios reales. No se permite el uso de información financiera auténtica por parte de los usuarios.
+                </p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">4. Finalidades del tratamiento</h2>
+                <p>
+                    Los datos recabados serán utilizados exclusivamente para los siguientes fines:
+                </p>
+                <ul>
+                    <li>Crear y administrar cuentas de usuario.</li>
+                    <li>Facilitar la realización de compras dentro del entorno educativo.</li>
+                    <li>Gestionar el inventario, pedidos y comprobantes de compra.</li>
+                    <li>Monitorear el desempeño y la participación estudiantil en el proyecto.</li>
+                    <li>Generar estadísticas institucionales y académicas para fines de evaluación.</li>
+                    <li>Mejorar el funcionamiento de la plataforma y su interfaz.</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">5. Principios del tratamiento</h2>
+                <p>
+                    El tratamiento de los datos personales se realiza bajo los principios de:
+                </p>
+                <ul>
+                    <li>Licitud</li>
+                    <li>Finalidad específica</li>
+                    <li>Proporcionalidad</li>
+                    <li>Seguridad</li>
+                    <li>Confidencialidad</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">6. Confidencialidad y no divulgación</h2>
+                <p>
+                    GERMAIN no comparte, transfiere, publica ni vende datos personales de los usuarios bajo ninguna circunstancia.
+                </p>
+                <p>
+                    La confidencialidad de la información es prioritaria. El acceso a los datos está estrictamente limitado al equipo académico y técnico encargado del proyecto, y sólo se utilizarán para los fines educativos definidos en esta política.
+                </p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">7. Conservación de los datos</h2>
+                <p>
+                    La información personal será conservada durante el periodo de ejecución del proyecto académico y será eliminada o anonimizada en un plazo no mayor a 30 días naturales tras su conclusión.
+                </p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">8. Seguridad de la información</h2>
+                <p>
+                    GERMAIN ha implementado medidas técnicas y organizativas adecuadas para proteger los datos personales, tales como:
+                </p>
+                <ul>
+                    <li>Cifrado de contraseñas mediante algoritmos seguros</li>
+                    <li>Control de accesos por niveles de autorización</li>
+                    <li>Monitoreo y auditoría del sistema</li>
+                    <li>Prevención contra accesos no autorizados</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">9. Derechos del titular</h2>
+                <p>
+                    El usuario podrá ejercer en cualquier momento los derechos de:
+                </p>
+                <ul>
+                    <li>Acceso: conocer qué datos se tienen almacenados.</li>
+                    <li>Rectificación: corregir o actualizar sus datos.</li>
+                    <li>Cancelación: solicitar la eliminación de su información.</li>
+                    <li>Oposición: rechazar su uso bajo condiciones justificadas.</li>
+                </ul>
+                <p>
+                    Para ello, deberá enviar una solicitud al siguiente correo electrónico: germain.error404@gmail.com
+                </p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">10. Modificaciones a esta política</h2>
+                <p>
+                    GERMAIN podrá actualizar esta Política de Privacidad cuando existan mejoras en el sistema, nuevas disposiciones normativas o necesidades operativas. Toda modificación será comunicada a los usuarios mediante la plataforma o correo registrado.
+                </p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2 class="privacy-subtitle">11. Contacto</h2>
+                <p>
+                    Para aclaraciones, solicitudes de derechos ARCO o cualquier asunto relacionado con el manejo de datos personales:
+                </p>
+                <p>
+                    Correo: germain.error404@gmail.com<br>
+                    Horario de atención: lunes a viernes, de 09:00 a 16:00 horas<br>
+                    Coordinación Académica – Proyecto GERMAIN
+                </p>
+                <p>
+                    GERMAIN reafirma su compromiso con el uso ético, responsable y seguro de los datos personales, promoviendo una educación digital alineada con los principios de protección de la privacidad.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">COMPAÑÍA</h5>
+                    <div class="footer-links">
+                        <a href="/conocenos">Conócenos</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">AYUDA</h5>
+                    <div class="footer-links">
+                        <a href="/detalles">Detalles de entrega</a>
+                        <a href="/terycon">Términos y condiciones</a>
+                        <a href="/pprivacidad">Política de privacidad</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>
+
+    <a href="/almacen" class="floating-btn warehouse-btn">
+        <i class="fas fa-warehouse"></i> Almacén
+    </a>
+    
+    <a href="/salida" class="floating-btn exit-btn">
+        <i class="fas fa-sign-out-alt"></i> Salida
+    </a>
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conócenos - Germain</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #44006b;
+            --accent-color: #FF7200;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --light-orange-1: #FFF3E0;
+            --light-orange-2: #FFEACC;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            height: 50px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* MAIN CONTENT */
+        main {
+            margin-top: 10vh;
+            padding: 60px 5% 40px;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .about-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .about-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .about-description {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #555;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb-container {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            margin-top: 80px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-color);
+        }
+
+        /* ESTADÍSTICAS DE PRODUCTOS */
+        .stats-section {
+            background-color: var(--light-orange-1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+
+        .stats-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .chart-container {
+            margin: 40px auto;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* EQUIPO */
+        .team-section {
+            margin-top: 60px;
+            background-color: var(--light-orange-2);
+            border-radius: 12px;
+            padding: 40px 30px;
+        }
+
+        .team-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 40px;
+            color: var(--text-color);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .team-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+
+        .team-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 5px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .team-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover .team-img {
+            transform: scale(1.05);
+        }
+
+        .team-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--accent-color);
+        }
+
+        .team-role {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        /* FLOATING BUTTONS */
+        .floating-btn {
+            position: fixed;
+            bottom: 25px;
+            z-index: 99;
+            border-radius: 50px;
+            padding: 12px 25px;
+            color: white;
+            font-size: 16px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warehouse-btn {
+            left: 20px;
+            background-color: var(--accent-color);
+        }
+
+        .warehouse-btn:hover {
+            background-color: #E56700;
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        .exit-btn {
+            right: 20px;
+            background-color: #dc3545;
+        }
+
+        .exit-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .footer-section {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 4%;
+            }
+            
+            .about-container {
+                padding: 30px 20px;
+            }
+            
+            .about-title {
+                font-size: 2.2em;
+            }
+            
+            .stats-section, .team-section {
+                padding: 25px 15px;
+            }
+            
+            .team-title, .stats-title {
+                font-size: 1.8em;
+            }
+
+            .breadcrumb-container {
+                margin-top: 70px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-img {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .floating-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    
+
+    <main>
+        <div class="breadcrumb-container">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                        <li class="breadcrumb-item active">Conocenos</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="about-container">
+            <h1 class="about-title">Conócenos</h1>
+            <p class="about-description">
+                Germain es una plataforma creada por y para estudiantes, donde puedes encontrar los mejores productos escolares 
+                que otros estudiantes ya no necesitan. Ayudamos al planeta reciclando materiales y a tu bolsillo con precios accesibles.
+            </p>
+            
+            <div class="stats-section">
+                <h2 class="stats-title">Estadísticas de Productos</h2>
+                <p class="text-center mb-4">Aquí puedes ver cuántos productos tenemos disponibles por categoría</p>
+                
+                <div class="chart-container">
+                    <canvas id="productsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <h2 class="team-title">Nuestro Equipo</h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="/noe.jpg" alt="Miembro del equipo" class="team-img">
+                        <h3 class="team-name">Hernández Rodríguez Diego Noé</h3>
+                        <p class="team-role">Front-end y analista</p>
+                        <p>CECyT 9</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <img src="/david.jpg" alt="Miembro del equipo" class="team-img">
+                        <h3 class="team-name">Nava Sosa Francisco David</h3>
+                        <p class="team-role">Diseñador</p>
+                        <p>CECyT 9</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <img src="/nieves.jpg" alt="Miembro del equipo" class="team-img">
+                        <h3 class="team-name">Nieves Sandoval Roberto Gael</h3>
+                        <p class="team-role">Back-end y Devops</p>
+                        <p>CECyT 9</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <img src="/leonel.jpg" alt="Miembro del equipo" class="team-img">
+                        <h3 class="team-name">Olvera Gil Leonel</h3>
+                        <p class="team-role">Front-end y Diseñador</p>
+                        <p>CECyT 9</p>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="/alvaro.jpg" alt="Miembro del equipo" class="team-img">
+                        <h3 class="team-name">Quiroz Frías Álvaro</h3>
+                        <p class="team-role">Analista y QA</p>
+                        <p>CECyT 9</p>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="/ramos.jpg" alt="Miembro del equipo" class="team-img">
+                        <h3 class="team-name">Ramos Gómez José Antonio</h3>
+                        <p class="team-role">Back-end, Hosting y Project Owner</p>
+                        <p>CECyT 9</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">COMPAÑÍA</h5>
+                    <div class="footer-links">
+                        <a href="#">Conócenos</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">AYUDA</h5>
+                    <div class="footer-links">
+                        <a href="/detalles">Detalles de entrega</a>
+                        <a href="/terycon">Términos y condiciones</a>
+                        <a href="/pprivacidad">Política de privacidad</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>
+
+    <a href="/almacen" class="floating-btn warehouse-btn">
+        <i class="fas fa-warehouse"></i> Almacén
+    </a>
+    
+    <a href="/salida" class="floating-btn exit-btn">
+        <i class="fas fa-sign-out-alt"></i> Salida
+    </a>
+
+    <script>
+        // Datos para la gráfica (estos vendrían de tu backend en una app real)
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    const categorias = data.map(item => item.nombre);
+                    const conteos = data.map(item => item.count);
+
+                    const ctx = document.getElementById('productsChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: categorias,
+                            datasets: [{
+                                label: 'Productos por categoría',
+                                data: conteos,
+                                backgroundColor: [
+                                    'rgba(46, 220, 210, 0.7)',
+                                    'rgba(64, 194, 207, 0.7)',
+                                    'rgba(85, 154, 211, 0.7)',
+                                    'rgba(98, 122, 222, 0.7)',
+                                    'rgba(255, 159, 64, 0.7)',
+                                    'rgba(153, 102, 255, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(46, 220, 210, 1)',
+                                    'rgba(64, 194, 207, 1)',
+                                    'rgba(85, 154, 211, 1)',
+                                    'rgba(98, 122, 222, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar los datos:', error);
+                });
+        });
+    </script>
+</body>
+</html>

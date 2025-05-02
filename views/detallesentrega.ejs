@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de Entrega - Germain</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #44006b;
+            --accent-color: #FF7200;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --light-orange-1: #FFF3E0;
+            --light-orange-2: #FFEACC;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            height: 50px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* MAIN CONTENT */
+        main {
+            margin-top: 10vh;
+            padding: 60px 5% 40px;
+        }
+
+        .delivery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .delivery-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .delivery-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .delivery-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .delivery-section {
+            background-color: var(--light-orange-1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .delivery-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .delivery-image {
+            flex: 0 0 auto;
+            max-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .delivery-image:hover {
+            transform: scale(1.05);
+        }
+
+        .delivery-section p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .bold-text {
+            font-weight: 700;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb-container {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            margin-top: 80px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-color);
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        /* FLOATING BUTTONS */
+        .floating-btn {
+            position: fixed;
+            bottom: 25px;
+            z-index: 99;
+            border-radius: 50px;
+            padding: 12px 25px;
+            color: white;
+            font-size: 16px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warehouse-btn {
+            left: 20px;
+            background-color: var(--accent-color);
+        }
+
+        .warehouse-btn:hover {
+            background-color: #E56700;
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        .exit-btn {
+            right: 20px;
+            background-color: #dc3545;
+        }
+
+        .exit-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-section {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 4%;
+            }
+            
+            .delivery-container {
+                padding: 30px 20px;
+            }
+            
+            .delivery-title {
+                font-size: 2.2em;
+            }
+            
+            .delivery-section {
+                padding: 25px 15px;
+            }
+            
+            .delivery-image {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .floating-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active">Detalles de Entrega</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <div class="delivery-container">
+            <h1 class="delivery-title">Detalles de Entrega - Germain</h1>
+            
+            <div class="delivery-section">
+                <div class="delivery-content">
+                    <p>
+                        El método de pago mostrado en esta plataforma corresponde únicamente a una <span class="bold-text">simulación</span> implementada con fines de demostración, como parte del desarrollo de un <span class="bold-text">prototipo de sitio web</span>. En ningún momento se efectúan transacciones económicas reales a través del sistema.
+                    </p>
+                    <p>
+                        Una vez finalizado el proceso de compra, tanto el <span class="bold-text">proveedor</span> como el <span class="bold-text">comprador</span> recibirán, vía correo electrónico, un <span class="bold-text">documento en formato PDF</span> que fungirá como comprobante de la operación. Dicho documento contendrá la información de contacto necesaria (correo electrónico, número telefónico y plantel de procedencia) para que ambas partes puedan <span class="bold-text">establecer comunicación directa</span>.
+                    </p>
+                    <p>
+                        Corresponderá al proveedor y al comprador <span class="bold-text">acordar, de manera independiente</span>, un punto de encuentro para llevar a cabo la <span class="bold-text">entrega del producto adquirido</span>. Este proceso deberá ser coordinado entre las partes involucradas, fuera de la plataforma, garantizando así una entrega adecuada y en mutuo acuerdo.
+                    </p>
+                </div>
+                <img src="/correopdf.jpg" alt="Ejemplo de correo PDF" class="delivery-image">
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">COMPAÑÍA</h5>
+                    <div class="footer-links">
+                        <a href="/conocenos">Conócenos</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">AYUDA</h5>
+                    <div class="footer-links">
+                        <a href="/detalles">Detalles de entrega</a>
+                        <a href="/terycon">Términos y condiciones</a>
+                        <a href="/pprivacidad">Política de privacidad</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>
+
+    <a href="/almacen" class="floating-btn warehouse-btn">
+        <i class="fas fa-warehouse"></i> Almacén
+    </a>
+    
+    <a href="/salida" class="floating-btn exit-btn">
+        <i class="fas fa-sign-out-alt"></i> Salida
+    </a>
+</body>
+</html>

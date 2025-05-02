@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Germain - Productos Escolares</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #44006b;
+            --accent-color: #FF7200;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --light-orange-1: #FFF3E0;
+            --light-orange-2: #FFEACC;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            height: 40px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .search-form {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb-container {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            margin-top: 80px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-color);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-orange-1);
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-link {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        .category-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .category-icon {
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover .category-icon {
+            color: var(--accent-color);
+        }
+
+        /* PRODUCTS SECTION */
+        .products-container {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .products-count {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-img-container {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .product-img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            transition: all 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            height: 2.8em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-category {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-top: auto;
+        }
+
+        /* PAGINATION */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 5px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-item {
+            width: 35px;
+            height: 35px;
+        }
+
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            background-color: white;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .page-link:hover {
+            background-color: var(--light-orange-1);
+            color: var(--accent-color);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .page-nav {
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .page-nav:hover {
+            transform: translateX(5px);
+            color: var(--accent-color);
+        }
+
+        .page-nav.prev:hover {
+            transform: translateX(-5px);
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-section {
+                margin-bottom: 30px;
+            }
+            
+            .search-form {
+                margin: 15px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .breadcrumb-container {
+                margin-top: 70px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .product-img-container {
+                height: 150px;
+            }
+            
+            .product-body {
+                padding: 15px;
+            }
+            
+            .product-title {
+                font-size: 0.9rem;
+            }
+            
+            .product-price {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <form class="search-form mx-auto">
+                        <input type="text" class="search-input" placeholder="Buscar Productos...">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                    
+                    <div class="nav-icons">
+                        <a href="/carrito-compra" class="nav-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                        <a href="/perfil" class="nav-icon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active">Tronco común</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container products-container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <h3 class="sidebar-title">Materiales</h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="/cecyt-1" class="category-link">CECyT 1</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-2" class="category-link">CECyT 2</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-3" class="category-link">CECyT 3</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-4" class="category-link">CECyT 4</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-5" class="category-link">CECyT 5</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-6" class="category-link">CECyT 6</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-7" class="category-link">CECyT 7</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-8" class="category-link">CECyT 8</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-9" class="category-link">CECyT 9</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                        <li class="category-item">
+                            <a href="/cecyt-10" class="category-link">CECyT 10</a>
+                            <i class="fas fa-chevron-right category-icon"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-lg-9">
+                <h2 class="section-title">Tronco común</h2>
+                <p class="products-count">Mostrando 10 productos</p>
+                
+                <div class="product-grid">
+                    <!-- Producto 1 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/sharpies.png" alt="Juego de 4 marcatextos" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Juego de 4 marcatextos</h5>
+                            <div class="product-category">CECyT 1</div>
+                            <div class="product-price">$50</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 2 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/cinta.png" alt="Corrector de cinta" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Corrector de cinta</h5>
+                            <div class="product-category">CECyT 1</div>
+                            <div class="product-price">$35</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 3 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/gomas.png" alt="Juego de 3 gomas de migajón" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Juego de 3 gomas de migajón</h5>
+                            <div class="product-category">CECyT 1</div>
+                            <div class="product-price">$15</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 4 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/cuaderno-rosa.png" alt="Cuaderno profesional rosa" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Cuaderno profesional</h5>
+                            <div class="product-category">CECyT 1</div>
+                            <div class="product-price">$35</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 5 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/cuaderno-azul.png" alt="Cuaderno profesional azul" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Cuaderno profesional</h5>
+                            <div class="product-category">CECyT 1</div>
+                            <div class="product-price">$30</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 6 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/bata.png" alt="Bata de laboratorio" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Bata de laboratorio</h5>
+                            <div class="product-category">CECyT 1</div>
+                            <div class="product-price">$212</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 7 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/audifonos.png" alt="Audífonos" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Audífonos</h5>
+                            <div class="product-category">CECyT 3</div>
+                            <div class="product-price">$180</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 8 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/engrapadora.png" alt="Engrapadora" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Engrapadora</h5>
+                            <div class="product-category">CECyT 3</div>
+                            <div class="product-price">$80</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto 9 -->
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="/diurex.png" alt="Diurex" class="product-img">
+                        </div>
+                        <div class="product-body">
+                            <h5 class="product-title">Diurex</h5>
+                            <div class="product-category">CECyT 3</div>
+                            <div class="product-price">$5</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pagination-container">
+                    <a href="#" class="page-nav prev">
+                        <i class="fas fa-chevron-left"></i> Anterior
+                    </a>
+                    
+                    <ul class="pagination">
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    </ul>
+                    
+                    <a href="#" class="page-nav next">
+                        Siguiente <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">COMPAÑÍA</h5>
+                    <div class="footer-links">
+                        <a href="/conocenos">Conócenos</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">AYUDA</h5>
+                    <div class="footer-links">
+                        <a href="/detalles">Detalles de entrega</a>
+                        <a href="/terycon">Términos y condiciones</a>
+                        <a href="/pprivacidad">Política de privacidad</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
