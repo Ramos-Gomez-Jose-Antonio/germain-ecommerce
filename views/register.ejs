@@ -221,17 +221,23 @@
         
         /* Password visibility toggle */
         .password-container {
-            position: relative;
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #999;
-        }
+    position: relative;
+}
+
+    .password-container .form-control {
+    width: 100%;
+    padding-right: 40px;  /* agrega espacio a la derecha para que no tape el ojo */
+    }
+
+    .password-container .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* distancia del borde derecho */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555; /* opcional: color del icono */
+    }
+
         
         /* Alertas */
         .alert {
@@ -259,7 +265,6 @@
         <div class="container">
             <a class="navbar-brand" href="/">
                 <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
-                Germain
             </a>
         </div>
     </nav>
@@ -284,45 +289,38 @@
         <div class="register-content">
             <div class="form-column">
                 <form action="/register" method="POST" enctype="multipart/form-data" id="registerForm">
-                    <!-- Nombre input -->
-                    <div class="form-group">
-                        <input type="text" name="nombre" placeholder="Nombre" id="nombreInput" class="form-control" required />
-                    </div>
-                    
-                    <!-- Apellido Paterno input -->
-                    <div class="form-group">
-                        <input type="text" name="apellidoPaterno" placeholder="Apellido Paterno" id="apellidoPaternoInput" class="form-control" required />
-                    </div>
-                    
-                    <!-- Apellido Materno input -->
-                    <div class="form-group">
-                        <input type="text" name="apellidoMaterno" placeholder="Apellido Materno" id="apellidoMaternoInput" class="form-control" required />
-                    </div>
-                    
-                    <!-- Nombre de usuario input -->
-                    <div class="form-group">
-                        <input type="text" name="username" placeholder="Nombre de usuario" id="usernameInput" class="form-control" required />
-                    </div>
-                    
-                    <!-- Número telefónico input -->
-                    <div class="form-group">
-                        <input type="tel" name="telefono" placeholder="Número telefónico" id="telefonoInput" class="form-control" required />
-                    </div>
-                    
-                    <!-- Email input -->
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Correo electrónico" id="emailInput" class="form-control" required />
-                    </div>
-                    
-                    <!-- Password input -->
-                    <div class="form-group password-container">
-                        <input type="password" name="password" placeholder="Contraseña" id="passwordInput" class="form-control" required />
-                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-                    </div>
-                    
-                    <!-- Hidden input for the photo -->
-                    <input type="file" name="profilePhoto" id="profilePhotoInput" style="display: none;" accept="image/*">
+                    <!-- Nombre -->
+                    <input type="text" name="nombre" placeholder="Nombre" class="form-control" required />
+                
+                    <!-- Apellido Paterno -->
+                    <input type="text" name="apellidoPaterno" placeholder="Apellido Paterno" class="form-control" required />
+                
+                    <!-- Apellido Materno -->
+                    <input type="text" name="apellidoMaterno" placeholder="Apellido Materno" class="form-control" required />
+                
+                    <!-- Nombre de usuario -->
+                    <input type="text" name="username" placeholder="Nombre de usuario" class="form-control" required />
+                
+                    <!-- Teléfono -->
+                    <input type="tel" name="telefono" placeholder="Número telefónico" class="form-control" required />
+                
+                    <!-- Email -->
+                    <input type="email" name="email" placeholder="Correo electrónico" class="form-control" required />
+                
+                    <!-- Password -->
+                    <input type="password" name="password" placeholder="Contraseña" id="passwordInput" class="form-control" required />
+
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                    <!-- Confirmar Password -->
+                    <input type="password" name="confirmPassword" placeholder="Confirmar Contraseña" id="passwordOutput" class="form-control" required />
+                    <i class="fas fa-eye toggle-password" id="togglePasswor"></i>
+                    <!-- Foto de perfil -->
+                    <input class="btn-upload" type="file" name="profilePhoto" accept="image/*" id="profilePhotoInput" hidden>
+                
+                    <!-- Botón de registro -->
+                    <button type="submit" class="btn-register">Crear Cuenta</button>
                 </form>
+                
             </div>
             
             <div class="photo-column">
@@ -330,7 +328,6 @@
                     <i class="fas fa-image photo-icon" id="photoPlaceholder"></i>
                     <img src="#" alt="Foto de perfil" id="photoPreview" class="profile-image">
                     <div class="photo-upload-icon">
-                        <i class="fas fa-plus"></i>
                     </div>
                 </div>
                 <div class="upload-btn-wrapper">
@@ -342,7 +339,7 @@
         </div>
         
         <!-- Submit button -->
-        <button type="button" class="btn-register" id="submitButton">
+        <button action="/register" type="submit" class="btn-register" id="submitButton">
             Crear Cuenta
         </button>
         
@@ -363,6 +360,21 @@
         // Función para mostrar/ocultar contraseña
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('passwordInput');
+            const icon = this;
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        document.getElementById('togglePasswor').addEventListener('click', function() {
+            const passwordInput = document.getElementById('passwordOutput');
             const icon = this;
             
             if (passwordInput.type === 'password') {

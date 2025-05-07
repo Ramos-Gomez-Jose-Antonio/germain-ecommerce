@@ -51,7 +51,7 @@
         }
 
         .navbar-logo {
-            height: 50px;
+            height: 40px;
             margin-right: 10px;
             transition: transform 0.3s ease;
         }
@@ -60,10 +60,191 @@
             transform: scale(1.05);
         }
 
+        .search-form {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* USER PROFILE MODAL */
+        .profile-modal {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .profile-modal-header {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .profile-modal-body {
+            padding: 20px;
+        }
+        
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            background-color: var(--light-orange-1);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .user-email {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .profile-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .profile-menu-item {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-menu-link {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-menu-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        
+        .profile-menu-icon {
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: #e56600;
+            transform: translateY(-2px);
+        }
+        
+        /* Overlay for closing modal when clicking outside */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 999;
+            display: none;
+        }
+        
+        .modal-overlay.active {
+            display: block;
+        }
+
         /* MAIN CONTENT */
         main {
             margin-top: 10vh;
-            padding: 60px 5% 40px;
+            padding: 10px 5% 40px;
         }
 
         .about-container {
@@ -452,30 +633,132 @@
         }
     </style>
 </head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Buscar todos los enlaces que contengan "Cambiar a proveedor"
+        const enlaces = document.querySelectorAll('a.profile-menu-link');
+        
+        enlaces.forEach(enlace => {
+            if (enlace.textContent.includes('Cambiar a proveedor')) {
+                enlace.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Crear el overlay
+                    const overlay = document.createElement('div');
+                    overlay.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: #e56600;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 99999;
+                        color: white;
+                        font-size: 2rem;
+                        font-weight: bold;
+                    `;
+                    overlay.textContent = 'Cambiando a Proveedor';
+                    
+                    document.body.appendChild(overlay);
+                    
+                    // Redirigir después de 3 segundos
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 3000);
+                });
+            }
+        });
+    });
+    </script>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
                 </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <form class="search-form mx-auto">
+                        
+                    </form>
+                    
+                    <div class="nav-icons">
+                        <a href="/carrito-compra" class="nav-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                        <span class="nav-icon" id="userProfileToggle">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
 
-    
+    <!-- User Profile Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-modal-header">
+            Perfil
+        </div>
+        <div class="profile-modal-body">
+            <div class="profile-picture">
+                <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+            </div>
+            <h4 class="user-name">Tribios Jano Oqueima</h4>
+            <p class="user-email">tribbie.agli@gmail.com</p>
+            
+            <ul class="profile-menu">
+                <li class="profile-menu-item">
+                    <a href="/perfil" class="profile-menu-link">
+                        <span class="profile-menu-icon">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        Perfil
+                    </a>
+                </li>
+                <li class="profile-menu-item">
+                    <a href="/productos" class="profile-menu-link">
+                        <span class="profile-menu-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </span>
+                        Cambiar a proveedor
+                    </a>
+                </li>
+                <li class="profile-menu-item">
+                    <a href="/historial-compras" class="profile-menu-link">
+                        <span class="profile-menu-icon">
+                            <i class="fas fa-history"></i>
+                        </span>
+                        Historial de compras
+                    </a>
+                </li>
+            </ul>
+            
+            <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+        </div>
+    </div>
+    <div class="breadcrumb-container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active">Conócenos</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
     <main>
-        <div class="breadcrumb-container">
-            <div class="container">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                        <li class="breadcrumb-item active">Conocenos</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
+        
         <div class="about-container">
             <h1 class="about-title">Conócenos</h1>
             <p class="about-description">
@@ -574,14 +857,6 @@
         </div>
     </footer>
 
-    <a href="/almacen" class="floating-btn warehouse-btn">
-        <i class="fas fa-warehouse"></i> Almacén
-    </a>
-    
-    <a href="/salida" class="floating-btn exit-btn">
-        <i class="fas fa-sign-out-alt"></i> Salida
-    </a>
-
     <script>
         // Datos para la gráfica (estos vendrían de tu backend en una app real)
         document.addEventListener('DOMContentLoaded', function() {
@@ -636,6 +911,51 @@
                 .catch(error => {
                     console.error('Error al cargar los datos:', error);
                 });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const userProfileToggle = document.getElementById('userProfileToggle');
+            const profileModal = document.getElementById('profileModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Toggle modal when clicking user icon
+            userProfileToggle.addEventListener('click', function() {
+                profileModal.classList.toggle('active');
+                modalOverlay.classList.toggle('active');
+            });
+            
+            // Close modal when clicking outside
+            modalOverlay.addEventListener('click', function() {
+                profileModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            });
+            
+            // Logout button functionality
+            logoutBtn.addEventListener('click', function() {
+                // Add your logout logic here
+                window.location.href = '/salida'; // Redirect to logout route
+            });
+            
+            // Example: Load user profile picture from server
+            // This would be replaced with actual code to load the user's profile picture
+            function loadUserProfilePicture() {
+                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
+                const userProfilePic = document.getElementById('userProfilePic');
+                
+                // Example: check if user has a profile picture
+                const hasProfilePicture = true; // This would be determined by your backend
+                
+                if (hasProfilePicture) {
+                    // Replace with actual user profile picture URL
+                    userProfilePic.src = "/api/placeholder/200/200";
+                } else {
+                    // Use default avatar if no profile picture exists
+                    userProfilePic.src = "/default-avatar.png";
+                }
+            }
+            
+            // Load user profile picture when the page loads
+            loadUserProfilePicture();
         });
     </script>
 </body>

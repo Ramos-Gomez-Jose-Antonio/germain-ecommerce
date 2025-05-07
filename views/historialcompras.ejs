@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Términos y Condiciones - Germain</title>
+    <title>Germain - Historial de Compras</title>
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -240,85 +240,6 @@
             display: block;
         }
 
-        /* MAIN CONTENT */
-        main {
-            margin-top: 10vh;
-            padding: 10px 5% 40px;
-        }
-
-        .terms-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            padding: 40px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .terms-container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-        }
-
-        .terms-title {
-            text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .terms-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        .terms-subtitle {
-            font-size: 1.5em;
-            color: var(--accent-color);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .terms-section {
-            background-color: var(--light-orange-1);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .terms-section p {
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .terms-section ul {
-            margin-bottom: 15px;
-            padding-left: 20px;
-        }
-
-        .terms-section li {
-            margin-bottom: 8px;
-            font-size: 1.1em;
-        }
-
         /* BREADCRUMB */
         .breadcrumb-container {
             background-color: #f5f5f5;
@@ -338,6 +259,158 @@
 
         .breadcrumb-item.active {
             color: var(--text-color);
+        }
+
+        /* HISTORIAL DE COMPRAS */
+        .history-container {
+            padding: 40px 0;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .history-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .history-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 12px;
+            color: var(--text-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--light-orange-1);
+            border-color: var(--accent-color);
+        }
+
+        .history-table {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .history-table th {
+            background-color: #FFD54F;
+            color: var(--text-color);
+            font-weight: 600;
+            text-align: center;
+            padding: 12px;
+        }
+
+        .history-table td {
+            padding: 12px;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .history-table tr:hover {
+            background-color: var(--light-orange-2);
+        }
+
+        .details-btn {
+            color: var(--accent-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .details-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* PAGINATION */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 5px;
+        }
+
+        .page-item {
+            width: 35px;
+            height: 35px;
+        }
+
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            background-color: white;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .page-link:hover {
+            background-color: var(--light-orange-1);
+            color: var(--accent-color);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .page-nav {
+            background-color: #FFC107;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .page-nav:hover {
+            background-color: var(--accent-color);
+            color: white;
         }
 
         /* FOOTER */
@@ -482,77 +555,50 @@
 
         /* RESPONSIVE */
         @media (max-width: 992px) {
-            .footer-section {
-                margin-bottom: 30px;
+            .search-form {
+                margin: 15px 0;
+            }
+
+            .history-table {
+                overflow-x: auto;
+                display: block;
             }
         }
 
         @media (max-width: 768px) {
-            main {
-                padding: 40px 4%;
+            .breadcrumb-container {
+                margin-top: 70px;
             }
             
-            .terms-container {
-                padding: 30px 20px;
+            .history-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
             
-            .terms-title {
-                font-size: 2.2em;
-            }
-            
-            .terms-section {
-                padding: 25px 15px;
+            .history-table {
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 576px) {
-            .floating-btn {
-                padding: 10px 15px;
-                font-size: 14px;
+            .history-title {
+                font-size: 1.5rem;
+            }
+            
+            .pagination-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .page-nav {
+                width: 100%;
+                justify-content: center;
+                margin: 5px 0;
             }
         }
     </style>
 </head>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Buscar todos los enlaces que contengan "Cambiar a proveedor"
-        const enlaces = document.querySelectorAll('a.profile-menu-link');
-        
-        enlaces.forEach(enlace => {
-            if (enlace.textContent.includes('Cambiar a proveedor')) {
-                enlace.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Crear el overlay
-                    const overlay = document.createElement('div');
-                    overlay.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: #e56600;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 99999;
-                        color: white;
-                        font-size: 2rem;
-                        font-weight: bold;
-                    `;
-                    overlay.textContent = 'Cambiando a Proveedor';
-                    
-                    document.body.appendChild(overlay);
-                    
-                    // Redirigir después de 3 segundos
-                    setTimeout(() => {
-                        window.location.href = this.href;
-                    }, 3000);
-                });
-            }
-        });
-    });
-    </script>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -567,7 +613,10 @@
                 
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <form class="search-form mx-auto">
-                        
+                        <input type="text" class="search-input" placeholder="Buscar Productos...">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </form>
                     
                     <div class="nav-icons">
@@ -606,7 +655,7 @@
                     </a>
                 </li>
                 <li class="profile-menu-item">
-                    <a href="/productos" class="profile-menu-link">
+                    <a href="/agregar-producto" class="profile-menu-link">
                         <span class="profile-menu-icon">
                             <i class="fas fa-exchange-alt"></i>
                         </span>
@@ -626,137 +675,235 @@
             <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
         </div>
     </div>
+
     <div class="breadcrumb-container">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                    <li class="breadcrumb-item active">Términos y Condiciones</li>
+                    <li class="breadcrumb-item"><a href="/perfil">Perfil</a></li>
+                    <li class="breadcrumb-item active">Historial de compras</li>
                 </ol>
             </nav>
         </div>
     </div>
 
-    <main>
-        <div class="terms-container">
-            <h1 class="terms-title">Términos y Condiciones de Uso - Germain</h1>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">1. Aceptación de los términos</h2>
-                <p>
-                    Al registrarse y utilizar la plataforma digital GERMAIN, el usuario acepta expresamente los presentes Términos y Condiciones de uso. Este acuerdo rige la relación entre el usuario y los responsables del proyecto, dentro del marco académico institucional de nivel medio superior.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">2. Naturaleza del servicio</h2>
-                <p>
-                    GERMAIN es un proyecto educativo que simula una plataforma de comercio electrónico para la adquisición de productos escolares como cuadernos, libros, lápices, entre otros. Aunque las transacciones bancarias no son reales, la experiencia de compra se desarrolla como si se tratara de un eCommerce convencional, con el objetivo de formar habilidades digitales, económicas y de consumo responsable.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">3. Registro de usuarios</h2>
-                <p>
-                    Para utilizar la plataforma es necesario:
-                </p>
-                <ul>
-                    <li>Crear una cuenta con un nombre de usuario único</li>
-                    <li>Proporcionar un correo electrónico válido</li>
-                    <li>Establecer una contraseña segura (la cual se almacena de manera cifrada)</li>
-                </ul>
-                <p>
-                    El usuario se compromete a proporcionar información veraz y a mantener la confidencialidad de sus credenciales de acceso.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">4. Acceso y uso de la plataforma</h2>
-                <p>
-                    El acceso a GERMAIN está limitado a estudiantes, docentes y personal autorizado dentro del entorno institucional. El uso indebido, no autorizado o con fines distintos a los educativos está prohibido y puede conllevar sanciones académicas o bloqueo de cuenta.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">5. Compras dentro del sistema</h2>
-                <p>
-                    Las compras realizadas en GERMAIN se simulan dentro del entorno educativo, permitiendo al usuario seleccionar productos, agregarlos al carrito, generar comprobantes y "finalizar" pedidos. Los productos virtuales reflejan existencias reales del proyecto, pero no implican un intercambio económico auténtico.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">6. Simulación de pagos</h2>
-                <p>
-                    Durante el proceso de compra, se solicita al usuario el ingreso de datos bancarios simulados (nombre del titular, número de tarjeta, CVV y fecha de vencimiento). Estos datos son ficticios y no deben corresponder a cuentas bancarias reales. GERMAIN no procesa ni almacena información financiera auténtica.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">7. Obligaciones del usuario</h2>
-                <p>
-                    El usuario se compromete a:
-                </p>
-                <ul>
-                    <li>Utilizar la plataforma con fines educativos y respetuosos.</li>
-                    <li>No ingresar información personal sensible fuera de lo solicitado.</li>
-                    <li>No manipular el sistema con fines fraudulentos o para obtener ventajas injustas.</li>
-                    <li>Mantener la confidencialidad de sus credenciales de acceso.</li>
-                </ul>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">8. Propiedad intelectual</h2>
-                <p>
-                    Todos los contenidos, interfaces, diseños y funcionalidades del sistema GERMAIN están protegidos por derechos de autor y propiedad intelectual institucional. No se permite su reproducción, distribución o uso externo sin autorización previa por escrito.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">9. Protección de datos personales</h2>
-                <p>
-                    Los datos recabados serán tratados conforme a lo establecido en la Política de Privacidad de GERMAIN. GERMAIN no comparte, vende ni divulga la información personal de los usuarios. El uso de los datos está restringido a fines académicos, administrativos y de evaluación interna del proyecto.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">10. Suspensión o eliminación de cuentas</h2>
-                <p>
-                    La administración del sistema podrá suspender o eliminar cuentas de usuario en caso de:
-                </p>
-                <ul>
-                    <li>Incumplimiento de estos Términos y Condiciones</li>
-                    <li>Actividades sospechosas, indebidas o con fines no académicos</li>
-                    <li>Solicitud voluntaria por parte del usuario</li>
-                </ul>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">11. Limitación de responsabilidad</h2>
-                <p>
-                    GERMAIN es un entorno de simulación con fines formativos. La plataforma no se responsabiliza por errores derivados del mal uso, ingreso de información falsa, pérdida de contraseñas o interrupciones por mantenimiento técnico.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">12. Modificaciones</h2>
-                <p>
-                    GERMAIN se reserva el derecho de modificar estos Términos y Condiciones en cualquier momento. Los cambios serán notificados a través de la plataforma y entrarán en vigor desde su publicación.
-                </p>
-            </div>
-            
-            <div class="terms-section">
-                <h2 class="terms-subtitle">13. Contacto</h2>
-                <p>
-                    Para aclaraciones, sugerencias o dudas sobre estos Términos y Condiciones, puede contactarse a:
-                </p>
-                <p>
-                    Correo: germain.error404@gmail.com<br>
-                    Horario de atención: lunes a viernes, de 09:00 a 16:00 horas<br>
-                    Coordinación Académica – Proyecto GERMAIN
-                </p>
-            </div>
+    <div class="container history-container">
+        <div class="history-header">
+            <h2 class="history-title">Historial de compras</h2>
+            <button class="filter-btn">
+                Filtrar <i class="fas fa-filter"></i>
+            </button>
         </div>
-    </main>
+        
+        <div class="table-responsive">
+            <table class="table history-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Plantel</th>
+                        <th>Catálogo</th>
+                        <th>Cantidad</th>
+                        <th>Costo unitario</th>
+                        <th>Fecha de compra</th>
+                        <th>Vendedor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>16</td>
+                        <td>Juego de 4 marcatextos</td>
+                        <td>CECyT 1</td>
+                        <td>Tronco común</td>
+                        <td>2</td>
+                        <td>$50</td>
+                        <td>04/06/2025</td>
+                        <td>Usuario#1</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Corrector de cinta</td>
+                        <td>CECyT 3</td>
+                        <td>Tronco común</td>
+                        <td>1</td>
+                        <td>$35</td>
+                        <td>08/06/2025</td>
+                        <td>Usuario#2</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>Juego de 3 gomas de migajón</td>
+                        <td>CECyT 3</td>
+                        <td>Tronco común</td>
+                        <td>1</td>
+                        <td>$15</td>
+                        <td>03/08/2025</td>
+                        <td>Usuario#3</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>Cuaderno profesional</td>
+                        <td>CECyT 7</td>
+                        <td>Tronco común</td>
+                        <td>4</td>
+                        <td>$30</td>
+                        <td>08/02/2025</td>
+                        <td>Usuario#4</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>Cuaderno profesional</td>
+                        <td>CECyT 6</td>
+                        <td>Tronco común</td>
+                        <td>3</td>
+                        <td>$35</td>
+                        <td>26/12/2025</td>
+                        <td>Usuario#5</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>Bata de laboratorio</td>
+                        <td>CECyT 11</td>
+                        <td>Tronco común</td>
+                        <td>2</td>
+                        <td>$212</td>
+                        <td>18/09/2025</td>
+                        <td>Usuario#6</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>Audífonos</td>
+                        <td>CECyT 13</td>
+                        <td>Tronco común</td>
+                        <td>1</td>
+                        <td>$180</td>
+                        <td>19/02/2025</td>
+                        <td>Usuario#7</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>Engrapadora</td>
+                        <td>CECyT 11</td>
+                        <td>Tronco común</td>
+                        <td>1</td>
+                        <td>$80</td>
+                        <td>22/03/2025</td>
+                        <td>Usuario#8</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>Diurex</td>
+                        <td>CECyT 19</td>
+                        <td>Tronco común</td>
+                        <td>3</td>
+                        <td>$5</td>
+                        <td>30/03/2025</td>
+                        <td>Usuario#9</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>Calculadora Casio</td>
+                        <td>CECyT 9</td>
+                        <td>Tronco común</td>
+                        <td>4</td>
+                        <td>$480</td>
+                        <td>20/07/2025</td>
+                        <td>Usuario#10</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>Voltímetro</td>
+                        <td>CECyT 9</td>
+                        <td>Sistemas digitales</td>
+                        <td>10</td>
+                        <td>$850</td>
+                        <td>30/07/2025</td>
+                        <td>Usuario#11</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>Regla T</td>
+                        <td>CECyT 7</td>
+                        <td>Dibujo técnico</td>
+                        <td>1</td>
+                        <td>$145</td>
+                        <td>05/08/2024</td>
+                        <td>Usuario#12</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>Voltímetro</td>
+                        <td>CECyT 9</td>
+                        <td>Sistemas digitales</td>
+                        <td>2</td>
+                        <td>$850</td>
+                        <td>05/04/2024</td>
+                        <td>Usuario#13</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>Memoria USB 128gb</td>
+                        <td>CECyT 9</td>
+                        <td>Programación</td>
+                        <td>8</td>
+                        <td>$130</td>
+                        <td>03/07/2024</td>
+                        <td>Usuario#14</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>Deshumidificador de área</td>
+                        <td>CECyT 9</td>
+                        <td>Mecatrónica</td>
+                        <td>3</td>
+                        <td>$140</td>
+                        <td>23/05/2024</td>
+                        <td>Usuario#15</td>
+                        <td><button class="details-btn"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination-container">
+            <a href="#" class="page-nav prev">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </a>
+            
+            <ul class="pagination">
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="#">10</a></li>
+            </ul>
+            
+            <a href="#" class="page-nav next">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -793,50 +940,26 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const userProfileToggle = document.getElementById('userProfileToggle');
-            const profileModal = document.getElementById('profileModal');
-            const modalOverlay = document.getElementById('modalOverlay');
-            const logoutBtn = document.getElementById('logoutBtn');
-            
-            // Toggle modal when clicking user icon
-            userProfileToggle.addEventListener('click', function() {
-                profileModal.classList.toggle('active');
-                modalOverlay.classList.toggle('active');
-            });
-            
-            // Close modal when clicking outside
-            modalOverlay.addEventListener('click', function() {
-                profileModal.classList.remove('active');
-                modalOverlay.classList.remove('active');
-            });
-            
-            // Logout button functionality
-            logoutBtn.addEventListener('click', function() {
-                // Add your logout logic here
-                window.location.href = '/salida'; // Redirect to logout route
-            });
-            
-            // Example: Load user profile picture from server
-            // This would be replaced with actual code to load the user's profile picture
-            function loadUserProfilePicture() {
-                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
-                const userProfilePic = document.getElementById('userProfilePic');
-                
-                // Example: check if user has a profile picture
-                const hasProfilePicture = true; // This would be determined by your backend
-                
-                if (hasProfilePicture) {
-                    // Replace with actual user profile picture URL
-                    userProfilePic.src = "/api/placeholder/200/200";
-                } else {
-                    // Use default avatar if no profile picture exists
-                    userProfilePic.src = "/default-avatar.png";
-                }
-            }
-            
-            // Load user profile picture when the page loads
-            loadUserProfilePicture();
+        // Profile modal toggle
+        const profileToggle = document.getElementById('userProfileToggle');
+        const profileModal = document.getElementById('profileModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        
+        profileToggle.addEventListener('click', () => {
+            profileModal.classList.toggle('active');
+            modalOverlay.classList.toggle('active');
+        });
+        
+        modalOverlay.addEventListener('click', () => {
+            profileModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+        });
+        
+        // Logout button
+        const logoutBtn = document.getElementById('logoutBtn');
+        logoutBtn.addEventListener('click', () => {
+            // Add logout functionality here
+            window.location.href = '/logout';
         });
     </script>
 </body>

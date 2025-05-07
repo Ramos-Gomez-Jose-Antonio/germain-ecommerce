@@ -1,7 +1,7 @@
 /* ==================================================
    CONFIGURACIÓN INICIAL Y REQUERIMIENTOS
    ================================================== */
-if (process.env.NODE_ENV !== "production") {
+   if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
@@ -15,6 +15,7 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const fs = require("fs");
 const cors = require('cors');
+const tokenController = require('../controllers/tokenController');
 
 // Configuración de Passport
 const initializePassport = require("./passport-config");
@@ -59,15 +60,40 @@ process.setMaxListeners(0);
 /* ==================================================
    CONFIGURACIÓN DE MULTER (SUBIDA DE ARCHIVOS)
    ================================================== */
+// Configuración de Multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, 'uploads'))
+      const uploadPath = path.join(__dirname, 'views', 'images-perfil');
+      
+      // Crear la carpeta si no existe
+      if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, { recursive: true });
+      }
+      
+      cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+      // Usar el username del formulario para nombrar el archivo
+      const username = req.body.username;
+      const extension = path.extname(file.originalname).toLowerCase() || '.jpg';
+      cb(null, `${username}${extension}`);
     }
-});
-const upload = multer({ storage: storage });
+  });
+  
+  const upload = multer({ 
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+      // Aceptar solo imágenes
+      if (file.mimetype.startsWith('image/')) {
+        cb(null, true);
+      } else {
+        cb(new Error('Solo se permiten imágenes'), false);
+      }
+    },
+    limits: {
+      fileSize: 5 * 1024 * 1024 // Limitar a 5MB
+    }
+  });
 
 /* ==================================================
    CONEXIÓN A BASE DE DATOS
@@ -166,46 +192,65 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 
 app.post('/register', checkNotAuthenticated, upload.single('profilePhoto'), async (req, res) => {
     try {
-        const { nombre, apellidoPaterno, apellidoMaterno, username, telefono, email, password, confirmPassword } = req.body;
-
-        if (password !== confirmPassword) {
-            return res.render('register', { 
-                error: 'Las contraseñas no coinciden',
-                email: email,
-                user: { email: email }
-            });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const rol = 'comprador';
-
-        const query = 'INSERT INTO usuarios (usuario, nombres, apellidopat, apellidomat, correo, telefono, contra, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-
-        db.execute(query, [username, nombre, apellidoPaterno, apellidoMaterno, email, telefono, hashedPassword, rol], (err, results) => {
-            if (err) {
-                console.error('Error en el registro:', err);
-                return res.render('register', { 
-                    error: err.code === 'ER_DUP_ENTRY' ? 'El correo ya está registrado' : 'Error en el servidor',
-                    email: email,
-                    user: { email: email }
-                });
+      const { nombre, apellidoPaterno, apellidoMaterno, username, telefono, email, password, confirmPassword } = req.body;
+  
+      if (password !== confirmPassword) {
+        return res.render('register', { 
+          error: 'Las contraseñas no coinciden',
+          email: email,
+          user: { email: email }
+        });
+      }
+  
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const rol = 'comprador';
+  
+      // Obtener la ruta de la imagen si se subió
+      let imagePath = null;
+      if (req.file) {
+        imagePath = path.join('images-perfil', req.file.filename);
+      }
+  
+      const query = 'INSERT INTO usuarios (usuario, nombres, apellidopat, apellidomat, correo, telefono, contra, rol, imagen_perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  
+      db.execute(query, 
+        [username, nombre, apellidoPaterno, apellidoMaterno, email, telefono, hashedPassword, rol, imagePath], 
+        (err, results) => {
+          if (err) {
+            console.error('Error en el registro:', err);
+            
+            // Eliminar la imagen subida si hubo error
+            if (req.file) {
+              fs.unlinkSync(req.file.path);
             }
-
-            // Guarda el usuario en sesión para acceso inmediato
-            req.session.userId = results.insertId;
-            res.redirect('/dashboard'); // O a la página que desees
-        });
-
-    } catch (e) {
-        console.error('Error en el registro:', e);
-        res.render('register', { 
-            error: 'Error en el registro',
-            email: req.body.email,
-            user: { email: req.body.email }
-        });
+            
+            return res.render('register', { 
+              error: err.code === 'ER_DUP_ENTRY' ? 'El correo ya está registrado' : 'Error en el servidor',
+              email: email,
+              user: { email: email }
+            });
+          }
+  
+          // Si todo va bien, redirigir o mostrar mensaje de éxito
+          res.render('token', { success: 'Registro exitoso' });
+        }
+      );
+  
+    } catch (err) {
+      console.error('Error en el servidor:', err);
+      
+      // Eliminar la imagen subida si hubo error
+      if (req.file) {
+        fs.unlinkSync(req.file.path);
+      }
+      
+      return res.render('register', { error: 'Error en el servidor' });
     }
-});
+  });
 
+  app.get('/token', checkNotAuthenticated, (req, res) => {
+    res.render("token.ejs");
+    });
 // Logout
 app.delete("/logout", (req, res) => {
     req.logout(req.user, err => {
@@ -293,6 +338,7 @@ app.get('/perfil', checkAuthenticated, (req, res) => res.render('perfil.ejs'));
 app.get('/detalles', checkAuthenticated, (req, res) => res.render('detallesentrega.ejs'));
 app.get('/terycon', checkAuthenticated, (req, res) => res.render('terminoscondiciones.ejs'));
 app.get('/pprivacidad', checkAuthenticated, (req, res) => res.render('pprivacidad.ejs'));
+app.get('/pagos', checkAuthenticated, (req, res) => res.render('pagos.ejs'));
 
 /* ==================================================
    ESTADÍSTICAS DE PRODUCTOS

@@ -1,251 +1,190 @@
-create database germainbd;
-use germainbd;
--- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
---
--- Host: localhost    Database: germainbd
--- ------------------------------------------------------
--- Server version	8.0.36
+-- MySQL Workbench Forward Engineering
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
---
--- Table structure for table `carritos`
---
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema germainbd
+-- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `carritos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `carritos` (
-  `carrito_id` int NOT NULL,
-  `usuario_id` int NOT NULL,
-  PRIMARY KEY (`carrito_id`),
-  KEY `fk_carritos_usuario1_idx` (`usuario_id`),
-  CONSTRAINT `carritos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- -----------------------------------------------------
+-- Schema germainbd
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `germainbd` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `germainbd` ;
 
---
--- Dumping data for table `carritos`
---
+-- -----------------------------------------------------
+-- Table `germainbd`.`pdf`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`pdf` (
+  `pdf_id` INT NOT NULL,
+  `nombre_pdf` VARCHAR(30) NOT NULL,
+  `fecha_compra` DATE NOT NULL,
+  `archivo` LONGBLOB NULL,
+  PRIMARY KEY (`pdf_id`))
+ENGINE = InnoDB;
 
-LOCK TABLES `carritos` WRITE;
-/*!40000 ALTER TABLE `carritos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `carritos` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `categoria`
---
-
-DROP TABLE IF EXISTS `categoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `categoria` (
-  `categoria_id` int NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`categoria_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `categoria`
---
-
-LOCK TABLES `categoria` WRITE;
-/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'CECyT 1'),(9,'CECyT 9'),(11,'CECyT 11');
-/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `elementos_carrito`
---
-
-DROP TABLE IF EXISTS `elementos_carrito`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `elementos_carrito` (
-  `elementos_carrito_id` int NOT NULL,
-  `productos_comprados` json DEFAULT NULL,
-  `precio_total` decimal(10,2) NOT NULL,
-  `cantidad_total` int NOT NULL,
-  `estatus` int NOT NULL,
-  `historial_compra_id` int NOT NULL,
-  `carrito_id` int NOT NULL,
-  PRIMARY KEY (`elementos_carrito_id`),
-  KEY `fk_elementos_carrito_historial_idx` (`historial_compra_id`),
-  KEY `fk_elementos_carrito_carritos1_idx` (`carrito_id`),
-  CONSTRAINT `fk_elementos_carrito_carritos1` FOREIGN KEY (`carrito_id`) REFERENCES `carritos` (`carrito_id`),
-  CONSTRAINT `fk_elementos_carrito_historial` FOREIGN KEY (`historial_compra_id`) REFERENCES `historial` (`historial_compra_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `elementos_carrito`
---
-
-LOCK TABLES `elementos_carrito` WRITE;
-/*!40000 ALTER TABLE `elementos_carrito` DISABLE KEYS */;
-/*!40000 ALTER TABLE `elementos_carrito` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `historial`
---
-
-DROP TABLE IF EXISTS `historial`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `historial` (
-  `historial_compra_id` int NOT NULL,
-  `fecha_compra` date NOT NULL,
-  PRIMARY KEY (`historial_compra_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `historial`
---
-
-LOCK TABLES `historial` WRITE;
-/*!40000 ALTER TABLE `historial` DISABLE KEYS */;
-/*!40000 ALTER TABLE `historial` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `plantel`
---
-
-DROP TABLE IF EXISTS `plantel`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `plantel` (
-  `plantel_id` int NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`plantel_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `plantel`
---
-
-LOCK TABLES `plantel` WRITE;
-/*!40000 ALTER TABLE `plantel` DISABLE KEYS */;
-/*!40000 ALTER TABLE `plantel` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `plantel_categoria`
---
-
-DROP TABLE IF EXISTS `plantel_categoria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `plantel_categoria` (
-  `plantel_id` int NOT NULL,
-  `categoria_id` int NOT NULL,
-  PRIMARY KEY (`plantel_id`,`categoria_id`),
-  KEY `fk_plantel_has_categoria_categoria1_idx` (`categoria_id`),
-  KEY `fk_plantel_has_categoria_plantel1_idx` (`plantel_id`),
-  CONSTRAINT `fk_plantel_has_categoria_categoria1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`categoria_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `fk_plantel_has_categoria_plantel1` FOREIGN KEY (`plantel_id`) REFERENCES `plantel` (`plantel_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `plantel_categoria`
---
-
-LOCK TABLES `plantel_categoria` WRITE;
-/*!40000 ALTER TABLE `plantel_categoria` DISABLE KEYS */;
-/*!40000 ALTER TABLE `plantel_categoria` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `producto`
---
-
-DROP TABLE IF EXISTS `producto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `producto` (
-  `producto_id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  `descripcion` varchar(500) NOT NULL,
-  `cantidad` int NOT NULL,
-  `precio` decimal(10,2) NOT NULL,
-  `nombre_imagen` varchar(250) DEFAULT NULL,
-  `usuario_id` int NOT NULL,
-  `categoria_id` int NOT NULL,
-  PRIMARY KEY (`producto_id`),
-  KEY `fk_producto_usuario1_idx` (`usuario_id`),
-  KEY `fk_producto_categoria1_idx` (`categoria_id`),
-  CONSTRAINT `fk_producto_categoria1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`categoria_id`),
-  CONSTRAINT `fk_producto_usuario1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
-  CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `producto`
---
-
-LOCK TABLES `producto` WRITE;
-/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'lapiz','lapizxd',1,1.00,'imagen-1744424648930.png',4,1);
-/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usuarios`
---
-
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuarios` (
-  `usuario_id` int NOT NULL AUTO_INCREMENT,
-  `usuario` varchar(30) NOT NULL,
-  `nombres` varchar(30) NOT NULL,
-  `apellidopat` varchar(30) NOT NULL,
-  `apellidomat` varchar(45) NOT NULL,
-  `correo` varchar(45) NOT NULL,
-  `telefono` int NOT NULL,
-  `contra` varchar(200) DEFAULT NULL,
-  `rol` enum('proveedor','comprador','administrador') NOT NULL,
+-- -----------------------------------------------------
+-- Table `germainbd`.`usuarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`usuarios` (
+  `usuario_id` INT NOT NULL AUTO_INCREMENT,
+  `usuario` VARCHAR(30) NOT NULL,
+  `nombres` VARCHAR(30) NOT NULL,
+  `apellidopat` VARCHAR(30) NOT NULL,
+  `apellidomat` VARCHAR(45) NOT NULL,
+  `correo` VARCHAR(45) NOT NULL,
+  `telefono` INT NOT NULL,
+  `contra` VARCHAR(200) NULL DEFAULT NULL,
+  `rol` ENUM('proveedor', 'comprador', 'administrador') NOT NULL,
+  `imagen_perfil` VARCHAR(45) NULL,
+  `pdf_id` INT NOT NULL,
+  `status` ENUM('pendiente', 'logeado') NOT NULL DEFAULT 'pendiente',
   PRIMARY KEY (`usuario_id`),
-  UNIQUE KEY `usuario_UNIQUE` (`usuario`),
-  UNIQUE KEY `correo_UNIQUE` (`correo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  UNIQUE INDEX `usuario_UNIQUE` (`usuario`),
+  UNIQUE INDEX `correo_UNIQUE` (`correo`),
+  INDEX `fk_usuarios_pdf1_idx` (`pdf_id`),
+  CONSTRAINT `fk_usuarios_pdf1`
+    FOREIGN KEY (`pdf_id`)
+    REFERENCES `germainbd`.`pdf` (`pdf_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `usuarios`
---
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'eladminxd','Lol','Nieves','Sandoval','lolsito@gmail.com',1234567890,'$2b$10$BofPB7Cb62ynOQVoTYHVQeX.PhhmGSWR6oM.V77j0bI2PSYZGq8fa','administrador'),(4,'Naruto','Naruto','ApellidoP','ApellidoM','naruto@gmail.com',1234567890,'$2b$10$3hTjW4zEfBwLL0lIiY9pVe43uAhZZRHrZN7zxHzFfmudYADoDg4WK','comprador');
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-- -----------------------------------------------------
+-- Table `germainbd`.`carritos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`carritos` (
+  `carrito_id` INT NOT NULL,
+  `usuario_id` INT NOT NULL,
+  PRIMARY KEY (`carrito_id`),
+  INDEX `fk_carritos_usuario1_idx` (`usuario_id` ASC) VISIBLE,
+  CONSTRAINT `carritos_ibfk_1`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `germainbd`.`usuarios` (`usuario_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-11 22:17:55
+-- -----------------------------------------------------
+-- Table `germainbd`.`categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`categoria` (
+  `categoria_id` INT NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`categoria_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `germainbd`.`historial`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`historial` (
+  `historial_compra_id` INT NOT NULL,
+  `fecha_compra` DATE NOT NULL,
+  `pdf_id` INT NOT NULL,
+  PRIMARY KEY (`historial_compra_id`),
+  INDEX `fk_historial_pdf1_idx` (`pdf_id` ASC) VISIBLE,
+  CONSTRAINT `fk_historial_pdf1`
+    FOREIGN KEY (`pdf_id`)
+    REFERENCES `germainbd`.`pdf` (`pdf_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `germainbd`.`elementos_carrito`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`elementos_carrito` (
+  `elementos_carrito_id` INT NOT NULL,
+  `productos_comprados` JSON NULL DEFAULT NULL,
+  `precio_total` DECIMAL(10,2) NOT NULL,
+  `cantidad_total` INT NOT NULL,
+  `estatus` INT NOT NULL,
+  `historial_compra_id` INT NOT NULL,
+  `carrito_id` INT NOT NULL,
+  PRIMARY KEY (`elementos_carrito_id`),
+  INDEX `fk_elementos_carrito_historial_idx` (`historial_compra_id` ASC) VISIBLE,
+  INDEX `fk_elementos_carrito_carritos1_idx` (`carrito_id` ASC) VISIBLE,
+  CONSTRAINT `fk_elementos_carrito_carritos1`
+    FOREIGN KEY (`carrito_id`)
+    REFERENCES `germainbd`.`carritos` (`carrito_id`),
+  CONSTRAINT `fk_elementos_carrito_historial`
+    FOREIGN KEY (`historial_compra_id`)
+    REFERENCES `germainbd`.`historial` (`historial_compra_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `germainbd`.`plantel`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`plantel` (
+  `plantel_id` INT NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`plantel_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `germainbd`.`plantel_categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`plantel_categoria` (
+  `plantel_id` INT NOT NULL,
+  `categoria_id` INT NOT NULL,
+  PRIMARY KEY (`plantel_id`, `categoria_id`),
+  INDEX `fk_plantel_has_categoria_categoria1_idx` (`categoria_id` ASC) VISIBLE,
+  INDEX `fk_plantel_has_categoria_plantel1_idx` (`plantel_id` ASC) VISIBLE,
+  CONSTRAINT `fk_plantel_has_categoria_categoria1`
+    FOREIGN KEY (`categoria_id`)
+    REFERENCES `germainbd`.`categoria` (`categoria_id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_plantel_has_categoria_plantel1`
+    FOREIGN KEY (`plantel_id`)
+    REFERENCES `germainbd`.`plantel` (`plantel_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `germainbd`.`producto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `germainbd`.`producto` (
+  `producto_id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `descripcion` VARCHAR(500) NOT NULL,
+  `cantidad` INT NOT NULL,
+  `precio` DECIMAL(10,2) NOT NULL,
+  `nombre_imagen` VARCHAR(250) NULL DEFAULT NULL,
+  `usuario_id` INT NOT NULL,
+  `categoria_id` INT NOT NULL,
+  `fecha_creacion` DATE NOT NULL,
+  PRIMARY KEY (`producto_id`),
+  INDEX `fk_producto_categoria1_idx` (`categoria_id` ASC) VISIBLE,
+  CONSTRAINT `fk_producto_categoria1`
+    FOREIGN KEY (`categoria_id`)
+    REFERENCES `germainbd`.`categoria` (`categoria_id`),
+  CONSTRAINT `fk_producto_usuario1`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `germainbd`.`usuarios` (`usuario_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

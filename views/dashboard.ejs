@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva publicación - Germain</title>
+    <title>Germain - Dashboard</title>
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -257,151 +257,111 @@
             display: block;
         }
 
-        /* BREADCRUMB */
-        .breadcrumb-container {
-            background-color: #f5f5f5;
-            padding: 10px 0;
-            margin-top: 0;
+        /* MAIN CONTENT - DASHBOARD */
+        .main-content {
+            margin-top: 100px;
+            padding: 20px 0;
         }
-
+        
         .breadcrumb {
-            margin-bottom: 0;
-            padding: 0;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
-
+        
         .breadcrumb-item a {
             color: var(--accent-color);
             text-decoration: none;
         }
-
+        
         .breadcrumb-item.active {
             color: var(--text-color);
         }
-
-        /* Main Content */
-        main {
-            margin-top: 10vh;
-            padding: 10px 5% 40px;
-        }
-
-        .product-form-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        
+        .stats-card {
             background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
-
-        .image-section {
-            flex: 1;
-            min-width: 300px;
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-
-        .details-section {
-            flex: 1;
-            min-width: 300px;
+        
+        .stats-title {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 10px;
         }
-
-        .image-upload-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        
+        .stats-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            padding: 20px;
             margin-bottom: 20px;
         }
-
-        .main-image-box {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            height: 300px;
+        
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .chart-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        
+        .user-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .user-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .user-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .thumbnail-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .thumbnail-box {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .upload-icon {
-            font-size: 2em;
-            color: #ccc;
-        }
-
-        .form-control, .form-select {
-            border-radius: 20px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
             margin-bottom: 15px;
         }
-
-        .form-label {
-            font-weight: normal;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        h1 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            font-weight: normal;
-        }
-
-        /* Quantity selector */
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .quantity-btn {
-            background-color: #f0f0f0;
-            border: none;
-            width: 40px;
-            height: 40px;
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            background-color: #eee;
+            margin-right: 15px;
         }
-
-        .quantity-display {
-            padding: 0 20px;
+        
+        .user-info h6 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
         }
-
-        /* Submit button */
-        .publish-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 12px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-
-        .publish-btn:hover {
-            background-color: #E56700;
+        
+        .user-info p {
+            font-size: 0.8rem;
+            color: #888;
+            margin: 0;
         }
 
         /* FOOTER */
@@ -504,116 +464,47 @@
             font-weight: 500;
         }
 
-        /* FLOATING BUTTONS */
-        .floating-btn {
-            position: fixed;
-            bottom: 25px;
-            z-index: 99;
-            border-radius: 50px;
-            padding: 12px 25px;
-            color: white;
-            font-size: 16px;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .warehouse-btn {
-            left: 20px;
-            background-color: var(--accent-color);
-        }
-
-        .warehouse-btn:hover {
-            background-color: #E56700;
-            transform: translateY(-5px);
-            color: white;
-        }
-
-        .exit-btn {
-            right: 20px;
-            background-color: #dc3545;
-        }
-
-        .exit-btn:hover {
-            background-color: #c82333;
-            transform: translateY(-5px);
-            color: white;
-        }
-
         /* RESPONSIVE */
         @media (max-width: 992px) {
             .footer-section {
                 margin-bottom: 30px;
             }
+            
+            .search-form {
+                margin: 15px 0;
+            }
+            
+            .dashboard-btn {
+                margin: 15px 0;
+            }
         }
 
         @media (max-width: 768px) {
-            main {
-                padding: 40px 4%;
+            .main-content {
+                margin-top: 70px;
             }
             
-            .product-form-container {
-                padding: 30px 20px;
+            .stats-number {
+                font-size: 1.5rem;
             }
         }
 
         @media (max-width: 576px) {
-            .floating-btn {
-                padding: 10px 15px;
-                font-size: 14px;
+            .stats-card {
+                margin-bottom: 15px;
+            }
+            
+            .chart-container {
+                margin-bottom: 15px;
             }
         }
     </style>
 </head>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Buscar todos los enlaces que contengan "Cambiar a proveedor"
-        const enlaces = document.querySelectorAll('a.profile-menu-link');
-        
-        enlaces.forEach(enlace => {
-            if (enlace.textContent.includes('Cambiar a comprador')) {
-                enlace.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Crear el overlay
-                    const overlay = document.createElement('div');
-                    overlay.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: #e56600;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 99999;
-                        color: white;
-                        font-size: 2rem;
-                        font-weight: bold;
-                    `;
-                    overlay.textContent = 'Cambiando a Comprador';
-                    
-                    document.body.appendChild(overlay);
-                    
-                    // Redirigir después de 3 segundos
-                    setTimeout(() => {
-                        window.location.href = this.href;
-                    }, 3000);
-                });
-            }
-        });
-    });
-    </script>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="/productos">
+                <a class="navbar-brand" href="/admin">
                     <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
                 </a>
                 
@@ -639,107 +530,119 @@
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="profile-modal" id="profileModal">
         <div class="profile-modal-header">
-            Perfil
+            Perfil de Administrador
         </div>
         <div class="profile-modal-body">
             <div class="profile-picture">
                 <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
             </div>
-            <h4 class="user-name">Tribios Jano Oqueima</h4>
-            <p class="user-email">tribbie.agli@gmail.com</p>
-            
-            <ul class="profile-menu">
-                <li class="profile-menu-item">
-                    <a href="/" class="profile-menu-link">
-                        <span class="profile-menu-icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </span>
-                        Cambiar a comprador
-                    </a>
-                </li>
-            </ul>
+            <h4 class="user-name">Usuario Germain</h4>
+            <p class="user-email">usuario@germain.com</p>
             
             <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
         </div>
     </div>
 
-    <div class="breadcrumb-container">
+    <div class="main-content">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                    <li class="breadcrumb-item active">Nueva publicación</li>
+                    <li class="breadcrumb-item"><a href="/admin">Inicio</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </nav>
-        </div>
-    </div>
-
-    <main>
-        <form id="FormularioP" action="/agregar-producto" method="POST" enctype="multipart/form-data">
-            <div class="product-form-container">
-                <div class="image-section">
-                    <div class="main-image-box">
-                        <i class="fas fa-camera upload-icon" id="main-img-preview"></i>
+            
+            <div class="row">
+                <!-- Stats Cards - Primera fila -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="stats-card">
+                        <div class="stats-title">Usuarios</div>
+                        <div class="stats-number">1,000</div>
                     </div>
-                    <div class="thumbnail-container">
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
-                        </div>
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
-                        </div>
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
-                        </div>
-                    </div>
-                    <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*" required style="display: none;">
                 </div>
-                
-                <div class="details-section">
-                    <h1>Nombre del producto</h1>
-                    <input type="text" id="nombre" name="nombre" class="form-control" required placeholder="Nombre del producto">
-                    
-                    <h1>Precio unitario</h1>
-                    <input type="number" id="precio" name="precio" class="form-control" min="0" value="0" step=".01" required placeholder="$0.00">
-                    
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required></textarea>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="stats-card">
+                        <div class="stats-title">Publicaciones</div>
+                        <div class="stats-number">900</div>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label">Plantel</label>
-                        <select id="categoria" name="categoria" class="form-select" required>
-                            <option value="" disabled selected>Seleccione</option>
-                            <option value="1">CECyT 1</option>
-                            <option value="9">CECyT 9</option>
-                            <option value="11">CECyT 11</option>
-                        </select>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="stats-card">
+                        <div class="stats-title">Planteles</div>
+                        <div class="stats-number">20</div>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="catalogo" class="form-label">Catálogo</label>
-                        <select id="catalogo" name="catalogo" class="form-select">
-                            <option value="" disabled selected>Seleccione</option>
-                            <option value="1">Libros</option>
-                            <option value="2">Útiles</option>
-                            <option value="3">Electrónica</option>
-                        </select>
-                    </div>
-                    
-                    <div class="quantity-selector">
-                        <button type="button" class="quantity-btn" id="decrease">−</button>
-                        <div class="quantity-display">
-                            <input type="number" id="cantidad" name="cantidad" value="1" min="1" style="width: 40px; border: none; text-align: center;" readonly>
-                        </div>
-                        <button type="button" class="quantity-btn" id="increase">+</button>
-                    </div>
-                    
-                    <button type="submit" class="publish-btn">Publicar</button>
                 </div>
             </div>
-        </form>
-    </main>
+            
+            <div class="row mt-4">
+                <!-- Stats Cards - Segunda fila -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="stats-card">
+                        <div class="stats-title">Catálogos</div>
+                        <div class="stats-number">80</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="stats-card">
+                        <div class="stats-title">Más vendido</div>
+                        <div class="stats-number">-</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="stats-card">
+                        <div class="stats-title">Menos vendido</div>
+                        <div class="stats-number">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <!-- Charts and User Stats -->
+                <div class="col-lg-8 col-md-7 col-sm-12">
+                    <div class="chart-container">
+                        <h5 class="chart-title">Productos vendidos</h5>
+                        <img src="/api/placeholder/700/300" alt="Gráfico de productos vendidos" class="chart-img">
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h5 class="chart-title">Productos vendidos - Semana</h5>
+                        <div class="d-flex justify-content-end mb-3">
+                            <small class="text-muted">01/01/2023 - 01/05/2023</small>
+                        </div>
+                        <img src="/api/placeholder/700/250" alt="Gráfico semanal de productos vendidos" class="chart-img">
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-5 col-sm-12">
+                    <div class="user-card">
+                        <h5 class="user-card-title">Usuario con más publicaciones</h5>
+                        <div class="user-item">
+                            <div class="user-avatar">
+                                <img src="/api/placeholder/50/50" alt="User Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div class="user-info">
+                                <h6>Jorge Navar Gómez</h6>
+                                <p>Total de publicaciones: 10</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="user-card">
+                        <h5 class="user-card-title">Usuario con más compras</h5>
+                        <div class="user-item">
+                            <div class="user-avatar">
+                                <img src="/api/placeholder/50/50" alt="User Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div class="user-info">
+                                <h6>Santiago Aragón Gómez</h6>
+                                <p>Total de compras: 8</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -753,10 +656,6 @@
                         <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 footer-section">
-                </div>
-                <div class="col-lg-4 col-md-6 footer-section">
-                </div>
             </div>
             <div class="copyright">
                 © 2023 GERMAIN
@@ -764,84 +663,52 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Imagen preview
-        document.getElementById('main-img-preview').addEventListener('click', function() {
-            document.getElementById('imagen').click();
-        });
-        
-        document.getElementById('imagen').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const mainPreview = document.getElementById('main-img-preview');
-                    mainPreview.className = '';
-                    mainPreview.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 100%;" />`;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-        
-        // Contador de cantidad
-        document.getElementById('decrease').addEventListener('click', function() {
-            const input = document.getElementById('cantidad');
-            const value = parseInt(input.value);
-            if (value > 1) {
-                input.value = value - 1;
-            }
-        });
-        
-        document.getElementById('increase').addEventListener('click', function() {
-            const input = document.getElementById('cantidad');
-            input.value = parseInt(input.value) + 1;
-        });
-        
-        // Submit form
-        document.getElementById('FormularioP').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const formu = event.target;
-            const formuDato = new FormData(formu);
+        document.addEventListener('DOMContentLoaded', function() {
+            const userProfileToggle = document.getElementById('userProfileToggle');
+            const profileModal = document.getElementById('profileModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const logoutBtn = document.getElementById('logoutBtn');
             
-            try {
-                const response = await fetch(formu.action, {
-                    method: formu.method,
-                    body: formuDato
-                });
-
-                const resultado = await response.json();
-
-                if (resultado.success) {
-                    alert(resultado.message);
-                    window.location.href = '/';
-                } else {
-                    alert(resultado.message || 'Error al agregar el producto');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error al comunicarse con el servidor');
-            }
-        });
-
-        const userProfileToggle = document.getElementById('userProfileToggle');
-        const profileModal = document.getElementById('profileModal');
-        const modalOverlay = document.getElementById('modalOverlay');
-        
-        userProfileToggle.addEventListener('click', () => {
-            profileModal.classList.toggle('active');
-            modalOverlay.classList.toggle('active');
-        });
-        
-        modalOverlay.addEventListener('click', () => {
-            profileModal.classList.remove('active');
-            modalOverlay.classList.remove('active');
-        });
-        
-        // Logout button
-        logoutBtn.addEventListener('click', function() {
+            // Toggle modal when clicking user icon
+            userProfileToggle.addEventListener('click', function() {
+                profileModal.classList.toggle('active');
+                modalOverlay.classList.toggle('active');
+            });
+            
+            // Close modal when clicking outside
+            modalOverlay.addEventListener('click', function() {
+                profileModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            });
+            
+            // Logout button functionality
+            logoutBtn.addEventListener('click', function() {
                 // Add your logout logic here
                 window.location.href = '/salida'; // Redirect to logout route
             });
+            
+            // Example: Load user profile picture from server
+            function loadUserProfilePicture() {
+                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
+                const userProfilePic = document.getElementById('userProfilePic');
+                
+                // Example: check if user has a profile picture
+                const hasProfilePicture = true; // This would be determined by your backend
+                
+                if (hasProfilePicture) {
+                    // Replace with actual user profile picture URL
+                    userProfilePic.src = "/api/placeholder/200/200";
+                } else {
+                    // Use default avatar if no profile picture exists
+                    userProfilePic.src = "/default-avatar.png";
+                }
+            }
+            
+            // Load user profile picture when the page loads
+            loadUserProfilePicture();
+        });
     </script>
 </body>
 </html>

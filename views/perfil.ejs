@@ -3,36 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Usuario</title>
+    <title>Germain - Perfil de Usuario</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #44006b;
+            --accent-color: #FF7200;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --light-orange-1: #FFF3E0;
+            --light-orange-2: #FFEACC;
+        }
+        
         * {
-            box-sizing: border-box;
-            margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            margin: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
-
-        header {
-            background-color: #ADD8E6;
-            height: 80px;
+        
+        /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color) !important;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 5%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .header-title {
-            font-size: 1.8em;
-            font-weight: bold;
+        .navbar-logo {
+            height: 40px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
         }
 
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* BREADCRUMB */
+        .breadcrumb-container {
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            margin-top: 80px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-color);
+        }
+
+        /* PROFILE SECTION */
         .profile-container {
             max-width: 1200px;
             margin: 30px auto;
@@ -40,10 +105,23 @@
         }
 
         .profile-title {
-            text-align: center;
-            font-size: 2em;
+            font-size: 1.8rem;
+            font-weight: 700;
             margin-bottom: 30px;
-            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .profile-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
         }
 
         .profile-content {
@@ -100,7 +178,7 @@
         input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #F47272;
+            border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 16px;
             transition: border-color 0.3s;
@@ -108,82 +186,146 @@
 
         input:focus {
             outline: none;
-            border-color: #F25E5E;
+            border-color: var(--accent-color);
         }
 
         .profile-image {
-            width: 250px;
-            height: 250px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #F25E5E;
+            border: 3px solid var(--accent-color);
             margin-bottom: 30px;
+            background-color: var(--light-orange-1);
         }
 
         .edit-btn {
-            background-color: #C4DB97;
-            color: #333;
-            border: 2px solid #98A879;
-            border-radius: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
             padding: 12px 25px;
             font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         .edit-btn:hover {
-            background-color: #b5d07d;
+            background-color: #e56600;
+            transform: translateY(-2px);
         }
 
         .edit-icon {
-            width: 20px;
-            height: 20px;
             margin-right: 10px;
         }
 
-        footer {
-            background-color: #add8e671;
-            padding: 40px 5%;
-            margin-top: 50px;
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
         }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-section {
-            width: 23%;
-            min-width: 200px;
-            margin-bottom: 20px;
-        }
-
-        .footer-section h3 {
+        
+        .footer-logo {
             margin-bottom: 15px;
-            font-size: 1.2em;
+            max-width: 160px;
         }
-
-        .footer-section p, .footer-section a {
-            margin-bottom: 8px;
-            display: block;
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
             color: #333;
             text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
         }
-
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
         .social-icons {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
         }
 
-        .social-icon {
-            width: 30px;
-            height: 30px;
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-section {
+                margin-bottom: 30px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -192,125 +334,155 @@
                 gap: 0;
             }
             
-            .footer-section {
-                width: 48%;
-            }
-            
-            .profile-image {
-                width: 200px;
-                height: 200px;
+            .breadcrumb-container {
+                margin-top: 70px;
             }
         }
 
-        @media (max-width: 480px) {
-            .footer-section {
-                width: 100%;
-            }
-            
-            header {
-                flex-direction: column;
-                height: auto;
-                padding: 15px;
-            }
-            
-            .header-title {
-                margin-bottom: 10px;
+        @media (max-width: 576px) {
+            .profile-title {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-title">SandiMarket</div>
-        <div class="user-icon">
-            <img src="./img/icono.png" alt="Icono de usuario" width="40">
-        </div>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <div class="ms-auto nav-icons">
+                        <a href="/carrito-compra" class="nav-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                        <span class="nav-icon" id="userProfileToggle">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
 
+    <div class="breadcrumb-container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="/perfil">Perfil</a></li>
+                    <li class="breadcrumb-item active">Tu perfil</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
     <div class="profile-container">
-        <h1 class="profile-title">Tu perfil</h1>
+        <h2 class="profile-title">Tu perfil</h2>
         
         <div class="profile-content">
             <div class="profile-form">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" placeholder="Tu nombre">
+                        <input type="text" id="nombre" value="Tribios">
                     </div>
                     <div class="form-group">
                         <label for="apellido-paterno">Apellido Paterno</label>
-                        <input type="text" id="apellido-paterno" placeholder="Apellido paterno">
+                        <input type="text" id="apellido-paterno" value="Jano">
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="apellido-materno">Apellido Materno</label>
-                    <input type="text" id="apellido-materno" placeholder="Apellido materno">
+                    <input type="text" id="apellido-materno" value="Oqueima">
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="username">Nombre de usuario</label>
-                        <input type="text" id="username" placeholder="Nombre de usuario">
+                        <input type="text" id="username" value="tribbi.agli">
                     </div>
                     <div class="form-group">
                         <label for="telefono">Número de teléfono</label>
-                        <input type="tel" id="telefono" placeholder="Número de teléfono">
+                        <input type="tel" id="telefono" value="5565203630">
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" placeholder="Correo electrónico">
+                    <input type="email" id="email" value="tribie.agli@gmail.com">
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" placeholder="Contraseña">
+                    <input type="password" id="password" value="***************">
                 </div>
             </div>
             
             <div class="profile-picture">
-                <img src="/deadpool.jpeg" alt="Foto de perfil" class="profile-image">
+                <div class="profile-image">
+                    <!-- El contenedor tiene estilo para simular una imagen de perfil -->
+                </div>
                 <button class="edit-btn">
-                    <img src="./img/lapiz.png" alt="Editar" class="edit-icon">
+                    <i class="fas fa-pencil-alt edit-icon"></i>
                     Editar perfil
                 </button>
             </div>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>SandiMarket</h3>
-                <p>Contamos con los mejores productos escolares para tu estancia en el nivel medio superior</p>
-                <div class="social-icons">
-                    <img src="./img/twitter.png" alt="Twitter" class="social-icon">
-                    <img src="./img/facebook.png" alt="Facebook" class="social-icon">
-                    <img src="./img/insta.png" alt="Instagram" class="social-icon">
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">COMPAÑÍA</h5>
+                    <div class="footer-links">
+                        <a href="/conocenos">Conócenos</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">AYUDA</h5>
+                    <div class="footer-links">
+                        <a href="/detalles">Detalles de entrega</a>
+                        <a href="/terycon">Términos y condiciones</a>
+                        <a href="/pprivacidad">Política de privacidad</a>
+                    </div>
                 </div>
             </div>
-            
-            <div class="footer-section">
-                <h3>COMPAÑÍA</h3>
-                <a href="#">Conócenos</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>AYUDA</h3>
-                <a href="#">Detalles de entrega</a>
-                <a href="#">Términos y condiciones</a>
-                <a href="#">Política de privacidad</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>FAQ</h3>
-                <a href="#">Cuenta</a>
-                <a href="#">Entregas</a>
-                <a href="#">Forma de pago</a>
+            <div class="copyright">
+                © 2023 GERMAIN
             </div>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editBtn = document.querySelector('.edit-btn');
+            
+            // Agregar funcionalidad al botón "Editar perfil"
+            editBtn.addEventListener('click', function() {
+                alert('Función de edición de perfil');
+                // Aquí iría la lógica para habilitar la edición del perfil
+            });
+        });
+    </script>
 </body>
 </html>

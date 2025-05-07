@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva publicación - Germain</title>
+    <title>Germain - Cuaderno Profesional</title>
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -100,23 +100,6 @@
         .nav-icon:hover {
             color: white;
             transform: scale(1.1);
-        }
-        
-        .dashboard-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-right: 15px;
-        }
-        
-        .dashboard-btn:hover {
-            background-color: #e56600;
-            transform: translateY(-2px);
         }
         
         /* USER PROFILE MODAL */
@@ -261,7 +244,7 @@
         .breadcrumb-container {
             background-color: #f5f5f5;
             padding: 10px 0;
-            margin-top: 0;
+            margin-top: 80px;
         }
 
         .breadcrumb {
@@ -276,132 +259,6 @@
 
         .breadcrumb-item.active {
             color: var(--text-color);
-        }
-
-        /* Main Content */
-        main {
-            margin-top: 10vh;
-            padding: 10px 5% 40px;
-        }
-
-        .product-form-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            padding: 40px;
-        }
-
-        .image-section {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .details-section {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .image-upload-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .main-image-box {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .thumbnail-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .thumbnail-box {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .upload-icon {
-            font-size: 2em;
-            color: #ccc;
-        }
-
-        .form-control, .form-select {
-            border-radius: 20px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            margin-bottom: 15px;
-        }
-
-        .form-label {
-            font-weight: normal;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        h1 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            font-weight: normal;
-        }
-
-        /* Quantity selector */
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .quantity-btn {
-            background-color: #f0f0f0;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .quantity-display {
-            padding: 0 20px;
-        }
-
-        /* Submit button */
-        .publish-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 12px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-
-        .publish-btn:hover {
-            background-color: #E56700;
         }
 
         /* FOOTER */
@@ -504,67 +361,194 @@
             font-weight: 500;
         }
 
-        /* FLOATING BUTTONS */
-        .floating-btn {
-            position: fixed;
-            bottom: 25px;
-            z-index: 99;
-            border-radius: 50px;
-            padding: 12px 25px;
-            color: white;
-            font-size: 16px;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        /* PRODUCTO DETALLE */
+        .product-detail-container {
+            padding: 40px 0;
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .product-main-img {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .product-main-img img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .product-thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .product-thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
             transition: all 0.3s ease;
-            text-decoration: none;
+        }
+
+        .product-thumbnail.active {
+            border-color: var(--accent-color);
+        }
+
+        .product-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding-left: 30px;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .product-meta {
+            margin-bottom: 30px;
+        }
+
+        .meta-title {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .meta-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--light-orange-2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
+
+        .quantity-selector {
             display: flex;
             align-items: center;
-            gap: 8px;
+            margin-bottom: 30px;
         }
 
-        .warehouse-btn {
-            left: 20px;
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--light-orange-1);
+            color: var(--accent-color);
+        }
+
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #eee;
+            margin: 0 10px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+        }
+
+        .add-to-cart-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
             background-color: var(--accent-color);
-        }
-
-        .warehouse-btn:hover {
-            background-color: #E56700;
-            transform: translateY(-5px);
             color: white;
+            text-align: center;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .exit-btn {
-            right: 20px;
-            background-color: #dc3545;
-        }
-
-        .exit-btn:hover {
-            background-color: #c82333;
-            transform: translateY(-5px);
-            color: white;
+        .add-to-cart-btn:hover {
+            background-color: #e56600;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 114, 0, 0.2);
         }
 
         /* RESPONSIVE */
         @media (max-width: 992px) {
+            .product-info {
+                padding-left: 0;
+                margin-top: 30px;
+            }
+            
             .footer-section {
                 margin-bottom: 30px;
+            }
+            
+            .search-form {
+                margin: 15px 0;
             }
         }
 
         @media (max-width: 768px) {
-            main {
-                padding: 40px 4%;
+            .breadcrumb-container {
+                margin-top: 70px;
             }
             
-            .product-form-container {
-                padding: 30px 20px;
+            .product-title {
+                font-size: 1.8rem;
+            }
+            
+            .product-price {
+                font-size: 1.5rem;
             }
         }
 
         @media (max-width: 576px) {
-            .floating-btn {
-                padding: 10px 15px;
-                font-size: 14px;
+            .product-thumbnail {
+                width: 60px;
+                height: 60px;
             }
         }
     </style>
@@ -575,7 +559,7 @@
         const enlaces = document.querySelectorAll('a.profile-menu-link');
         
         enlaces.forEach(enlace => {
-            if (enlace.textContent.includes('Cambiar a comprador')) {
+            if (enlace.textContent.includes('Cambiar a proveedor')) {
                 enlace.addEventListener('click', function(e) {
                     e.preventDefault();
                     
@@ -596,7 +580,7 @@
                         font-size: 2rem;
                         font-weight: bold;
                     `;
-                    overlay.textContent = 'Cambiando a Comprador';
+                    overlay.textContent = 'Cambiando a Proveedor';
                     
                     document.body.appendChild(overlay);
                     
@@ -608,12 +592,12 @@
             }
         });
     });
-    </script>
+</script>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="/productos">
+                <a class="navbar-brand" href="/">
                     <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
                 </a>
                 
@@ -623,9 +607,16 @@
                 
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <form class="search-form mx-auto">
+                        <input type="text" class="search-input" placeholder="Buscar Productos...">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </form>
                     
                     <div class="nav-icons">
+                        <a href="/carrito-compra" class="nav-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
                         <span class="nav-icon" id="userProfileToggle">
                             <i class="fas fa-user"></i>
                         </span>
@@ -650,11 +641,27 @@
             
             <ul class="profile-menu">
                 <li class="profile-menu-item">
-                    <a href="/" class="profile-menu-link">
+                    <a href="/perfil" class="profile-menu-link">
+                        <span class="profile-menu-icon">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        Perfil
+                    </a>
+                </li>
+                <li class="profile-menu-item">
+                    <a href="/productos" class="profile-menu-link">
                         <span class="profile-menu-icon">
                             <i class="fas fa-exchange-alt"></i>
                         </span>
-                        Cambiar a comprador
+                        Cambiar a proveedor
+                    </a>
+                </li>
+                <li class="profile-menu-item">
+                    <a href="/historial-compras" class="profile-menu-link">
+                        <span class="profile-menu-icon">
+                            <i class="fas fa-history"></i>
+                        </span>
+                        Historial de compras
                     </a>
                 </li>
             </ul>
@@ -668,78 +675,67 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                    <li class="breadcrumb-item active">Nueva publicación</li>
+                    <li class="breadcrumb-item"><a href="/cecyt-9">CECyT 9</a></li>
+                    <li class="breadcrumb-item active">Tronco común</li>
                 </ol>
             </nav>
         </div>
     </div>
 
-    <main>
-        <form id="FormularioP" action="/agregar-producto" method="POST" enctype="multipart/form-data">
-            <div class="product-form-container">
-                <div class="image-section">
-                    <div class="main-image-box">
-                        <i class="fas fa-camera upload-icon" id="main-img-preview"></i>
+    <div class="container product-detail-container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product-gallery">
+                    <div class="product-main-img">
+                        <img src="/cuaderno-rosa.png" alt="Cuaderno profesional" id="mainProductImg">
                     </div>
-                    <div class="thumbnail-container">
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
+                    <div class="product-thumbnails">
+                        <div class="product-thumbnail active" data-img="/cuaderno-rosa.png">
+                            <img src="/cuaderno-rosa.png" alt="Cuaderno rosa">
                         </div>
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
+                        <div class="product-thumbnail" data-img="/cuaderno-azul.png">
+                            <img src="/cuaderno-azul.png" alt="Cuaderno azul">
                         </div>
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
+                        <div class="product-thumbnail" data-img="/api/placeholder/80/80">
+                            <img src="/api/placeholder/80/80" alt="Cuaderno morado">
                         </div>
                     </div>
-                    <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*" required style="display: none;">
                 </div>
-                
-                <div class="details-section">
-                    <h1>Nombre del producto</h1>
-                    <input type="text" id="nombre" name="nombre" class="form-control" required placeholder="Nombre del producto">
-                    
-                    <h1>Precio unitario</h1>
-                    <input type="number" id="precio" name="precio" class="form-control" min="0" value="0" step=".01" required placeholder="$0.00">
-                    
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required></textarea>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="product-info">
+                    <h1 class="product-title">Cuaderno profesional</h1>
+                    <div class="product-price">$35</div>
+                    <div class="product-description">
+                        <p>Cuaderno de 100 hojas cuadrícula chica con pastas blandas. Marca Scribe</p>
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label">Plantel</label>
-                        <select id="categoria" name="categoria" class="form-select" required>
-                            <option value="" disabled selected>Seleccione</option>
-                            <option value="1">CECyT 1</option>
-                            <option value="9">CECyT 9</option>
-                            <option value="11">CECyT 11</option>
-                        </select>
+                    <div class="product-meta">
+                        <h4 class="meta-title">Plantel</h4>
+                        <div class="meta-tags">
+                            <span class="meta-tag">CECyT 9</span>
+                        </div>
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="catalogo" class="form-label">Catálogo</label>
-                        <select id="catalogo" name="catalogo" class="form-select">
-                            <option value="" disabled selected>Seleccione</option>
-                            <option value="1">Libros</option>
-                            <option value="2">Útiles</option>
-                            <option value="3">Electrónica</option>
-                        </select>
+                    <div class="product-meta">
+                        <h4 class="meta-title">Catálogo</h4>
+                        <div class="meta-tags">
+                            <span class="meta-tag">Tronco común</span>
+                        </div>
                     </div>
                     
                     <div class="quantity-selector">
-                        <button type="button" class="quantity-btn" id="decrease">−</button>
-                        <div class="quantity-display">
-                            <input type="number" id="cantidad" name="cantidad" value="1" min="1" style="width: 40px; border: none; text-align: center;" readonly>
-                        </div>
-                        <button type="button" class="quantity-btn" id="increase">+</button>
+                        <button class="quantity-btn" id="decreaseQuantity">-</button>
+                        <input type="number" class="quantity-input" id="quantityInput" value="1" min="1" max="10">
+                        <button class="quantity-btn" id="increaseQuantity">+</button>
                     </div>
                     
-                    <button type="submit" class="publish-btn">Publicar</button>
+                    <button class="add-to-cart-btn" id="addToCartBtn">Agregar al carrito</button>
                 </div>
             </div>
-        </form>
-    </main>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -754,8 +750,18 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">COMPAÑÍA</h5>
+                    <div class="footer-links">
+                        <a href="/conocenos">Conócenos</a>
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6 footer-section">
+                    <h5 class="footer-title">AYUDA</h5>
+                    <div class="footer-links">
+                        <a href="/detalles">Detalles de entrega</a>
+                        <a href="/terycon">Términos y condiciones</a>
+                        <a href="/pprivacidad">Política de privacidad</a>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
@@ -764,84 +770,80 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Imagen preview
-        document.getElementById('main-img-preview').addEventListener('click', function() {
-            document.getElementById('imagen').click();
-        });
-        
-        document.getElementById('imagen').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const mainPreview = document.getElementById('main-img-preview');
-                    mainPreview.className = '';
-                    mainPreview.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 100%;" />`;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-        
-        // Contador de cantidad
-        document.getElementById('decrease').addEventListener('click', function() {
-            const input = document.getElementById('cantidad');
-            const value = parseInt(input.value);
-            if (value > 1) {
-                input.value = value - 1;
-            }
-        });
-        
-        document.getElementById('increase').addEventListener('click', function() {
-            const input = document.getElementById('cantidad');
-            input.value = parseInt(input.value) + 1;
-        });
-        
-        // Submit form
-        document.getElementById('FormularioP').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const formu = event.target;
-            const formuDato = new FormData(formu);
+        document.addEventListener('DOMContentLoaded', function() {
+            // User Profile Modal
+            const userProfileToggle = document.getElementById('userProfileToggle');
+            const profileModal = document.getElementById('profileModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const logoutBtn = document.getElementById('logoutBtn');
             
-            try {
-                const response = await fetch(formu.action, {
-                    method: formu.method,
-                    body: formuDato
-                });
-
-                const resultado = await response.json();
-
-                if (resultado.success) {
-                    alert(resultado.message);
-                    window.location.href = '/';
-                } else {
-                    alert(resultado.message || 'Error al agregar el producto');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error al comunicarse con el servidor');
-            }
-        });
-
-        const userProfileToggle = document.getElementById('userProfileToggle');
-        const profileModal = document.getElementById('profileModal');
-        const modalOverlay = document.getElementById('modalOverlay');
-        
-        userProfileToggle.addEventListener('click', () => {
-            profileModal.classList.toggle('active');
-            modalOverlay.classList.toggle('active');
-        });
-        
-        modalOverlay.addEventListener('click', () => {
-            profileModal.classList.remove('active');
-            modalOverlay.classList.remove('active');
-        });
-        
-        // Logout button
-        logoutBtn.addEventListener('click', function() {
-                // Add your logout logic here
+            // Toggle modal when clicking user icon
+            userProfileToggle.addEventListener('click', function() {
+                profileModal.classList.toggle('active');
+                modalOverlay.classList.toggle('active');
+            });
+            
+            // Close modal when clicking outside
+            modalOverlay.addEventListener('click', function() {
+                profileModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            });
+            
+            // Logout button functionality
+            logoutBtn.addEventListener('click', function() {
                 window.location.href = '/salida'; // Redirect to logout route
             });
+            
+            // Product Thumbnail Gallery
+            const mainProductImg = document.getElementById('mainProductImg');
+            const thumbnails = document.querySelectorAll('.product-thumbnail');
+            
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    // Remove active class from all thumbnails
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked thumbnail
+                    this.classList.add('active');
+                    
+                    // Update main image
+                    mainProductImg.src = this.getAttribute('data-img');
+                });
+            });
+            
+            // Quantity Selector
+            const decreaseBtn = document.getElementById('decreaseQuantity');
+            const increaseBtn = document.getElementById('increaseQuantity');
+            const quantityInput = document.getElementById('quantityInput');
+            
+            decreaseBtn.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+            
+            increaseBtn.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue < 10) {
+                    quantityInput.value = currentValue + 1;
+                }
+            });
+            
+            // Add to Cart Button
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            
+            addToCartBtn.addEventListener('click', function() {
+                // Get quantity
+                const quantity = parseInt(quantityInput.value);
+                
+                // Add product to cart logic would go here
+                // For now, just show a simple alert
+                alert(`Se agregaron ${quantity} Cuaderno(s) profesional(es) al carrito.`);
+            });
+        });
     </script>
 </body>
 </html>

@@ -1,316 +1,783 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <title>Administrasdor</title>
+    <title>Germain - Panel de Administración</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        *{
-            background-color: #CDDFEC;
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #44006b;
+            --accent-color: #FF7200;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --light-orange-1: #FFF3E0;
+            --light-orange-2: #FFEACC;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
         }
 
-        .head{
-            background-color: #15679A;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color) !important;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 10vh;
         }
 
-        .title{
-            background-color: #4395C8;
+        .navbar-logo {
+            height: 40px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .search-form {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .dashboard-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        
+        .dashboard-btn:hover {
+            background-color: #e56600;
+            transform: translateY(-2px);
+        }
+        
+        /* USER PROFILE MODAL */
+        .profile-modal {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .profile-modal-header {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .profile-modal-body {
+            padding: 20px;
+        }
+        
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            background-color: var(--light-orange-1);
+            border-radius: 50%;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50%;
-            height: 5vh;
-            border-radius: 20px;
-            color: #FFFFFF;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
-
-        .division{
-            background-color: #4395C8;
-            height: 6vh;
+        
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-
-        .icon{
-            height: 6vh;
-            background-color: #4395C8;
-            float: right;
-            padding-right: 20px;
+        
+        .user-name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
         }
-
-        .seccion2{
-            background-color: #CDDFEC;
+        
+        .user-email {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .profile-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .profile-menu-item {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-menu-link {
+            padding: 12px 0;
             display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-menu-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        
+        .profile-menu-icon {
+            width: 40px;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            color: var(--accent-color);
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: #e56600;
+            transform: translateY(-2px);
+        }
+        
+        /* Overlay for closing modal when clicking outside */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 999;
+            display: none;
+        }
+        
+        .modal-overlay.active {
+            display: block;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-top: 100px;
+            padding: 20px 0;
+        }
+        
+        .admin-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .admin-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .admin-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-orange-1);
+        }
+        
+        /* PLANTEL GRID */
+        .plantel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .plantel-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
             text-align: center;
         }
-
-        .tabla{
-            background-color: #FFFFFF;
-            height: 70vh;
-            width: 80%;
-            overflow-y: scroll;
+        
+        .plantel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-
-        table {
+        
+        .plantel-img {
             width: 100%;
-            border-collapse: collapse;
+            height: 100px;
+            object-fit: contain;
+            padding: 10px;
         }
-        th{
-            border: 2px solid #CDDFEC;
-            padding: 8px;
-            text-align: left;
-            background-color: #2B7DB1;
-            color: white;
-            font-style: inherit;
-            font-family: "Inter", sans-serif;
-            font-weight: normal;
-            font-size: 20px;
+        
+        .plantel-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 10px;
+            background-color: var(--light-orange-1);
+            margin: 0;
         }
-
-        td{
-            background-color: #FFFFFF;
-            border-left: 2px solid #CDDFEC;
-            padding-top: 7px;
-            font-size: 17px;
-            font-family: "Inter", sans-serif;
+        
+        .plantel-info {
+            font-size: 0.8rem;
+            color: #888;
+            padding: 5px 10px;
         }
-
-        .btn{
-            background-color: #2B7DB1;
-            border: none;
-            border-radius: 20px;
+        
+        /* ADD PLANTEL CARD */
+        .add-plantel-card {
+            background-color: rgba(255, 153, 0, 0.1);
+            border: 2px dashed var(--accent-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            color: white;
-            padding: 5px 45px 5px 45px;
-            font-size: 15px;
+            height: 100%;
+            min-height: 180px;
+            transition: all 0.3s ease;
+        }
+        
+        .add-plantel-card:hover {
+            background-color: rgba(255, 153, 0, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .add-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
         }
 
-        .btn:hover {
-            background-color: red;
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-section {
+                margin-bottom: 30px;
+            }
+            
+            .search-form {
+                margin: 15px 0;
+            }
+            
+            .dashboard-btn {
+                margin: 15px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .plantel-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 15px;
+            }
+            
+            .main-content {
+                margin-top: 70px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .admin-title {
+                font-size: 1.5rem;
+            }
+            
+            .plantel-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            
+            .plantel-img {
+                height: 80px;
+            }
+            
+            .plantel-name {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="head">
-        <div class="title">
-            <h2 class="title">ALMACÉN</h2>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/admin">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <form class="search-form mx-auto">
+                        
+                    </form>
+                    
+                    <div class="nav-icons">
+                        <a href="/dashboard" class="dashboard-btn">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        </a>
+                        <span class="nav-icon" id="userProfileToggle">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- User Profile Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-modal-header">
+            Perfil de Administrador
+        </div>
+        <div class="profile-modal-body">
+            <div class="profile-picture">
+                <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+            </div>
+            <h4 class="user-name">Admin Germain</h4>
+            <p class="user-email">admin@germain.com</p>
+            
+            <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
         </div>
     </div>
-    <div class="division">
-        <a href="/graficas"><img src="/icon_admin.png" alt="" class="icon"></a>
-    </div>
-    <br><br><br>
-    <div class="seccion2">
-        <div class="tabla">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>Plantel</th>
-                        <th>ID vendedor</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Producto A</td>
-                        <td>50</td>
-                        <td>$100</td>
-                        <td>Plantel 1</td>
-                        <td>V001</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Producto B</td>
-                        <td>30</td>
-                        <td>$150</td>
-                        <td>Plantel 2</td>
-                        <td>V002</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Producto C</td>
-                        <td>20</td>
-                        <td>$200</td>
-                        <td>Plantel 3</td>
-                        <td>V003</td>
-                        <td><button class="btn">Eliminar</button></td>
-                    </tr>
-                </tbody>
-            </table>
+
+    <div class="main-content">
+        <div class="container">
+            <h2 class="admin-title">Panel de Administración</h2>
+            
+            <div class="admin-section">
+                <h3 class="admin-section-title">Planteles</h3>
+                <div class="plantel-grid">
+                    <div class="plantel-card">
+                        <img src="/c1.png" alt="CECyT 1" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 1</h5>
+                        <p class="plantel-info">Gonzalo Vázquez Vela</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c2.png" alt="CECyT 2" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 2</h5>
+                        <p class="plantel-info">Miguel Bernard Perales</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c3.png" alt="CECyT 3" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 3</h5>
+                        <p class="plantel-info">Estanislao Ramirez Ruíz</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c4.png" alt="CECyT 4" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 4</h5>
+                        <p class="plantel-info">Lázaro Cárdenas</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c5.png" alt="CECyT 5" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 5</h5>
+                        <p class="plantel-info">Benito Juárez García</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c6.png" alt="CECyT 6" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 6</h5>
+                        <p class="plantel-info">Miguel Othón de Mendizabal</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c7.png" alt="CECyT 7" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 7</h5>
+                        <p class="plantel-info">Cuauhtémoc</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c8.png" alt="CECyT 8" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 8</h5>
+                        <p class="plantel-info">Narciso Bassols García</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c9.png" alt="CECyT 9" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 9</h5>
+                        <p class="plantel-info">Juan de Dios Bátiz Paredes</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c10.png" alt="CECyT 10" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 10</h5>
+                        <p class="plantel-info">Carlos Vallejo Márquez</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c11.png" alt="CECyT 11" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 11</h5>
+                        <p class="plantel-info">Wilfrido Massieu</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c12.png" alt="CECyT 12" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 12</h5>
+                        <p class="plantel-info">José María Morelos</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c13.png" alt="CECyT 13" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 13</h5>
+                        <p class="plantel-info">Ricardo Flores Magón</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c14.png" alt="CECyT 14" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 14</h5>
+                        <p class="plantel-info">Luis Enrique Erro Soler</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c15.png" alt="CECyT 15" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 15</h5>
+                        <p class="plantel-info">Diódoro Antúnez Echagaray</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c16.png" alt="CECyT 16" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 16</h5>
+                        <p class="plantel-info">Unidad Hidalgo</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c17.png" alt="CECyT 17" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 17</h5>
+                        <p class="plantel-info">CUnidad Guanajuato</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c18.png" alt="CECyT 18" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 18</h5>
+                        <p class="plantel-info">Unidad Zacatecas</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/c19.png" alt="CECyT 19" class="plantel-img">
+                        <h5 class="plantel-name">CECyT 19</h5>
+                        <p class="plantel-info">Leona Vicario Unidad Tecámac</p>
+                    </div>
+                    <div class="plantel-card">
+                        <img src="/ce1.png" alt="CECT 1" class="plantel-img">
+                        <h5 class="plantel-name">CECT 1</h5>
+                        <p class="plantel-info">Walter Cross Buchanan</p>
+                    </div>
+                    
+                    <!-- Add Plantel Button -->
+                    <div class="add-plantel-card">
+                        <i class="fas fa-plus-circle add-icon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3 class="admin-section-title">Estadísticas</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Usuarios</h5>
+                                <p class="card-text display-6 text-primary">1,245</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Productos</h5>
+                                <p class="card-text display-6 text-success">873</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Ventas</h5>
+                                <p class="card-text display-6 text-danger">$52,489</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Pedidos</h5>
+                                <p class="card-text display-6 text-warning">329</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userProfileToggle = document.getElementById('userProfileToggle');
+            const profileModal = document.getElementById('profileModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Toggle modal when clicking user icon
+            userProfileToggle.addEventListener('click', function() {
+                profileModal.classList.toggle('active');
+                modalOverlay.classList.toggle('active');
+            });
+            
+            // Close modal when clicking outside
+            modalOverlay.addEventListener('click', function() {
+                profileModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            });
+            
+            // Logout button functionality
+            logoutBtn.addEventListener('click', function() {
+                // Add your logout logic here
+                window.location.href = '/salida'; // Redirect to logout route
+            });
+            
+            // Example: Load user profile picture from server
+            function loadUserProfilePicture() {
+                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
+                const userProfilePic = document.getElementById('userProfilePic');
+                
+                // Example: check if user has a profile picture
+                const hasProfilePicture = true; // This would be determined by your backend
+                
+                if (hasProfilePicture) {
+                    // Replace with actual user profile picture URL
+                    userProfilePic.src = "/api/placeholder/200/200";
+                } else {
+                    // Use default avatar if no profile picture exists
+                    userProfilePic.src = "/default-avatar.png";
+                }
+            }
+            
+            // Load user profile picture when the page loads
+            loadUserProfilePicture();
+        });
+    </script>
 </body>
 </html>
