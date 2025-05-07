@@ -201,7 +201,8 @@ app.post('/register', checkNotAuthenticated, upload.single('profilePhoto'), asyn
           user: { email: email }
         });
       }
-  
+
+      const tokenExpires = new Date(Date.now() + 24 * 60* 60 * 1000); //24 hrs
       const hashedPassword = await bcrypt.hash(password, 10);
       const rol = 'comprador';
   
@@ -230,9 +231,17 @@ app.post('/register', checkNotAuthenticated, upload.single('profilePhoto'), asyn
               user: { email: email }
             });
           }
-  
+
+         //Enviar correo del token
+         const verificationURL = `http://${req.headers.host}/verify-email?token=${tokenExpires}`;
+         await transporter.sendMail(
+            {from: '"Germain" <germain.error404@gmail.com>', to: email, subject: 'Verifica tu cuenta', html `<p>Por favor haz clic en el siguiente enlacer para verificar tu cuenta: </p>
+         <a href="${verificationURL}">${verificationURL}) </a> <p> El enlace expirará en 24 horas. </p>`
+            });
+       
+           
           // Si todo va bien, redirigir o mostrar mensaje de éxito
-          res.render('token', { success: 'Registro exitoso' });
+          res.render('token', { success: 'Registro exitoso. Por favor verifica tu correo electronico.', email:email });
         }
       );
   
