@@ -176,8 +176,15 @@ app.post("/login", checkNotAuthenticated, (req, res, next) => {
     currentMail = req.body.email;
     passport.authenticate("local", (err, user, info) => {
         if (err) return next(err);
-        if (!user) return res.redirect("/login");
-
+        if (!user) {
+           return res.redirect("/login", {error: 'Credenciales incorrectas', email: req.body.email});
+        }
+         //Verificar si el correo esta confirmado 
+       if(!user.verified){
+           return res.render("login", {error: 'Debes verificar tu correo electronico antes de iniciar sesion', email: req.body.email});
+       }
+    }
+                          
         req.logIn(user, (err) => {
             if (err) return next(err);
             return user.rol === "administrador" ? res.redirect("/admin") : res.redirect("/");
