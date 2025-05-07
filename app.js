@@ -635,9 +635,50 @@ app.get("/admin", checkAuthenticated, (req, res) => {
     res.render("admin.ejs"); 
 });
 
+
+
+/************************************************/
+//Verificar que se autentico correctamente, FAVOR DE PROBAR
+/************************************************/
+app.get('/verify-email', async(req,res) => {
+   try{
+      const {token} = req.query;
+      if(!token){return res.render('verification', {error: 'Token no proporcionado'});
+
+      //Asumo que todo salio bien en la verificacion y la DB la voy a acutálizar a isVerified TRUE
+      const query = 'SELECT * FROM usuarios WHERE verification_token = ? AND token_expires > NOW()';
+
+   // 7 mayo 2025 4:07 pm         ----- 8 de mayo 2025 4:07pm 
+         // 7 mayo 2025 5:30pm 
+      //("UPDATE usuarios SET isVerified. = TRUE WHERE email = ?", [email] AND )verification_token = ? AND token_expires > NOW()'; 
+
+
+      db.execute(query, [token], (err,results) => {
+         if (err || results.length === 0){
+            return res.render('verication',{{error: 'Token expirado o invalido. Por favor registrate nuevamente'});
+         }
+         const user = results[0];
+
+         const updateQuery = 'UPDATE usuarios SET isVerified = TRUE, verification_token = NULL, token_expires = NULL WHERE email = ?';
+          res.render('verification', {success: '¡Cuenta verificada! Ahora puedes iniciar sesion.'});
+      })
+               
+                 
+   }catch (err){
+      console.error('Error en la verificacion:', err);
+      res.render('verification', {error: 'Error en el servidor'});
+   }
+      
+});
+
 /* ==================================================
    INICIO DEL SERVIDOR
    ================================================== */
 app.listen(3001, () => {
     console.log('Servidor corriendo en http://localhost:3001');
 });
+
+
+
+
+
