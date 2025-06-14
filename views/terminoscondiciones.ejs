@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Términos y Condiciones - Germain</title>
-    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="icon" href="/icond.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF9900;
-            --secondary-color: #44006b;
-            --accent-color: #FF7200;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --primary-color: #4A1F43;
+            --secondary-color: #4a1f39;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
             --text-color: #333;
-            --light-orange-1: #FFF3E0;
-            --light-orange-2: #FFEACC;
+            --white: #ffffff;
         }
         
         * {
@@ -27,7 +27,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
+            background-color: var(--light-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
@@ -36,7 +36,7 @@
         /* HEADER & NAVBAR */
         .navbar {
             background-color: var(--primary-color) !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
@@ -44,7 +44,7 @@
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--text-color) !important;
+            color: var(--white) !important;
             display: flex;
             align-items: center;
         }
@@ -69,9 +69,17 @@
             width: 100%;
             padding: 10px 15px;
             border-radius: 50px;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid var(--neutral-light);
+            box-shadow: 0 2px 10px rgba(113, 28, 70, 0.1);
             font-size: 0.9rem;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
         }
 
         .search-btn {
@@ -80,9 +88,14 @@
             top: 5px;
             background: none;
             border: none;
-            color: #999;
+            color: var(--dark-color);
             cursor: pointer;
             padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: var(--secondary-color);
         }
 
         .nav-icons {
@@ -92,13 +105,13 @@
 
         .nav-icon {
             font-size: 1.3rem;
-            color: var(--text-color);
+            color: var(--white);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .nav-icon:hover {
-            color: white;
+            color: var(--light-color);
             transform: scale(1.1);
         }
         
@@ -108,15 +121,16 @@
             top: 80px;
             right: 20px;
             width: 320px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
             z-index: 1000;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
         }
         
         .profile-modal.active {
@@ -126,8 +140,8 @@
         }
         
         .profile-modal-header {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
             padding: 15px;
             text-align: center;
             font-weight: bold;
@@ -141,14 +155,15 @@
         .profile-picture {
             width: 120px;
             height: 120px;
-            background-color: var(--light-orange-1);
+            background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
             border-radius: 50%;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
+            border: 3px solid var(--neutral-light);
         }
         
         .profile-picture img {
@@ -162,37 +177,39 @@
             font-weight: 600;
             font-size: 1.2rem;
             margin-bottom: 5px;
+            color: var(--dark-color);
         }
         
         .user-email {
             text-align: center;
-            color: #888;
+            color: var(--dark-color);
             font-size: 0.9rem;
             margin-bottom: 20px;
+            opacity: 0.8;
         }
         
         .profile-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--neutral-light);
         }
         
         .profile-menu-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--neutral-light);
         }
         
         .profile-menu-link {
             padding: 12px 0;
             display: flex;
             align-items: center;
-            color: var(--text-color);
+            color: var(--dark-color);
             text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .profile-menu-link:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
             transform: translateX(5px);
         }
         
@@ -201,18 +218,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
         
         .logout-btn {
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: var(--accent-color);
-            color: white;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
             text-align: center;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
             font-weight: 600;
             cursor: pointer;
@@ -220,8 +237,8 @@
         }
         
         .logout-btn:hover {
-            background-color: #e56600;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
         
         /* Overlay for closing modal when clicking outside */
@@ -249,12 +266,13 @@
         .terms-container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: white;
+            background-color: var(--white);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.08);
             padding: 40px;
             overflow: hidden;
             position: relative;
+            border: 1px solid var(--neutral-light);
         }
 
         .terms-container::before {
@@ -264,14 +282,14 @@
             left: 0;
             width: 100%;
             height: 8px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         }
 
         .terms-title {
             text-align: center;
             font-size: 2.5em;
             margin-bottom: 20px;
-            color: var(--accent-color);
+            color: var(--secondary-color);
             font-weight: 700;
             position: relative;
             padding-bottom: 15px;
@@ -285,20 +303,20 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             border-radius: 2px;
         }
 
         .terms-subtitle {
             font-size: 1.5em;
-            color: var(--accent-color);
+            color: var(--secondary-color);
             margin-top: 30px;
             margin-bottom: 15px;
             font-weight: 600;
         }
 
         .terms-section {
-            background-color: var(--light-orange-1);
+            background-color: var(--neutral-light);
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
@@ -321,7 +339,7 @@
 
         /* BREADCRUMB */
         .breadcrumb-container {
-            background-color: #f5f5f5;
+            background-color: var(--neutral-light);
             padding: 10px 0;
             margin-top: 80px;
         }
@@ -332,18 +350,23 @@
         }
 
         .breadcrumb-item a {
-            color: var(--accent-color);
+            color: var(--secondary-color);
             text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-item a:hover {
+            color: var(--accent-color);
         }
 
         .breadcrumb-item.active {
-            color: var(--text-color);
+            color: var(--dark-color);
         }
 
         /* FOOTER */
         .footer {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
             padding: 3rem 0 2rem;
             margin-top: 80px;
         }
@@ -355,6 +378,7 @@
         
         .footer-section p {
             margin-bottom: 15px;
+            opacity: 0.9;
         }
         
         .footer-title {
@@ -362,7 +386,7 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             font-size: 16px;
-            color: #333;
+            color: var(--white);
             position: relative;
             padding-bottom: 10px;
         }
@@ -374,32 +398,34 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background-color: var(--accent-color);
+            background-color: var(--light-color);
         }
         
         .footer-links a {
-            color: #333;
+            color: var(--white);
             text-decoration: none;
             display: block;
             margin-bottom: 10px;
             transition: all 0.3s ease;
             position: relative;
             padding-left: 15px;
+            opacity: 0.9;
         }
         
         .footer-links a::before {
             content: "→";
             position: absolute;
             left: 0;
-            color: var(--accent-color);
+            color: var(--light-color);
             opacity: 0;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
-            color: var(--accent-color);
+            color: var(--light-color);
             transform: translateX(5px);
             text-decoration: none;
+            opacity: 1;
         }
         
         .footer-links a:hover::before {
@@ -418,17 +444,17 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: white;
+            background-color: var(--white);
             border-radius: 50%;
-            color: var(--accent-color);
+            color: var(--secondary-color);
             font-size: 18px;
             transition: all 0.3s ease;
             text-decoration: none;
         }
         
         .social-icon:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background-color: var(--light-color);
+            color: var(--accent-color);
             transform: translateY(-5px);
         }
         
@@ -436,8 +462,9 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-weight: 500;
+            opacity: 0.9;
         }
 
         /* FLOATING BUTTONS */
@@ -447,10 +474,10 @@
             z-index: 99;
             border-radius: 50px;
             padding: 12px 25px;
-            color: white;
+            color: var(--white);
             font-size: 16px;
             border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.2);
             transition: all 0.3s ease;
             text-decoration: none;
             display: flex;
@@ -460,13 +487,14 @@
 
         .warehouse-btn {
             left: 20px;
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
         }
 
         .warehouse-btn:hover {
-            background-color: #E56700;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             transform: translateY(-5px);
-            color: white;
+            color: var(--white);
+            box-shadow: 0 8px 20px rgba(85, 0, 42, 0.3);
         }
 
         .exit-btn {
@@ -477,7 +505,7 @@
         .exit-btn:hover {
             background-color: #c82333;
             transform: translateY(-5px);
-            color: white;
+            color: var(--white);
         }
 
         /* RESPONSIVE */
@@ -514,45 +542,100 @@
     </style>
 </head>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Buscar todos los enlaces que contengan "Cambiar a proveedor"
-        const enlaces = document.querySelectorAll('a.profile-menu-link');
-        
-        enlaces.forEach(enlace => {
-            if (enlace.textContent.includes('Cambiar a proveedor')) {
-                enlace.addEventListener('click', function(e) {
-                    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const enlaces = document.querySelectorAll('a.profile-menu-link');
+    
+    enlaces.forEach(enlace => {
+        if (enlace.textContent.includes('Cambiar a proveedor')) {
+            enlace.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Crear el overlay de transición
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 99999;
+                    color: white;
+                    opacity: 0;
+                    transition: opacity 0.5s ease-out;
+                `;
+                
+                // Crear el texto
+                const texto = document.createElement('div');
+                texto.textContent = 'Cambiando a Proveedor';
+                texto.style.cssText = `
+                    font-size: 2rem;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                    transform: translateY(20px);
+                    opacity: 0;
+                    transition: all 0.5s ease-out 0.2s;
+                `;
+                
+                // Crear el spinner
+                const spinner = document.createElement('div');
+                spinner.style.cssText = `
+                    width: 50px;
+                    height: 50px;
+                    border: 5px solid rgba(255,255,255,0.3);
+                    border-radius: 50%;
+                    border-top-color: white;
+                    animation: spin 1s ease-in-out infinite;
+                    transform: translateY(20px);
+                    opacity: 0;
+                    transition: all 0.5s ease-out 0.4s;
+                `;
+                
+                // Añadir elementos al overlay
+                overlay.appendChild(texto);
+                overlay.appendChild(spinner);
+                document.body.appendChild(overlay);
+                
+                // Animación de entrada
+                setTimeout(() => {
+                    overlay.style.opacity = '1';
                     
-                    // Crear el overlay
-                    const overlay = document.createElement('div');
-                    overlay.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: #e56600;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 99999;
-                        color: white;
-                        font-size: 2rem;
-                        font-weight: bold;
-                    `;
-                    overlay.textContent = 'Cambiando a Proveedor';
-                    
-                    document.body.appendChild(overlay);
-                    
-                    // Redirigir después de 3 segundos
+                    setTimeout(() => {
+                        texto.style.transform = 'translateY(0)';
+                        texto.style.opacity = '1';
+                        
+                        setTimeout(() => {
+                            spinner.style.transform = 'translateY(0)';
+                            spinner.style.opacity = '1';
+                        }, 50);
+                    }, 50);
+                }, 10);
+                
+                // Redirigir después de 3 segundos (con animación de salida opcional)
+                setTimeout(() => {
+                    overlay.style.opacity = '1';
                     setTimeout(() => {
                         window.location.href = this.href;
-                    }, 3000);
-                });
-            }
-        });
+                    }, 500);
+                }, 2500);
+                
+                // Animación del spinner
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes spin {
+                        to { transform: translateY(0) rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            });
+        }
     });
-    </script>
+});
+</script>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -584,19 +667,19 @@
     </header>
 
     <!-- User Profile Modal -->
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="profile-modal" id="profileModal">
-        <div class="profile-modal-header">
-            Perfil
-        </div>
-        <div class="profile-modal-body">
-            <div class="profile-picture">
-                <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+     <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-modal-header">
+                Perfil
             </div>
-            <h4 class="user-name">Tribios Jano Oqueima</h4>
-            <p class="user-email">tribbie.agli@gmail.com</p>
-            
-            <ul class="profile-menu">
+            <div class="profile-modal-body">
+                <div class="profile-picture">
+                    <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+                </div>
+                <h4 class="user-name">Nombre de usuario</h4>
+                <p class="user-email">Correo del usuario</p>
+                
+                <ul class="profile-menu">
                 <li class="profile-menu-item">
                     <a href="/perfil" class="profile-menu-link">
                         <span class="profile-menu-icon">
@@ -624,8 +707,8 @@
             </ul>
             
             <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+            </div>
         </div>
-    </div>
     <div class="breadcrumb-container">
         <div class="container">
             <nav aria-label="breadcrumb">
@@ -750,7 +833,7 @@
                     Para aclaraciones, sugerencias o dudas sobre estos Términos y Condiciones, puede contactarse a:
                 </p>
                 <p>
-                    Correo: germain.error404@gmail.com<br>
+                    Correo: idcas404@gmail.com<br>
                     Horario de atención: lunes a viernes, de 09:00 a 16:00 horas<br>
                     Coordinación Académica – Proyecto GERMAIN
                 </p>
@@ -793,50 +876,57 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const userProfileToggle = document.getElementById('userProfileToggle');
             const profileModal = document.getElementById('profileModal');
             const modalOverlay = document.getElementById('modalOverlay');
             const logoutBtn = document.getElementById('logoutBtn');
             
-            // Toggle modal when clicking user icon
+            // Mostrar/ocultar modal
             userProfileToggle.addEventListener('click', function() {
                 profileModal.classList.toggle('active');
                 modalOverlay.classList.toggle('active');
             });
             
-            // Close modal when clicking outside
             modalOverlay.addEventListener('click', function() {
                 profileModal.classList.remove('active');
                 modalOverlay.classList.remove('active');
             });
             
-            // Logout button functionality
             logoutBtn.addEventListener('click', function() {
-                // Add your logout logic here
-                window.location.href = '/salida'; // Redirect to logout route
+                window.location.href = '/salida';
             });
-            
-            // Example: Load user profile picture from server
-            // This would be replaced with actual code to load the user's profile picture
-            function loadUserProfilePicture() {
-                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
-                const userProfilePic = document.getElementById('userProfilePic');
-                
-                // Example: check if user has a profile picture
-                const hasProfilePicture = true; // This would be determined by your backend
-                
-                if (hasProfilePicture) {
-                    // Replace with actual user profile picture URL
-                    userProfilePic.src = "/api/placeholder/200/200";
-                } else {
-                    // Use default avatar if no profile picture exists
-                    userProfilePic.src = "/default-avatar.png";
+
+            // Cargar datos del usuario
+            async function cargarDatosUsuario() {
+                try {
+                    const response = await fetch('/api/usuario/detalle', { credentials: 'include' });
+                    if (response.ok) {
+                        const userData = await response.json();
+                        
+                        const userNameElement = document.querySelector('.user-name');
+                        const userEmailElement = document.querySelector('.user-email');
+                        const userProfilePic = document.getElementById('userProfilePic');
+                        
+                        if (userNameElement) {
+                            userNameElement.textContent = `${userData.nombres} ${userData.apellidopat} ${userData.apellidomat}`;
+                        }
+                        
+                        if (userEmailElement) {
+                            userEmailElement.textContent = userData.correo;
+                        }
+                        
+                        if (userProfilePic && userData.imagen_perfil) {
+                            userProfilePic.src = `/showImage/${userData.imagen_perfil}`;
+                        }
+                    } else {
+                        console.warn('Usuario no activo o no encontrado');
+                    }
+                } catch (error) {
+                    console.error('Error al cargar datos del usuario:', error);
                 }
             }
-            
-            // Load user profile picture when the page loads
-            loadUserProfilePicture();
+            cargarDatosUsuario();
         });
     </script>
 </body>

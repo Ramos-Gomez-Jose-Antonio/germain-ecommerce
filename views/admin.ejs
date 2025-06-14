@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Germain - Panel de Administración</title>
+    <title>Panel de Administración Germain -</title>
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF9900;
-            --secondary-color: #44006b;
-            --accent-color: #FF7200;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --primary-color: #4A1F43;
+            --secondary-color: #4a1f39;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
             --text-color: #333;
-            --light-orange-1: #FFF3E0;
-            --light-orange-2: #FFEACC;
+            --white: #ffffff;
         }
-        
+
         * {
             padding: 0;
             margin: 0;
@@ -27,24 +27,24 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
+            background-color: var(--light-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
         }
-        
+
         /* HEADER & NAVBAR */
         .navbar {
             background-color: var(--primary-color) !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--text-color) !important;
+            color: var(--white) !important;
             display: flex;
             align-items: center;
         }
@@ -54,7 +54,7 @@
             margin-right: 10px;
             transition: transform 0.3s ease;
         }
-        
+
         .navbar-logo:hover {
             transform: scale(1.05);
         }
@@ -69,9 +69,17 @@
             width: 100%;
             padding: 10px 15px;
             border-radius: 50px;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid var(--neutral-light);
+            box-shadow: 0 2px 10px rgba(113, 28, 70, 0.1);
             font-size: 0.9rem;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
         }
 
         .search-btn {
@@ -80,9 +88,14 @@
             top: 5px;
             background: none;
             border: none;
-            color: #999;
+            color: var(--dark-color);
             cursor: pointer;
             padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: var(--secondary-color);
         }
 
         .nav-icons {
@@ -92,18 +105,18 @@
 
         .nav-icon {
             font-size: 1.3rem;
-            color: var(--text-color);
+            color: var(--white);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .nav-icon:hover {
-            color: white;
+            color: var(--light-color);
             transform: scale(1.1);
         }
-        
+
         .dashboard-btn {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: white;
             border: none;
             padding: 8px 15px;
@@ -114,134 +127,236 @@
             margin-right: 15px;
             text-decoration: none;
         }
-        
+
         .dashboard-btn:hover {
-            background-color: #e56600;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
-        
+
         /* USER PROFILE MODAL */
         .profile-modal {
             position: fixed;
             top: 80px;
             right: 20px;
             width: 320px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
             z-index: 1000;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
         }
-        
+
         .profile-modal.active {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
-        
+
         .profile-modal-header {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
             padding: 15px;
             text-align: center;
             font-weight: bold;
             font-size: 1.2rem;
         }
-        
+
         .profile-modal-body {
             padding: 20px;
         }
-        
+
         .profile-picture {
             width: 120px;
             height: 120px;
-            background-color: var(--light-orange-1);
+            background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
             border-radius: 50%;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
+            border: 3px solid var(--neutral-light);
         }
-        
+
         .profile-picture img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
         .user-name {
             text-align: center;
             font-weight: 600;
             font-size: 1.2rem;
             margin-bottom: 5px;
+            color: var(--dark-color);
         }
-        
+
         .user-email {
             text-align: center;
-            color: #888;
+            color: var(--dark-color);
             font-size: 0.9rem;
             margin-bottom: 20px;
+            opacity: 0.8;
         }
-        
+
         .profile-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--neutral-light);
         }
-        
+
         .profile-menu-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--neutral-light);
         }
-        
+
         .profile-menu-link {
             padding: 12px 0;
             display: flex;
             align-items: center;
-            color: var(--text-color);
+            color: var(--dark-color);
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .profile-menu-link:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
             transform: translateX(5px);
         }
-        
+
         .profile-menu-icon {
             width: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
-        
+
         .logout-btn {
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: white;
             text-align: center;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .logout-btn:hover {
-            background-color: #e56600;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
-        
+
+            .modal-content {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        padding: 1rem 1.5rem;
+    }
+
+    .modal-title {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    .btn-close {
+        background-color: var(--white);
+        border-radius: 50%;
+    }
+
+    .modal-body {
+        background-color: var(--light-color);
+        padding: 1.5rem;
+    }
+
+    .modal-footer {
+        background-color: var(--neutral-light);
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        padding: 1rem 1.5rem;
+    }
+
+    .form-label {
+        color: var(--text-color);
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid var(--neutral-light);
+        padding: 0.5rem 1rem;
+    }
+
+    .form-control:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 0.2rem rgba(85, 0, 42, 0.25);
+    }
+
+    #addCategoriaBtn {
+        border-radius: 8px;
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+
+    #addCategoriaBtn:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    #savePlantelBtn {
+        background-color: var(--primary-color);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 0.5rem 1.5rem;
+    }
+
+    #savePlantelBtn:hover {
+        background-color: var(--accent-color);
+    }
+
+    .btn-outline-secondary {
+        border-radius: 8px;
+        color: var(--dark-color);
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: var(--neutral-light);
+    }
+
+    #imagePreviewContainer {
+        margin-top: 10px;
+        border: 1px dashed var(--secondary-color);
+        border-radius: 8px;
+        padding: 0.5rem;
+        background-color: var(--white);
+    }
+
+    small.text-muted {
+        display: block;
+        margin-top: 5px;
+    }
+
         /* Overlay for closing modal when clicking outside */
         .modal-overlay {
             position: fixed;
@@ -253,7 +368,7 @@
             z-index: 999;
             display: none;
         }
-        
+
         .modal-overlay.active {
             display: block;
         }
@@ -263,13 +378,14 @@
             margin-top: 100px;
             padding: 20px 0;
         }
-        
+
         .admin-title {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 20px;
             position: relative;
             padding-bottom: 10px;
+            color: var(--dark-color);
         }
 
         .admin-title::after {
@@ -279,72 +395,75 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background-color: var(--accent-color);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         }
-        
+
         .admin-section {
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(113, 28, 70, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            border: 1px solid var(--neutral-light);
         }
-        
+
         .admin-section-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-orange-1);
+            border-bottom: 3px solid var(--light-color);
+            color: var(--dark-color);
         }
-        
+
         /* PLANTEL GRID */
         .plantel-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 20px;
         }
-        
+
         .plantel-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(113, 28, 70, 0.08);
             overflow: hidden;
             transition: all 0.3s ease;
-            text-align: center;
+            border: 1px solid var(--neutral-light);
         }
-        
+
         .plantel-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(113, 28, 70, 0.15);
+            border-color: var(--primary-color);
         }
-        
+
         .plantel-img {
             width: 100%;
             height: 100px;
             object-fit: contain;
             padding: 10px;
         }
-        
+
         .plantel-name {
             font-weight: 600;
             font-size: 0.9rem;
             padding: 10px;
-            background-color: var(--light-orange-1);
+            background-color: var(--light-color);
             margin: 0;
         }
-        
+
         .plantel-info {
             font-size: 0.8rem;
             color: #888;
             padding: 5px 10px;
         }
-        
+
         /* ADD PLANTEL CARD */
         .add-plantel-card {
-            background-color: rgba(255, 153, 0, 0.1);
+            background-color: rgba(85, 0, 42, 0.1);
             border: 2px dashed var(--accent-color);
-            border-radius: 10px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -353,12 +472,12 @@
             min-height: 180px;
             transition: all 0.3s ease;
         }
-        
+
         .add-plantel-card:hover {
-            background-color: rgba(255, 153, 0, 0.2);
+            background-color: rgba(85, 0, 42, 0.2);
             transform: translateY(-5px);
         }
-        
+
         .add-icon {
             font-size: 2rem;
             color: var(--accent-color);
@@ -366,108 +485,115 @@
 
         /* FOOTER */
         .footer {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 3rem 0 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 0 2rem;
             margin-top: 80px;
         }
-        
+
         .footer-logo {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             max-width: 160px;
         }
-        
+
         .footer-section p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
         }
-        
+
         .footer-title {
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             font-size: 16px;
-            color: #333;
+            color: var(--white);
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
-        
+
         .footer-title::after {
             content: "";
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 40px;
+            width: 50px;
             height: 3px;
-            background-color: var(--accent-color);
+            background-color: var(--light-color);
+            border-radius: 2px;
         }
-        
+
         .footer-links a {
-            color: #333;
+            color: var(--white);
             text-decoration: none;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             transition: all 0.3s ease;
             position: relative;
-            padding-left: 15px;
+            padding-left: 20px;
+            opacity: 0.9;
         }
-        
+
         .footer-links a::before {
             content: "→";
             position: absolute;
             left: 0;
-            color: var(--accent-color);
+            color: var(--light-color);
             opacity: 0;
             transition: all 0.3s ease;
         }
-        
+
         .footer-links a:hover {
-            color: var(--accent-color);
-            transform: translateX(5px);
+            color: var(--light-color);
+            transform: translateX(8px);
             text-decoration: none;
+            opacity: 1;
         }
-        
+
         .footer-links a:hover::before {
             opacity: 1;
         }
-        
+
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
-        
+
         .social-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: white;
+            width: 45px;
+            height: 45px;
+            background-color: var(--white);
             border-radius: 50%;
-            color: var(--accent-color);
+            color: var(--primary-color);
             font-size: 18px;
             transition: all 0.3s ease;
             text-decoration: none;
         }
-        
+
         .social-icon:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background-color: var(--light-color);
+            color: var(--accent-color);
             transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        
+
         .copyright {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 235, 216, 0.2);
             font-weight: 500;
+            opacity: 0.9;
         }
 
         /* RESPONSIVE */
         @media (max-width: 992px) {
             .footer-section {
-                margin-bottom: 30px;
+                margin-bottom: 40px;
             }
             
             .search-form {
@@ -507,11 +633,104 @@
             .plantel-name {
                 font-size: 0.8rem;
             }
+
+            .plantel-card {
+                position: relative;
+            }
+
+            .plantel-actions {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .plantel-card:hover .plantel-actions {
+                opacity: 1;
+            }
+
+            .delete-plantel {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                padding: 0;
+            }
+            /* Estilo para las tarjetas de plantel */
+            .plantel-card {
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .plantel-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            /* Estilo para los inputs de categorías en los modales */
+            .input-group {
+                transition: all 0.3s ease;
+            }
+
+            .input-group:hover {
+                transform: translateX(2px);
+            }
+
+            .remove-categoria {
+                transition: all 0.2s ease;
+            }
+
+            .remove-categoria:hover {
+                background-color: #dc3545 !important;
+                color: white !important;
+            }
+        }
+
+        /* Estilos para los toasts de notificación */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+
+        .toast {
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para los inputs de categorías */
+        .input-group {
+            transition: all 0.3s ease;
+        }
+
+        .input-group:hover {
+            transform: translateX(2px);
+        }
+
+        .remove-categoria {
+            transition: all 0.2s ease;
+        }
+
+        .remove-categoria:hover {
+            background-color: #dc3545 !important;
+            color: white !important;
+        }
+
+        /* Estilos para el preview de imagen */
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <header>
+     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/admin">
@@ -524,7 +743,6 @@
                 
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <form class="search-form mx-auto">
-                        
                     </form>
                     
                     <div class="nav-icons">
@@ -541,133 +759,78 @@
     </header>
 
     <!-- User Profile Modal -->
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="profile-modal" id="profileModal">
-        <div class="profile-modal-header">
-            Perfil de Administrador
-        </div>
-        <div class="profile-modal-body">
-            <div class="profile-picture">
-                <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+     <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-modal-header">
+                Perfil de Administrador
             </div>
-            <h4 class="user-name">Admin Germain</h4>
-            <p class="user-email">admin@germain.com</p>
-            
+            <div class="profile-modal-body">
+                <div class="profile-picture">
+                    <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+                </div>
+                <h4 class="user-name">Nombre de usuario</h4>
+                <p class="user-email">Correo del usuario</p>
             <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+            </div>
         </div>
-    </div>
 
     <div class="main-content">
         <div class="container">
+            <% if (typeof exito !== 'undefined') { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= exito %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
             <h2 class="admin-title">Panel de Administración</h2>
             
             <div class="admin-section">
                 <h3 class="admin-section-title">Planteles</h3>
-                <div class="plantel-grid">
-                    <div class="plantel-card">
-                        <img src="/c1.png" alt="CECyT 1" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 1</h5>
-                        <p class="plantel-info">Gonzalo Vázquez Vela</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c2.png" alt="CECyT 2" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 2</h5>
-                        <p class="plantel-info">Miguel Bernard Perales</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c3.png" alt="CECyT 3" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 3</h5>
-                        <p class="plantel-info">Estanislao Ramirez Ruíz</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c4.png" alt="CECyT 4" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 4</h5>
-                        <p class="plantel-info">Lázaro Cárdenas</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c5.png" alt="CECyT 5" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 5</h5>
-                        <p class="plantel-info">Benito Juárez García</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c6.png" alt="CECyT 6" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 6</h5>
-                        <p class="plantel-info">Miguel Othón de Mendizabal</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c7.png" alt="CECyT 7" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 7</h5>
-                        <p class="plantel-info">Cuauhtémoc</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c8.png" alt="CECyT 8" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 8</h5>
-                        <p class="plantel-info">Narciso Bassols García</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c9.png" alt="CECyT 9" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 9</h5>
-                        <p class="plantel-info">Juan de Dios Bátiz Paredes</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c10.png" alt="CECyT 10" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 10</h5>
-                        <p class="plantel-info">Carlos Vallejo Márquez</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c11.png" alt="CECyT 11" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 11</h5>
-                        <p class="plantel-info">Wilfrido Massieu</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c12.png" alt="CECyT 12" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 12</h5>
-                        <p class="plantel-info">José María Morelos</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c13.png" alt="CECyT 13" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 13</h5>
-                        <p class="plantel-info">Ricardo Flores Magón</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c14.png" alt="CECyT 14" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 14</h5>
-                        <p class="plantel-info">Luis Enrique Erro Soler</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c15.png" alt="CECyT 15" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 15</h5>
-                        <p class="plantel-info">Diódoro Antúnez Echagaray</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c16.png" alt="CECyT 16" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 16</h5>
-                        <p class="plantel-info">Unidad Hidalgo</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c17.png" alt="CECyT 17" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 17</h5>
-                        <p class="plantel-info">CUnidad Guanajuato</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c18.png" alt="CECyT 18" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 18</h5>
-                        <p class="plantel-info">Unidad Zacatecas</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/c19.png" alt="CECyT 19" class="plantel-img">
-                        <h5 class="plantel-name">CECyT 19</h5>
-                        <p class="plantel-info">Leona Vicario Unidad Tecámac</p>
-                    </div>
-                    <div class="plantel-card">
-                        <img src="/ce1.png" alt="CECT 1" class="plantel-img">
-                        <h5 class="plantel-name">CECT 1</h5>
-                        <p class="plantel-info">Walter Cross Buchanan</p>
-                    </div>
-                    
-                    <!-- Add Plantel Button -->
-                    <div class="add-plantel-card">
-                        <i class="fas fa-plus-circle add-icon"></i>
+                <div class="plantel-grid" id="plantelGrid">
+                    <!-- Planteles se cargarán aquí -->
+                </div>
+
+                <!-- Modal para añadir nuevo plantel -->
+                <div class="modal fade" id="addPlantelModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Añadir Nuevo Plantel</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addPlantelForm" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label for="plantelNombre" class="form-label">Nombre del Plantel</label>
+                                        <input type="text" class="form-control" id="plantelNombre" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="plantelImagen" class="form-label">Imagen del Plantel</label>
+                                        <input type="file" class="form-control" id="plantelImagen" accept="image/*">
+                                        <small class="text-muted">Formatos aceptados: .png, .jpg, .jpeg, .webp</small>
+                                        <div id="imagePreviewContainer"></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Catalogos del Plantel (opcional)</label>
+                                        <div id="categoriasContainer">
+                                            <!-- Categorías se añadirán aquí -->
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="addCategoriaBtn">
+                                            <i class="fas fa-plus"></i> Añadir Categoría
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
+                                <button type="button" class="btn btn-primary" id="savePlantelBtn">
+                                    <i class="fas fa-save"></i> Guardar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -679,7 +842,7 @@
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title">Usuarios</h5>
-                                <p class="card-text display-6 text-primary">1,245</p>
+                                <p class="card-text display-6 text-primary"><%= usuarios %></p>
                             </div>
                         </div>
                     </div>
@@ -687,28 +850,29 @@
                         <div class="card text-center">
                             <div class="card-body">
                                 <h5 class="card-title">Productos</h5>
-                                <p class="card-text display-6 text-success">873</p>
+                                <p class="card-text display-6 text-success"><%= producto %></p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card text-center">
                             <div class="card-body">
-                                <h5 class="card-title">Ventas</h5>
-                                <p class="card-text display-6 text-danger">$52,489</p>
+                                <h5 class="card-title">Planteles</h5>
+                                <p class="card-text display-6 text-danger"><%= plantel %></p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="card text-center">
                             <div class="card-body">
-                                <h5 class="card-title">Pedidos</h5>
-                                <p class="card-text display-6 text-warning">329</p>
+                                <h5 class="card-title">Especialidades</h5>
+                                <p class="card-text display-6 text-warning"><%= categoria %></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -724,7 +888,6 @@
                         <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                </div>
             </div>
             <div class="copyright">
                 © 2023 GERMAIN
@@ -734,50 +897,271 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        window.addEventListener('message', function(event) {
+    if (event.data.type === 'plantelUpdated') {
+        loadPlanteles(); // Recargar la lista de planteles
+    }
+});
         document.addEventListener('DOMContentLoaded', function() {
             const userProfileToggle = document.getElementById('userProfileToggle');
             const profileModal = document.getElementById('profileModal');
             const modalOverlay = document.getElementById('modalOverlay');
             const logoutBtn = document.getElementById('logoutBtn');
             
-            // Toggle modal when clicking user icon
+            // Mostrar/ocultar modal
             userProfileToggle.addEventListener('click', function() {
                 profileModal.classList.toggle('active');
                 modalOverlay.classList.toggle('active');
             });
             
-            // Close modal when clicking outside
             modalOverlay.addEventListener('click', function() {
                 profileModal.classList.remove('active');
                 modalOverlay.classList.remove('active');
             });
             
-            // Logout button functionality
             logoutBtn.addEventListener('click', function() {
-                // Add your logout logic here
-                window.location.href = '/salida'; // Redirect to logout route
+                window.location.href = '/salida';
             });
-            
-            // Example: Load user profile picture from server
-            function loadUserProfilePicture() {
-                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
-                const userProfilePic = document.getElementById('userProfilePic');
-                
-                // Example: check if user has a profile picture
-                const hasProfilePicture = true; // This would be determined by your backend
-                
-                if (hasProfilePicture) {
-                    // Replace with actual user profile picture URL
-                    userProfilePic.src = "/api/placeholder/200/200";
-                } else {
-                    // Use default avatar if no profile picture exists
-                    userProfilePic.src = "/default-avatar.png";
+
+            // Cargar datos del usuario
+            async function cargarDatosUsuario() {
+                try {
+                    const response = await fetch('/api/usuario/detalle', { credentials: 'include' });
+                    if (response.ok) {
+                        const userData = await response.json();
+                        
+                        const userNameElement = document.querySelector('.user-name');
+                        const userEmailElement = document.querySelector('.user-email');
+                        const userProfilePic = document.getElementById('userProfilePic');
+                        
+                        if (userNameElement) {
+                            userNameElement.textContent = `${userData.nombres} ${userData.apellidopat} ${userData.apellidomat}`;
+                        }
+                        
+                        if (userEmailElement) {
+                            userEmailElement.textContent = userData.correo;
+                        }
+                        
+                        if (userProfilePic && userData.imagen_perfil) {
+                            userProfilePic.src = `/showImage/${userData.imagen_perfil}`;
+                        }
+                    } else {
+                        console.warn('Usuario no activo o no encontrado');
+                    }
+                } catch (error) {
+                    console.error('Error al cargar datos del usuario:', error);
                 }
             }
+            cargarDatosUsuario();
+
+            // Funcionalidad de planteles
+            const plantelGrid = document.getElementById('plantelGrid');
+            const addPlantelModal = new bootstrap.Modal(document.getElementById('addPlantelModal'));
+            let plantelModalInitialized = false;
             
-            // Load user profile picture when the page loads
-            loadUserProfilePicture();
+            // Cargar planteles al iniciar
+            loadPlanteles();
+            
+            // Configurar el modal cuando se muestra
+            document.getElementById('addPlantelModal').addEventListener('shown.bs.modal', function() {
+                if (!plantelModalInitialized) {
+                    setupAddPlantelModal();
+                    plantelModalInitialized = true;
+                }
+                resetAddPlantelForm();
+            });
+
+            function setupAddPlantelModal() {
+                const addCategoriaBtn = document.getElementById('addCategoriaBtn');
+                const savePlantelBtn = document.getElementById('savePlantelBtn');
+                const categoriasContainer = document.getElementById('categoriasContainer');
+                const plantelImagen = document.getElementById('plantelImagen');
+                const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+                
+                // Vista previa de imagen
+                plantelImagen.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    imagePreviewContainer.innerHTML = '';
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const preview = document.createElement('img');
+                        preview.src = event.target.result;
+                        preview.style.maxWidth = '200px';
+                        preview.style.maxHeight = '200px';
+                        preview.style.marginTop = '10px';
+                        preview.style.borderRadius = '5px';
+                        imagePreviewContainer.appendChild(preview);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                
+                // Añadir categoría
+                addCategoriaBtn.addEventListener('click', function() {
+                    const div = document.createElement('div');
+                    div.className = 'input-group mb-2';
+                    div.innerHTML = `
+                        <input type="text" class="form-control" placeholder="Nombre de categoría">
+                        <button class="btn btn-outline-danger remove-categoria" type="button">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    categoriasContainer.appendChild(div);
+                    
+                    // Eliminar categoría
+                    div.querySelector('.remove-categoria').addEventListener('click', function() {
+                        div.remove();
+                    });
+                });
+                
+                // Guardar plantel
+                savePlantelBtn.addEventListener('click', async function() {
+                    const nombre = document.getElementById('plantelNombre').value.trim();
+                    const imagenInput = document.getElementById('plantelImagen');
+                    
+                    if (!nombre) {
+                        alert('Por favor ingresa el nombre del plantel');
+                        return;
+                    }
+                    
+                    const categoriasInputs = categoriasContainer.querySelectorAll('input[type="text"]');
+                    const categorias = Array.from(categoriasInputs).map(input => input.value.trim()).filter(Boolean);
+                    
+                    const formData = new FormData();
+                    formData.append('nombre', nombre);
+                    formData.append('imagen', imagenInput.files[0]);
+                    formData.append('categorias', JSON.stringify(categorias));
+                    
+                    try {
+                        savePlantelBtn.disabled = true;
+                        savePlantelBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Guardando...';
+                        
+                         const response = await fetch('/api/planteles', {
+                            method: 'POST',
+                            body: formData,  // No establezcas Content-Type manualmente
+                        });
+
+                        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al guardar');
+        }
+        
+        const data = await response.json();
+        addPlantelModal.hide();
+        loadPlanteles();  // Recargar la lista después de añadir
+        showToast('Plantel añadido correctamente', 'success');
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showToast(error.message || 'Error al guardar el plantel', 'danger');
+    } finally {
+        savePlantelBtn.disabled = false;
+        savePlantelBtn.innerHTML = '<i class="fas fa-save"></i> Guardar';
+    }
+                });
+            }
+
+            function resetAddPlantelForm() {
+                document.getElementById('plantelNombre').value = '';
+                document.getElementById('plantelImagen').value = '';
+                document.getElementById('categoriasContainer').innerHTML = '';
+                document.getElementById('imagePreviewContainer').innerHTML = '';
+            }
+
+           // Función modificada para cargar planteles
+async function loadPlanteles() {
+    try {
+        const response = await fetch('/api/planteles');
+        if (!response.ok) throw new Error('Error al cargar planteles');
+        
+        const planteles = await response.json();
+        renderPlanteles(planteles);
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Error al cargar planteles', 'danger');
+    }
+}
+            
+           // Cambia esta parte del script en admin.ejs:
+// En la función renderPlanteles
+function renderPlanteles(planteles) {
+    plantelGrid.innerHTML = '';
+    
+    planteles.sort((a, b) => {
+        const numA = extraerNumeroPlantel(a.nombre);
+        const numB = extraerNumeroPlantel(b.nombre);
+        return numA - numB;
+    });
+
+    planteles.forEach(plantel => {
+        const card = document.createElement('div');
+        card.className = 'plantel-card';
+        
+        // Generar nombre de imagen basado en el nombre del plantel
+        const numeroPlantel = extraerNumeroPlantel(plantel.nombre);
+        const prefijo = plantel.nombre.toLowerCase().includes('cet') ? 'cet' : 'c';
+        const imageName = numeroPlantel ? `${prefijo}${numeroPlantel}.png` : 'default-plantel.png';
+
+        const imageUrl = `/images/planteles/${imageName}`;
+
+        card.innerHTML = `
+            <img src="${imageUrl}" 
+                 onerror="this.onerror=null;this.src='/images/default-plantel.png'"
+                 alt="${plantel.nombre}" 
+                 class="plantel-img">
+            <h5 class="plantel-name">${plantel.nombre}</h5>
+        `;
+        
+        card.addEventListener('click', () => {
+            window.location.href = `/plantel/${plantel.plantel_id}`;
         });
+
+        plantelGrid.appendChild(card);
+    });
+
+    // Añadir botón para nuevo plantel
+    const addCard = document.createElement('div');
+    addCard.className = 'add-plantel-card';
+    addCard.innerHTML = '<i class="fas fa-plus-circle add-icon"></i>';
+    addCard.addEventListener('click', () => {
+        resetAddPlantelForm();
+        addPlantelModal.show();
+    });
+    plantelGrid.appendChild(addCard);
+}
+
+    function extraerNumeroPlantel(nombre) {
+        // Ahora también acepta CET #
+        const match = nombre.match(/(?:CECyT|CET)[\s\-_]*(?:No\.?)?[\s\-_]*(\d+)/i);
+        return match ? parseInt(match[1]) : null;
+    }
+            function renderNewPlantel(plantel, imageName) {
+    const card = document.createElement('div');
+    card.className = 'plantel-card';
+
+    const imageUrl = `/images/planteles/${imageName}`;
+
+    card.innerHTML = `
+        <img src="${imageUrl}" 
+             onerror="this.onerror=null;this.src='/images/planteles/default.png'"
+             alt="${plantel.nombre}" 
+             class="plantel-img">
+        <h5 class="plantel-name">${plantel.nombre}</h5>
+    `;
+
+    plantelGrid.appendChild(card);
+}
+
+        });
+
+        // Al final de admin.ejs, añade:
+window.addEventListener('message', function(event) {
+    if (event.data.type === 'plantelUpdated') {
+        loadPlanteles(); // Recargar la lista de planteles
+    }
+});
     </script>
 </body>
 </html>

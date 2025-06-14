@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva publicación - Germain</title>
-    <link rel="icon" href="/icon.png" type="image/x-icon">
+   <link rel="icon" href="/icond.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF9900;
-            --secondary-color: #44006b;
-            --accent-color: #FF7200;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --primary-color: #4A1F43;
+            --secondary-color: #4a1f39;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
             --text-color: #333;
-            --light-orange-1: #FFF3E0;
-            --light-orange-2: #FFEACC;
+            --white: #ffffff;
         }
         
         * {
@@ -27,16 +27,16 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
+            background-color: var(--light-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
         }
         
-        /* HEADER & NAVBAR */
+        /* HEADER & NAVBAR - Identical to profile */
         .navbar {
             background-color: var(--primary-color) !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
@@ -44,7 +44,7 @@
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--text-color) !important;
+            color: var(--white) !important;
             display: flex;
             align-items: center;
         }
@@ -69,9 +69,17 @@
             width: 100%;
             padding: 10px 15px;
             border-radius: 50px;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid var(--neutral-light);
+            box-shadow: 0 2px 10px rgba(113, 28, 70, 0.1);
             font-size: 0.9rem;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
         }
 
         .search-btn {
@@ -80,9 +88,14 @@
             top: 5px;
             background: none;
             border: none;
-            color: #999;
+            color: var(--dark-color);
             cursor: pointer;
             padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: var(--secondary-color);
         }
 
         .nav-icons {
@@ -92,86 +105,75 @@
 
         .nav-icon {
             font-size: 1.3rem;
-            color: var(--text-color);
+            color: var(--white);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .nav-icon:hover {
-            color: white;
+            color: var(--light-color);
             transform: scale(1.1);
         }
-        
-        .dashboard-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-right: 15px;
-        }
-        
-        .dashboard-btn:hover {
-            background-color: #e56600;
-            transform: translateY(-2px);
-        }
-        
-        /* USER PROFILE MODAL */
+    
+        /* USER PROFILE MODAL*/
         .profile-modal {
             position: fixed;
             top: 80px;
             right: 20px;
             width: 320px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
             z-index: 1000;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
         }
-        
+
         .profile-modal.active {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
-        
+
         .profile-modal-header {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
             padding: 15px;
             text-align: center;
             font-weight: bold;
             font-size: 1.2rem;
         }
-        
+
         .profile-modal-body {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        
+
         .profile-picture {
             width: 120px;
             height: 120px;
-            background-color: var(--light-orange-1);
             border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin: 0 auto 15px;
+            position: relative;
+            background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
+            border: 3px solid var(--neutral-light);
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
         }
-        
+
         .profile-picture img {
+            position: absolute;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            top: 0;
+            left: 0;
         }
         
         .user-name {
@@ -179,37 +181,40 @@
             font-weight: 600;
             font-size: 1.2rem;
             margin-bottom: 5px;
+            color: var(--dark-color);
         }
         
         .user-email {
             text-align: center;
-            color: #888;
+            color: var(--dark-color);
             font-size: 0.9rem;
             margin-bottom: 20px;
+            opacity: 0.8;
         }
         
         .profile-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--neutral-light);
+            width: 100%;
         }
         
         .profile-menu-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--neutral-light);
         }
         
         .profile-menu-link {
             padding: 12px 0;
             display: flex;
             align-items: center;
-            color: var(--text-color);
+            color: var(--dark-color);
             text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .profile-menu-link:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
             transform: translateX(5px);
         }
         
@@ -218,18 +223,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
         
         .logout-btn {
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: var(--accent-color);
-            color: white;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
             text-align: center;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
             font-weight: 600;
             cursor: pointer;
@@ -237,11 +242,10 @@
         }
         
         .logout-btn:hover {
-            background-color: #e56600;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
         
-        /* Overlay for closing modal when clicking outside */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -257,178 +261,230 @@
             display: block;
         }
 
-        /* BREADCRUMB */
-        .breadcrumb-container {
-            background-color: #f5f5f5;
-            padding: 10px 0;
-            margin-top: 0;
-        }
-
-        .breadcrumb {
-            margin-bottom: 0;
-            padding: 0;
-        }
-
-        .breadcrumb-item a {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        .breadcrumb-item.active {
-            color: var(--text-color);
-        }
-
-        /* Main Content */
+        /* MAIN CONTENT */
         main {
-            margin-top: 10vh;
-            padding: 10px 5% 40px;
+            margin-top: 65px;
+            padding:30px 50px;
         }
 
         .product-form-container {
+            max-width: 1700px;
+            margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            padding: 40px;
+            gap: 30px;
+            justify-content: center;
         }
 
         .image-section {
             flex: 1;
             min-width: 300px;
+            max-width: 700px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(113, 28, 70, 0.1);
+            border: 1px solid var(--neutral-light);
         }
 
         .details-section {
             flex: 1;
             min-width: 300px;
+            max-width: 800px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(113, 28, 70, 0.1);
+            border: 1px solid var(--neutral-light);
         }
 
-        .image-upload-container {
+        .main-image-box, .thumbnail-box {
+            border: 2px dashed var(--neutral-light);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--light-color);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
         }
 
         .main-image-box {
-            border: 1px solid #ddd;
-            border-radius: 5px;
             height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .thumbnail-box {
+            height: 150px;
+        }
+
+        .main-image-box:hover, .thumbnail-box:hover {
+            border-color: var(--secondary-color);
+            background: rgba(113, 28, 70, 0.05);
         }
 
         .thumbnail-container {
             display: flex;
-            gap: 10px;
+            gap: 15px;
         }
 
         .thumbnail-box {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            flex: 1;
+        }
+
+        .image-input {
+            display: none;
         }
 
         .upload-icon {
-            font-size: 2em;
-            color: #ccc;
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .input-placeholder {
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .details-section h5 {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        .details-section h5:first-child {
+            margin-top: 0;
         }
 
         .form-control, .form-select {
-            border-radius: 20px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--neutral-light);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: var(--white);
             margin-bottom: 15px;
         }
 
-        .form-label {
-            font-weight: normal;
-            margin-bottom: 5px;
-            color: #555;
+        .form-control:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
         }
 
-        h1 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            font-weight: normal;
-        }
-
-        /* Quantity selector */
         .quantity-selector {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            justify-content: center;
+            margin: 25px 0;
+            gap: 15px;
         }
 
         .quantity-btn {
-            background-color: #f0f0f0;
-            border: none;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--neutral-light);
+            background: var(--white);
             border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+        }
+
+        .quantity-btn:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+            transform: scale(1.1);
         }
 
         .quantity-display {
-            padding: 0 20px;
+            background: var(--light-color);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid var(--neutral-light);
         }
 
-        /* Submit button */
+        .quantity-display input {
+            background: transparent;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
         .publish-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 12px 25px;
-            font-size: 16px;
-            cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
         }
 
         .publish-btn:hover {
-            background-color: #E56700;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
 
-        /* FOOTER */
+        .campo-invalido {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2) !important;
+        }
+
+        /* FOOTER - Identical to profile */
         .footer {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 3rem 0 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 0 2rem;
             margin-top: 80px;
         }
         
         .footer-logo {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             max-width: 160px;
         }
         
         .footer-section p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
         }
         
         .footer-title {
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             font-size: 16px;
-            color: #333;
+            color: var(--white);
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
         
         .footer-title::after {
@@ -436,34 +492,37 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 40px;
+            width: 50px;
             height: 3px;
-            background-color: var(--accent-color);
+            background-color: var(--light-color);
+            border-radius: 2px;
         }
         
         .footer-links a {
-            color: #333;
+            color: var(--white);
             text-decoration: none;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             transition: all 0.3s ease;
             position: relative;
-            padding-left: 15px;
+            padding-left: 20px;
+            opacity: 0.9;
         }
         
         .footer-links a::before {
             content: "→";
             position: absolute;
             left: 0;
-            color: var(--accent-color);
+            color: var(--light-color);
             opacity: 0;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
-            color: var(--accent-color);
-            transform: translateX(5px);
+            color: var(--light-color);
+            transform: translateX(8px);
             text-decoration: none;
+            opacity: 1;
         }
         
         .footer-links a:hover::before {
@@ -473,142 +532,80 @@
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .social-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: white;
+            width: 45px;
+            height: 45px;
+            background-color: var(--white);
             border-radius: 50%;
-            color: var(--accent-color);
+            color: var(--primary-color);
             font-size: 18px;
             transition: all 0.3s ease;
             text-decoration: none;
         }
         
         .social-icon:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background-color: var(--light-color);
+            color: var(--accent-color);
             transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .copyright {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
             font-weight: 500;
-        }
-
-        /* FLOATING BUTTONS */
-        .floating-btn {
-            position: fixed;
-            bottom: 25px;
-            z-index: 99;
-            border-radius: 50px;
-            padding: 12px 25px;
-            color: white;
-            font-size: 16px;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .warehouse-btn {
-            left: 20px;
-            background-color: var(--accent-color);
-        }
-
-        .warehouse-btn:hover {
-            background-color: #E56700;
-            transform: translateY(-5px);
-            color: white;
-        }
-
-        .exit-btn {
-            right: 20px;
-            background-color: #dc3545;
-        }
-
-        .exit-btn:hover {
-            background-color: #c82333;
-            transform: translateY(-5px);
-            color: white;
+            opacity: 0.9;
         }
 
         /* RESPONSIVE */
         @media (max-width: 992px) {
             .footer-section {
-                margin-bottom: 30px;
+                margin-bottom: 40px;
+            }
+            
+            .search-form {
+                margin: 15px 0;
             }
         }
 
         @media (max-width: 768px) {
-            main {
-                padding: 40px 4%;
+            .product-form-container {
+                flex-direction: column;
             }
             
-            .product-form-container {
-                padding: 30px 20px;
+            .thumbnail-container {
+                flex-direction: column;
+            }
+            
+            .thumbnail-box {
+                height: 120px;
+            }
+            
+            .main-image-box {
+                height: 250px;
             }
         }
 
         @media (max-width: 576px) {
-            .floating-btn {
-                padding: 10px 15px;
-                font-size: 14px;
+            main {
+                margin-top: 80px;
+                padding: 20px 10px;
+            }
+            
+            .image-section, .details-section {
+                padding: 20px;
             }
         }
     </style>
 </head>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Buscar todos los enlaces que contengan "Cambiar a proveedor"
-        const enlaces = document.querySelectorAll('a.profile-menu-link');
-        
-        enlaces.forEach(enlace => {
-            if (enlace.textContent.includes('Cambiar a comprador')) {
-                enlace.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Crear el overlay
-                    const overlay = document.createElement('div');
-                    overlay.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: #e56600;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 99999;
-                        color: white;
-                        font-size: 2rem;
-                        font-weight: bold;
-                    `;
-                    overlay.textContent = 'Cambiando a Comprador';
-                    
-                    document.body.appendChild(overlay);
-                    
-                    // Redirigir después de 3 segundos
-                    setTimeout(() => {
-                        window.location.href = this.href;
-                    }, 3000);
-                });
-            }
-        });
-    });
-    </script>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -634,8 +631,7 @@
             </div>
         </nav>
     </header>
-
-    <!-- User Profile Modal -->
+    <!--Modal de usuario-->
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="profile-modal" id="profileModal">
         <div class="profile-modal-header">
@@ -645,88 +641,78 @@
             <div class="profile-picture">
                 <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
             </div>
-            <h4 class="user-name">Tribios Jano Oqueima</h4>
-            <p class="user-email">tribbie.agli@gmail.com</p>
-            
-            <ul class="profile-menu">
-                <li class="profile-menu-item">
-                    <a href="/" class="profile-menu-link">
-                        <span class="profile-menu-icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </span>
-                        Cambiar a comprador
-                    </a>
-                </li>
-            </ul>
-            
+            <h4 class="user-name"></h4>
+            <p class="user-email"></p>            
             <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
         </div>
     </div>
-
-    <div class="breadcrumb-container">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                    <li class="breadcrumb-item active">Nueva publicación</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-
-    <main>
+<main>
+        
         <form id="FormularioP" action="/agregar-producto" method="POST" enctype="multipart/form-data">
             <div class="product-form-container">
-                <div class="image-section">
-                    <div class="main-image-box">
-                        <i class="fas fa-camera upload-icon" id="main-img-preview"></i>
-                    </div>
-                    <div class="thumbnail-container">
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
-                        </div>
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
-                        </div>
-                        <div class="thumbnail-box">
-                            <i class="fas fa-camera upload-icon"></i>
-                        </div>
-                    </div>
-                    <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*" required style="display: none;">
+               <div class="image-section">
+                <div class="main-image-box" id="main-wrapper" onclick="document.getElementById('img-principal').click()">
+                    <input type="file" name="imagen" id="img-principal" accept="image/*" class="image-input"
+                    onchange="previewImage(event, 'main-img-preview', 'main-img-icon', 'main-wrapper', 'main-img-label')">
+                    <i id="main-img-icon" class="fas fa-camera upload-icon"></i>
+                    <img id="main-img-preview" class="image-preview" style="display: none;">
+                    <span id="main-img-label" class="input-placeholder">Seleccione imagen 1</span>
                 </div>
+
+                <div class="thumbnail-container">
+                    <div class="thumbnail-box" id="thumb-1-wrapper" onclick="document.getElementById('img-secun1').click()">
+                        <input type="file" name="imagen2" id="img-secun1" accept="image/*" class="image-input"
+                        onchange="previewImage(event, 'thumb-1-preview', 'thumb-1-icon', 'thumb-1-wrapper', 'thumb-1-label')">
+
+                        <i id="thumb-1-icon" class="fas fa-camera upload-icon"></i>
+                        <img id="thumb-1-preview" class="image-preview" style="display: none;">
+                        <span id="thumb-1-label" class="input-placeholder">Seleccione imagen 2</span>
+                    </div>
+
+                    <div class="thumbnail-box" id="thumb-2-wrapper" onclick="document.getElementById('img-secun2').click()">
+                        <input type="file" name="imagen3" id="img-secun2" accept="image/*" class="image-input"
+                        onchange="previewImage(event, 'thumb-2-preview', 'thumb-2-icon', 'thumb-2-wrapper', 'thumb-2-label')">
+                        <i id="thumb-2-icon" class="fas fa-camera upload-icon"></i>
+                        <img id="thumb-2-preview" class="image-preview" style="display: none;">
+                        <span id="thumb-2-label" class="input-placeholder">Seleccione imagen 3</span>
+                    </div>
+                </div>
+            </div>
                 
                 <div class="details-section">
-                    <h1>Nombre del producto</h1>
+                    <h5>Nombre del producto</h5>
                     <input type="text" id="nombre" name="nombre" class="form-control" required placeholder="Nombre del producto">
                     
-                    <h1>Precio unitario</h1>
+                    <h5>Precio unitario</h5>
                     <input type="number" id="precio" name="precio" class="form-control" min="0" value="0" step=".01" required placeholder="$0.00">
                     
                     <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
+                        <h5>Descripción</h5>
                         <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required></textarea>
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label">Plantel</label>
-                        <select id="categoria" name="categoria" class="form-select" required>
-                            <option value="" disabled selected>Seleccione</option>
-                            <option value="1">CECyT 1</option>
-                            <option value="9">CECyT 9</option>
-                            <option value="11">CECyT 11</option>
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="catalogo" class="form-label">Catálogo</label>
-                        <select id="catalogo" name="catalogo" class="form-select">
-                            <option value="" disabled selected>Seleccione</option>
-                            <option value="1">Libros</option>
-                            <option value="2">Útiles</option>
-                            <option value="3">Electrónica</option>
-                        </select>
-                    </div>
-                    
+                    <h5>Plantel</h5>
+                    <select id="plantelSelect" name="plantel" class="form-select" required>
+                        <option value="">Seleccione un plantel</option>
+                        <% 
+                            const seen = new Set();
+                            const unicos = planteles.filter(p => {
+                                if (seen.has(p.plantel_id)) return false;
+                                seen.add(p.plantel_id);
+                                return true;
+                            });
+                            unicos.forEach(p => { 
+                        %>
+                            <option value="<%= p.plantel_id %>"><%= p.nombre %></option>
+                        <% }) %>
+                    </select>
+
+                    <h5>Catálogo</h5>
+                    <select id="catalogoSelect" name="catalogo" class="form-select" required>
+                        <option value="">Seleccione un catálogo</option>
+                    </select>
+
+                    <h5>Cantidad</h5>
                     <div class="quantity-selector">
                         <button type="button" class="quantity-btn" id="decrease">−</button>
                         <div class="quantity-display">
@@ -763,85 +749,253 @@
             </div>
         </div>
     </footer>
+<script>
+    function previewImage(event, imgId, iconId, wrapperId, labelId) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = document.getElementById(imgId);
+            const icon = document.getElementById(iconId);
+            const wrapper = document.getElementById(wrapperId);
+            const label = document.getElementById(labelId);
 
-    <script>
-        // Imagen preview
-        document.getElementById('main-img-preview').addEventListener('click', function() {
-            document.getElementById('imagen').click();
-        });
-        
-        document.getElementById('imagen').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const mainPreview = document.getElementById('main-img-preview');
-                    mainPreview.className = '';
-                    mainPreview.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 100%;" />`;
+            img.src = e.target.result;
+            img.style.display = "block";
+            if (icon) icon.style.display = "none";
+            if (label) label.style.display = "none";
+
+            img.onload = function () {
+                    if (wrapper) {
+                        const isMain = wrapperId.includes('main');
+                        const isThumb = wrapperId.includes('thumb');
+                        const aspectRatio = img.naturalHeight / img.naturalWidth;
+                        const baseWidth = wrapper.offsetWidth;
+                        let newHeight = baseWidth * aspectRatio;
+
+                    if (isMain) {
+                    wrapper.style.height = newHeight + 'px';
+                    }
+
+                    if (isThumb) {
+                    const maxHeight = 250;
+                    if (newHeight > maxHeight) newHeight = maxHeight;
+                    wrapper.style.height = newHeight + 'px';
+                    }
                 }
-                reader.readAsDataURL(file);
+            };
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('FormularioP');
+    const imgPrincipal = document.getElementById('img-principal');
+    const imgsecun1 = document.getElementById('img-secun1');
+    const imgsecun2 = document.getElementById('img-secun2');
+    const precio = document.getElementById('precio');
+    const cantidadInput = document.getElementById('cantidad');
+    const increaseBtn = document.getElementById('increase');
+    const decreaseBtn = document.getElementById('decrease');
+
+    function validarImagen(input) {
+        const file = input.files[0];
+        if (!file) return true;
+        const validTypes = ['image/png', 'image/jpeg'];
+        if (!validTypes.includes(file.type)) {
+            alert('Solo se permiten imágenes de tipo .png o .jpg');
+            input.value = '';
+            return false;
+        }
+        return true;
+    }
+    [imgPrincipal, imgsecun1, imgsecun2].forEach(input => {input.addEventListener('change', () => validarImagen(input));});
+
+    precio.addEventListener('input', () => {
+        if (parseFloat(precio.value) <= 0) {
+            precio.setCustomValidity('El precio debe ser mayor a $0');
+        } else {
+            precio.setCustomValidity('');
+        }
+    });
+
+    increaseBtn.addEventListener('click', () => {
+        let current = parseInt(cantidadInput.value);
+        cantidadInput.value = current + 1;
+    });
+
+    decreaseBtn.addEventListener('click', () => {
+        let current = parseInt(cantidadInput.value);
+        if (current > 1) {
+            cantidadInput.value = current - 1;
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        const imagenesValidas = [imgPrincipal, imgsecun1, imgsecun2].every(validarImagen);
+        if (!imagenesValidas) {
+            e.preventDefault();
+            return;
+        }
+            const catalogo = document.getElementById('catalogoSelect');
+                if (!catalogo.value) {
+                    alert('Seleccione un catálogo antes de enviar el formulario.');
+                    e.preventDefault();
+                    return;
+                }
+            const camposImagenes = [
+                { input: imgPrincipal, nombre: 'Imagen principal' },
+                { input: imgsecun1, nombre: 'Imagen 2' },
+                { input: imgsecun2, nombre: 'Imagen 3' }
+            ];
+
+        let imagenesSubidas = true;
+        camposImagenes.forEach(({ input, nombre }) => {
+            if (!input.files || input.files.length === 0) {
+                alert(`Debes subir ${nombre}.`);
+                imagenesSubidas = false;
             }
         });
-        
-        // Contador de cantidad
-        document.getElementById('decrease').addEventListener('click', function() {
-            const input = document.getElementById('cantidad');
-            const value = parseInt(input.value);
-            if (value > 1) {
-                input.value = value - 1;
+
+        if (!imagenesSubidas) {e.preventDefault();return;}
+
+        const campos = form.querySelectorAll('input[required], select[required], textarea[required]');
+        let camposValidos = true;
+
+        campos.forEach(campo => {
+            if (!campo.value || campo.value.trim() === '') {
+                campo.classList.add('campo-invalido');
+                camposValidos = false;
+            } else {
+                campo.classList.remove('campo-invalido');
             }
         });
+
+        if (parseFloat(precio.value) <= 0) {
+            alert('El precio debe ser mayor a $0');
+            camposValidos = false;
+        }
+
+        if (parseInt(cantidadInput.value) < 1) {
+            alert('La cantidad del producto debe ser al menos 1');
+            camposValidos = false;
+        }
+
+        if (!camposValidos) {
+            e.preventDefault();
+            alert('Por favor, completa todos los campos de manera correcta.');
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const plantelSelect = document.getElementById("plantelSelect");
+    const catalogoSelect = document.getElementById("catalogoSelect");
+
+    plantelSelect.addEventListener("change", async () => {
+        const plantelId = plantelSelect.value;
+
         
-        document.getElementById('increase').addEventListener('click', function() {
-            const input = document.getElementById('cantidad');
-            input.value = parseInt(input.value) + 1;
-        });
-        
-        // Submit form
-        document.getElementById('FormularioP').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const formu = event.target;
-            const formuDato = new FormData(formu);
-            
+        catalogoSelect.innerHTML = '<option value="">Seleccione un catálogo</option>';
+
+        if (plantelId) {
             try {
-                const response = await fetch(formu.action, {
-                    method: formu.method,
-                    body: formuDato
+                const response = await fetch(`/api/catalogos/${plantelId}`);
+                const catalogos = await response.json();
+
+                catalogos.forEach(c => {
+                    if (c.catalogo_id) { 
+                        const option = document.createElement("option");
+                        option.value = String(c.catalogo_id); 
+                        option.textContent = c.nombre;
+                        catalogoSelect.appendChild(option);
+                    }
                 });
 
-                const resultado = await response.json();
 
-                if (resultado.success) {
-                    alert(resultado.message);
-                    window.location.href = '/';
-                } else {
-                    alert(resultado.message || 'Error al agregar el producto');
-                }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Error al comunicarse con el servidor');
+                console.error("Error al cargar catálogos:", error);
             }
-        });
+        }
+    });
+});
 
-        const userProfileToggle = document.getElementById('userProfileToggle');
-        const profileModal = document.getElementById('profileModal');
-        const modalOverlay = document.getElementById('modalOverlay');
-        
-        userProfileToggle.addEventListener('click', () => {
-            profileModal.classList.toggle('active');
-            modalOverlay.classList.toggle('active');
+    // ==== MODAL DE USUARIO ====
+document.addEventListener('DOMContentLoaded', () => {
+    const iconoPerfil = document.getElementById('userProfileToggle');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const profileModal = document.getElementById('profileModal');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    function toggleModal() {
+        console.log('toggleModal ejecutado');
+        modalOverlay.classList.toggle('active');
+        profileModal.classList.toggle('active');
+    }
+
+    // Abrir modal
+    if (iconoPerfil) {
+        iconoPerfil.addEventListener('click', function (e) {
+            e.stopPropagation();
+            toggleModal();
         });
-        
-        modalOverlay.addEventListener('click', () => {
-            profileModal.classList.remove('active');
-            modalOverlay.classList.remove('active');
+    }
+
+    // Cerrar al hacer clic fuera
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', function () {
+            toggleModal();
         });
-        
-        // Logout button
-        logoutBtn.addEventListener('click', function() {
-                // Add your logout logic here
-                window.location.href = '/salida'; // Redirect to logout route
-            });
-    </script>
+    }
+
+    // Cerrar con ESC
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && profileModal.classList.contains('active')) {
+            toggleModal();
+        }
+    });
+
+    // Logout
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            window.location.href = '/salida';
+        });
+    }
+
+  // Cargar datos del usuario activo
+async function cargarDatosUsuario() {
+    try {
+        const response = await fetch('/api/usuario/detalle', { credentials: 'include' });
+        if (response.ok) {
+            const userData = await response.json();
+            
+            const userNameElement = document.querySelector('.user-name');
+            const userEmailElement = document.querySelector('.user-email');
+            const userProfilePic = document.getElementById('userProfilePic');
+            
+            if (userNameElement) {
+                userNameElement.textContent = `${userData.nombres} ${userData.apellidopat} ${userData.apellidomat}`;
+            }
+            
+            if (userEmailElement) {
+                userEmailElement.textContent = userData.correo;
+            }
+            
+            if (userProfilePic && userData.imagen_perfil) {
+                userProfilePic.src = `/showImage/${userData.imagen_perfil}`;
+            }
+        } else {
+            console.warn('Usuario no activo o no encontrado');
+        }
+    } catch (error) {
+        console.error('Error al cargar datos del usuario:', error);
+    }
+}
+
+cargarDatosUsuario();
+
+});
+</script>
 </body>
 </html>

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicaciones Plantel - Germain</title>
+    <link rel="icon" href="/icond.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #44006b;
+            --accent-color: #FF7200;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --light-orange-1: #FFF3E0;
+            --light-orange-2: #FFEACC;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            height: 40px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .search-form {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* USER PROFILE MODAL */
+        .profile-modal {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .profile-modal-header {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .profile-modal-body {
+            padding: 20px;
+        }
+        
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            background-color: var(--light-orange-1);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .user-email {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .profile-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .profile-menu-item {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-menu-link {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-menu-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+        
+        .profile-menu-icon {
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: #e56600;
+            transform: translateY(-2px);
+        }
+        
+        /* Overlay for closing modal when clicking outside */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 999;
+            display: none;
+        }
+        
+        .modal-overlay.active {
+            display: block;
+        }
+
+        /* MAIN CONTENT - PUBLICATION HISTORY */
+        .main-content {
+            margin-top: 100px;
+            padding: 20px 0;
+            min-height: calc(100vh - 350px);
+        }
+        
+        .publications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .publications-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .export-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .export-btn:hover {
+            background-color: #e56600;
+            transform: translateY(-2px);
+        }
+        
+        .publications-table {
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .publications-table th {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .publications-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .publications-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .publications-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            color: var(--accent-color);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .page-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn.active {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-weight: 600;
+            border-color: var(--primary-color);
+        }
+        
+        .page-btn:hover:not(.active) {
+            background-color: #f5f5f5;
+        }
+        
+        .page-arrow {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0 12px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .page-arrow:hover {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+        }
+        
+        .page-arrow.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Admin specific styles */
+        .admin-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-section {
+                margin-bottom: 30px;
+            }
+            
+            .search-form {
+                margin: 15px 0;
+            }
+            
+            .publications-table {
+                overflow-x: auto;
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 70px;
+            }
+            
+            .publications-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .publications-actions {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            .publications-table th,
+            .publications-table td {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .pagination {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Buscar todos los enlaces que contengan "Cambiar a proveedor"
+        const enlaces = document.querySelectorAll('a.profile-menu-link');
+        
+        enlaces.forEach(enlace => {
+            if (enlace.textContent.includes('Ver panel de usuario')) {
+                enlace.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Crear el overlay
+                    const overlay = document.createElement('div');
+                    overlay.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: #e56600;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 99999;
+                        color: white;
+                        font-size: 2rem;
+                        font-weight: bold;
+                    `;
+                    overlay.textContent = 'Cambiando a Vista de Usuario';
+                    
+                    document.body.appendChild(overlay);
+                    
+                    // Redirigir después de 3 segundos
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 3000);
+                });
+            }
+        });
+    });
+</script>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/admin">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                    <span>Admin<span class="admin-badge">Panel</span></span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <form class="search-form mx-auto">
+                        <input type="text" class="search-input" placeholder="Buscar productos, planteles o categorías...">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                    
+                    <div class="nav-icons">
+                        <span class="nav-icon" id="userProfileToggle">
+                            <i class="fas fa-user-shield"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-modal-header">
+            Administrador
+        </div>
+        <div class="profile-modal-body">
+            <div class="profile-picture">
+                <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+            </div>
+            <h4 class="user-name">Admin Germain</h4>
+            <p class="user-email">admin@germain.edu.mx</p>
+            
+            <ul class="profile-menu">
+                <li class="profile-menu-item">
+                    <a href="/admin/ajustes" class="profile-menu-link">
+                        <span class="profile-menu-icon">
+                            <i class="fas fa-cog"></i>
+                        </span>
+                        Configuración
+                    </a>
+                </li>
+                <li class="profile-menu-item">
+                    <a href="/" class="profile-menu-link">
+                        <span class="profile-menu-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </span>
+                        Ver panel de usuario
+                    </a>
+                </li>
+            </ul>
+            
+            <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="publications-header">
+                <h5 class="publications-title">Panel de Control - Publicaciones</h5>
+                <div class="publications-actions d-flex gap-3">
+                    <button class="filter-btn">
+                        <i class="fas fa-filter"></i>
+                        Filtrar
+                    </button>
+                    <button class="export-btn">
+                        <i class="fas fa-file-export"></i>
+                        Exportar datos
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="publications-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Producto</th>
+                            <th>Plantel</th>
+                            <th>Catálogo</th>
+                            <th>Cantidad</th>
+                            <th>Costo unitario</th>
+                            <th>Fecha de publicación</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>16</td>
+                            <td>Juego de 4 marcadores</td>
+                            <td>CECyT 1</td>
+                            <td>Tienda campus</td>
+                            <td>2</td>
+                            <td>$50</td>
+                            <td>04/06/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>Corrector de tinta</td>
+                            <td>CECyT 8</td>
+                            <td>Tienda campus</td>
+                            <td>1</td>
+                            <td>$35</td>
+                            <td>08/06/2023</td>
+                            <td>Disponible</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>Juego de 3 gomas de migajón</td>
+                            <td>CECyT 1</td>
+                            <td>Tienda campus</td>
+                            <td>1</td>
+                            <td>$15</td>
+                            <td>03/08/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>Cuaderno profesional</td>
+                            <td>CECyT 7</td>
+                            <td>Tienda campus</td>
+                            <td>3</td>
+                            <td>$25</td>
+                            <td>08/05/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>Cuaderno profesional</td>
+                            <td>CECyT 6</td>
+                            <td>Tienda campus</td>
+                            <td>9</td>
+                            <td>$35</td>
+                            <td>26/12/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21</td>
+                            <td>Bote de blanqueador</td>
+                            <td>CECyT 11</td>
+                            <td>Tienda campus</td>
+                            <td>2</td>
+                            <td>$212</td>
+                            <td>18/09/2023</td>
+                            <td>Disponible</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>Audífonos</td>
+                            <td>CECyT 13</td>
+                            <td>Tienda campus</td>
+                            <td>3</td>
+                            <td>$180</td>
+                            <td>19/02/2023</td>
+                            <td>Disponible</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23</td>
+                            <td>Engrapadora</td>
+                            <td>CECyT 11</td>
+                            <td>Tienda campus</td>
+                            <td>1</td>
+                            <td>$90</td>
+                            <td>25/03/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td>Diurex</td>
+                            <td>CECyT 19</td>
+                            <td>Tienda campus</td>
+                            <td>3</td>
+                            <td>$5</td>
+                            <td>30/03/2023</td>
+                            <td>Disponible</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td>Calculadora Casio</td>
+                            <td>CECyT 3</td>
+                            <td>Tienda campus</td>
+                            <td>4</td>
+                            <td>$500</td>
+                            <td>20/07/2023</td>
+                            <td>Disponible</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>26</td>
+                            <td>Voltímetro</td>
+                            <td>CECyT 3</td>
+                            <td>Sistemas digitales</td>
+                            <td>10</td>
+                            <td>$850</td>
+                            <td>18/07/2023</td>
+                            <td>Disponible</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>27</td>
+                            <td>Regla T</td>
+                            <td>CECyT 7</td>
+                            <td>Dibujo técnico</td>
+                            <td>1</td>
+                            <td>$145</td>
+                            <td>05/08/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>28</td>
+                            <td>Voltímetro</td>
+                            <td>CECyT 9</td>
+                            <td>Sistemas digitales</td>
+                            <td>2</td>
+                            <td>$920</td>
+                            <td>06/04/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>29</td>
+                            <td>Memoria USB 128gb</td>
+                            <td>CECyT 9</td>
+                            <td>Programación</td>
+                            <td>8</td>
+                            <td>$130</td>
+                            <td>03/07/2023</td>
+                            <td>Agotado</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+        <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>

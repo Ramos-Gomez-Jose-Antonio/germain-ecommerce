@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación Exitosa - Germain</title>
+    <link rel="icon" href="/icond.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4A1F43;
+            --primary-hover: #4a1f39;
+            --secondary-color: #55002A;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
+            --text-color: #333;
+            --white: #ffffff;
+            --success-color: #4CAF50; /* Mantenemos el verde para éxito */
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--white);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            height: 50px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contenedor principal */
+        .verification-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--neutral-light);
+        }
+        
+        /* Título */
+        .verification-title {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin: 0 0 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        /* Subtítulo */
+        .verification-subtitle {
+            color: var(--dark-color);
+            opacity: 0.8;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        /* Icono de verificación */
+        .verification-icon {
+            font-size: 80px;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Botones */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 25px;
+            color: var(--white);
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 31, 67, 0.3);
+            color: var(--white);
+        }
+        
+        /* Alertas */
+        .alert {
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 450px;
+            border: none;
+            font-size: 14px;
+        }
+        
+        /* Animación para el check */
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .check-circle {
+            animation: checkmark 0.8s ease-in-out;
+        }
+        
+        /* Información de cuenta */
+        .account-info {
+            background-color: var(--light-color);
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
+            margin-top: 20px;
+            border: 1px solid var(--neutral-light);
+        }
+        
+        .account-info h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .account-info p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--dark-color);
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .verification-container {
+                padding: 30px 15px;
+                margin: 20px auto;
+            }
+            
+            .verification-title {
+                font-size: 22px;
+            }
+            
+            .verification-icon {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+            </a>
+        </div>
+    </nav>
+
+    <!-- Verification Success Section -->
+    <section class="verification-container">
+        <div class="verification-icon">
+            <i class="fas fa-check-circle check-circle"></i>
+        </div>
+        <h1 class="verification-title">¡Correo verificado exitosamente!</h1>
+        <p class="verification-subtitle">Tu dirección de correo electrónico ha sido verificada correctamente. Ya puedes acceder a tu cuenta y disfrutar de todos los servicios de Germain.</p>
+        
+        <div class="alert alert-success" role="alert">
+            <i class="fas fa-info-circle"></i> La verificación se ha completado con éxito. Ahora puedes acceder a tu cuenta.
+        </div>
+        
+        <div class="account-info">
+            <h3>Información de tu cuenta</h3>
+            <p><strong>Estado:</strong> Activa</p>
+            <p><strong>Nivel de seguridad:</strong> Verificado</p>
+            <p><strong>Último acceso:</strong> <span id="last-access">Ahora</span></p>
+        </div>
+        
+        <a href="/login" class="btn btn-primary">Ir a mi cuenta</a>
+        <a href="/" class="btn btn-link">Volver al inicio</a>
+    </section>
+
+    <script>
+        // Formatear la fecha actual para mostrar el último acceso
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            const formattedDate = now.toLocaleString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('last-access').textContent = formattedDate;
+        });
+    </script>
+</body>
+</html>

@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Germain - Dashboard</title>
-    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <title>Dashboard - Germain</title>
+    <link rel="icon" href="/icond.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF9900;
-            --secondary-color: #44006b;
-            --accent-color: #FF7200;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --primary-color: #4A1F43;
+            --secondary-color: #4a1f39;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
             --text-color: #333;
-            --light-orange-1: #FFF3E0;
-            --light-orange-2: #FFEACC;
+            --white: #ffffff;
         }
         
         * {
@@ -27,7 +27,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
+            background-color: var(--light-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
@@ -36,7 +36,7 @@
         /* HEADER & NAVBAR */
         .navbar {
             background-color: var(--primary-color) !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
@@ -44,7 +44,7 @@
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--text-color) !important;
+            color: var(--white) !important;
             display: flex;
             align-items: center;
         }
@@ -69,9 +69,17 @@
             width: 100%;
             padding: 10px 15px;
             border-radius: 50px;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid var(--neutral-light);
+            box-shadow: 0 2px 10px rgba(113, 28, 70, 0.1);
             font-size: 0.9rem;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
         }
 
         .search-btn {
@@ -80,9 +88,14 @@
             top: 5px;
             background: none;
             border: none;
-            color: #999;
+            color: var(--dark-color);
             cursor: pointer;
             padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: var(--secondary-color);
         }
 
         .nav-icons {
@@ -92,18 +105,18 @@
 
         .nav-icon {
             font-size: 1.3rem;
-            color: var(--text-color);
+            color: var(--white);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .nav-icon:hover {
-            color: white;
+            color: var(--light-color);
             transform: scale(1.1);
         }
         
         .dashboard-btn {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: white;
             border: none;
             padding: 8px 15px;
@@ -112,11 +125,12 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
             margin-right: 15px;
+            text-decoration: none;
         }
         
         .dashboard-btn:hover {
-            background-color: #e56600;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
         
         /* USER PROFILE MODAL */
@@ -125,15 +139,16 @@
             top: 80px;
             right: 20px;
             width: 320px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
             z-index: 1000;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
         }
         
         .profile-modal.active {
@@ -143,8 +158,8 @@
         }
         
         .profile-modal-header {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
             padding: 15px;
             text-align: center;
             font-weight: bold;
@@ -158,14 +173,15 @@
         .profile-picture {
             width: 120px;
             height: 120px;
-            background-color: var(--light-orange-1);
+            background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
             border-radius: 50%;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
+            border: 3px solid var(--neutral-light);
         }
         
         .profile-picture img {
@@ -179,37 +195,39 @@
             font-weight: 600;
             font-size: 1.2rem;
             margin-bottom: 5px;
+            color: var(--dark-color);
         }
         
         .user-email {
             text-align: center;
-            color: #888;
+            color: var(--dark-color);
             font-size: 0.9rem;
             margin-bottom: 20px;
+            opacity: 0.8;
         }
         
         .profile-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--neutral-light);
         }
         
         .profile-menu-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--neutral-light);
         }
         
         .profile-menu-link {
             padding: 12px 0;
             display: flex;
             align-items: center;
-            color: var(--text-color);
+            color: var(--dark-color);
             text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .profile-menu-link:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
             transform: translateX(5px);
         }
         
@@ -218,18 +236,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
         
         .logout-btn {
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
             color: white;
             text-align: center;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
             font-weight: 600;
             cursor: pointer;
@@ -237,8 +255,8 @@
         }
         
         .logout-btn:hover {
-            background-color: #e56600;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
         
         /* Overlay for closing modal when clicking outside */
@@ -263,32 +281,39 @@
             padding: 20px 0;
         }
         
-        .breadcrumb {
-            font-size: 0.9rem;
+        .admin-title {
+            font-size: 1.8rem;
+            font-weight: 700;
             margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--dark-color);
         }
-        
-        .breadcrumb-item a {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-        
-        .breadcrumb-item.active {
-            color: var(--text-color);
+
+        .admin-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         }
         
         .stats-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(113, 28, 70, 0.1);
             padding: 20px;
             margin-bottom: 20px;
             transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
         }
         
         .stats-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(113, 28, 70, 0.15);
+            border-color: var(--primary-color);
         }
         
         .stats-title {
@@ -304,18 +329,21 @@
         }
         
         .chart-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(113, 28, 70, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            border: 1px solid var(--neutral-light);
         }
         
         .chart-title {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: var(--text-color);
+            color: var(--dark-color);
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--light-color);
         }
         
         .chart-img {
@@ -325,18 +353,21 @@
         }
         
         .user-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(113, 28, 70, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            border: 1px solid var(--neutral-light);
         }
         
         .user-card-title {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 15px;
-            color: var(--text-color);
+            color: var(--dark-color);
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--light-color);
         }
         
         .user-item {
@@ -349,46 +380,51 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: #eee;
+            background-color: var(--light-color);
             margin-right: 15px;
+            border: 2px solid var(--neutral-light);
         }
         
         .user-info h6 {
             font-size: 0.95rem;
             margin-bottom: 5px;
+            color: var(--dark-color);
         }
         
         .user-info p {
             font-size: 0.8rem;
-            color: #888;
+            color: var(--dark-color);
+            opacity: 0.8;
             margin: 0;
         }
 
         /* FOOTER */
         .footer {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 3rem 0 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 0 2rem;
             margin-top: 80px;
         }
         
         .footer-logo {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             max-width: 160px;
         }
         
         .footer-section p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
         }
         
         .footer-title {
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             font-size: 16px;
-            color: #333;
+            color: var(--white);
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
         
         .footer-title::after {
@@ -396,34 +432,37 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 40px;
+            width: 50px;
             height: 3px;
-            background-color: var(--accent-color);
+            background-color: var(--light-color);
+            border-radius: 2px;
         }
         
         .footer-links a {
-            color: #333;
+            color: var(--white);
             text-decoration: none;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             transition: all 0.3s ease;
             position: relative;
-            padding-left: 15px;
+            padding-left: 20px;
+            opacity: 0.9;
         }
         
         .footer-links a::before {
             content: "→";
             position: absolute;
             left: 0;
-            color: var(--accent-color);
+            color: var(--light-color);
             opacity: 0;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
-            color: var(--accent-color);
-            transform: translateX(5px);
+            color: var(--light-color);
+            transform: translateX(8px);
             text-decoration: none;
+            opacity: 1;
         }
         
         .footer-links a:hover::before {
@@ -433,41 +472,43 @@
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .social-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: white;
+            width: 45px;
+            height: 45px;
+            background-color: var(--white);
             border-radius: 50%;
-            color: var(--accent-color);
+            color: var(--primary-color);
             font-size: 18px;
             transition: all 0.3s ease;
             text-decoration: none;
         }
         
         .social-icon:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background-color: var(--light-color);
+            color: var(--accent-color);
             transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .copyright {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 235, 216, 0.2);
             font-weight: 500;
+            opacity: 0.9;
         }
 
         /* RESPONSIVE */
         @media (max-width: 992px) {
             .footer-section {
-                margin-bottom: 30px;
+                margin-bottom: 40px;
             }
             
             .search-form {
@@ -498,7 +539,7 @@
                 margin-bottom: 15px;
             }
         }
-    </style>
+</style>
 </head>
 <body>
     <header>
@@ -527,31 +568,23 @@
     </header>
 
     <!-- User Profile Modal -->
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="profile-modal" id="profileModal">
-        <div class="profile-modal-header">
-            Perfil de Administrador
-        </div>
-        <div class="profile-modal-body">
-            <div class="profile-picture">
-                <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+     <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-modal-header">
+                Perfil de Administrador
             </div>
-            <h4 class="user-name">Usuario Germain</h4>
-            <p class="user-email">usuario@germain.com</p>
-            
+            <div class="profile-modal-body">
+                <div class="profile-picture">
+                    <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+                </div>
+                <h4 class="user-name">Nombre de usuario</h4>
+                <p class="user-email">Correo del usuario</p>
             <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+            </div>
         </div>
-    </div>
 
     <div class="main-content">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/admin">Inicio</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-            
+        <div class="container">            
             <div class="row">
                 <!-- Stats Cards - Primera fila -->
                 <div class="col-lg-4 col-md-4 col-sm-12">
@@ -671,43 +704,51 @@
             const modalOverlay = document.getElementById('modalOverlay');
             const logoutBtn = document.getElementById('logoutBtn');
             
-            // Toggle modal when clicking user icon
+            // Mostrar/ocultar modal
             userProfileToggle.addEventListener('click', function() {
                 profileModal.classList.toggle('active');
                 modalOverlay.classList.toggle('active');
             });
             
-            // Close modal when clicking outside
             modalOverlay.addEventListener('click', function() {
                 profileModal.classList.remove('active');
                 modalOverlay.classList.remove('active');
             });
             
-            // Logout button functionality
             logoutBtn.addEventListener('click', function() {
-                // Add your logout logic here
-                window.location.href = '/salida'; // Redirect to logout route
+                window.location.href = '/salida';
             });
-            
-            // Example: Load user profile picture from server
-            function loadUserProfilePicture() {
-                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
-                const userProfilePic = document.getElementById('userProfilePic');
-                
-                // Example: check if user has a profile picture
-                const hasProfilePicture = true; // This would be determined by your backend
-                
-                if (hasProfilePicture) {
-                    // Replace with actual user profile picture URL
-                    userProfilePic.src = "/api/placeholder/200/200";
-                } else {
-                    // Use default avatar if no profile picture exists
-                    userProfilePic.src = "/default-avatar.png";
+
+            // Cargar datos del usuario
+            async function cargarDatosUsuario() {
+                try {
+                    const response = await fetch('/api/usuario/detalle', { credentials: 'include' });
+                    if (response.ok) {
+                        const userData = await response.json();
+                        
+                        const userNameElement = document.querySelector('.user-name');
+                        const userEmailElement = document.querySelector('.user-email');
+                        const userProfilePic = document.getElementById('userProfilePic');
+                        
+                        if (userNameElement) {
+                            userNameElement.textContent = `${userData.nombres} ${userData.apellidopat} ${userData.apellidomat}`;
+                        }
+                        
+                        if (userEmailElement) {
+                            userEmailElement.textContent = userData.correo;
+                        }
+                        
+                        if (userProfilePic && userData.imagen_perfil) {
+                            userProfilePic.src = `/showImage/${userData.imagen_perfil}`;
+                        }
+                    } else {
+                        console.warn('Usuario no activo o no encontrado');
+                    }
+                } catch (error) {
+                    console.error('Error al cargar datos del usuario:', error);
                 }
             }
-            
-            // Load user profile picture when the page loads
-            loadUserProfilePicture();
+            cargarDatosUsuario();
         });
     </script>
 </body>

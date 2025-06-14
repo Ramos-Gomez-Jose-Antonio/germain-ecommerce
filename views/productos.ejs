@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Germain - Historial de publicaciones</title>
-    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <title>Inicio Proveedor - Germain</title>
+    <link rel="icon" href="/icond.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            --primary-color: #FF9900;
-            --secondary-color: #44006b;
-            --accent-color: #FF7200;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --primary-color: #4A1F43;
+            --secondary-color: #4a1f39;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
             --text-color: #333;
-            --light-orange-1: #FFF3E0;
-            --light-orange-2: #FFEACC;
+            --white: #ffffff;
         }
         
         * {
@@ -28,7 +27,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
+            background-color: var(--light-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
@@ -37,7 +36,7 @@
         /* HEADER & NAVBAR */
         .navbar {
             background-color: var(--primary-color) !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
@@ -45,7 +44,7 @@
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: var(--text-color) !important;
+            color: var(--white) !important;
             display: flex;
             align-items: center;
         }
@@ -70,9 +69,17 @@
             width: 100%;
             padding: 10px 15px;
             border-radius: 50px;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid var(--neutral-light);
+            box-shadow: 0 2px 10px rgba(113, 28, 70, 0.1);
             font-size: 0.9rem;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
         }
 
         .search-btn {
@@ -81,9 +88,14 @@
             top: 5px;
             background: none;
             border: none;
-            color: #999;
+            color: var(--dark-color);
             cursor: pointer;
             padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: var(--secondary-color);
         }
 
         .nav-icons {
@@ -93,13 +105,13 @@
 
         .nav-icon {
             font-size: 1.3rem;
-            color: var(--text-color);
+            color: var(--white);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .nav-icon:hover {
-            color: white;
+            color: var(--light-color);
             transform: scale(1.1);
         }
         
@@ -109,15 +121,16 @@
             top: 80px;
             right: 20px;
             width: 320px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
             z-index: 1000;
             overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
         }
         
         .profile-modal.active {
@@ -127,8 +140,8 @@
         }
         
         .profile-modal-header {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
             padding: 15px;
             text-align: center;
             font-weight: bold;
@@ -142,14 +155,15 @@
         .profile-picture {
             width: 120px;
             height: 120px;
-            background-color: var(--light-orange-1);
+            background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
             border-radius: 50%;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
+            border: 3px solid var(--neutral-light);
         }
         
         .profile-picture img {
@@ -163,37 +177,39 @@
             font-weight: 600;
             font-size: 1.2rem;
             margin-bottom: 5px;
+            color: var(--dark-color);
         }
         
         .user-email {
             text-align: center;
-            color: #888;
+            color: var(--dark-color);
             font-size: 0.9rem;
             margin-bottom: 20px;
+            opacity: 0.8;
         }
         
         .profile-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--neutral-light);
         }
         
         .profile-menu-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--neutral-light);
         }
         
         .profile-menu-link {
             padding: 12px 0;
             display: flex;
             align-items: center;
-            color: var(--text-color);
+            color: var(--dark-color);
             text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .profile-menu-link:hover {
-            color: var(--accent-color);
+            color: var(--secondary-color);
             transform: translateX(5px);
         }
         
@@ -202,18 +218,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
         
         .logout-btn {
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: var(--accent-color);
-            color: white;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
             text-align: center;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
             font-weight: 600;
             cursor: pointer;
@@ -221,8 +237,8 @@
         }
         
         .logout-btn:hover {
-            background-color: #e56600;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
         }
         
         /* Overlay for closing modal when clicking outside */
@@ -241,353 +257,803 @@
             display: block;
         }
 
-        /* MAIN CONTENT - PUBLICATION HISTORY */
-        .main-content {
-            margin-top: 100px;
-            padding: 20px 0;
-            min-height: calc(100vh - 350px);
-        }
-        
-        .publications-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .publications-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-        
-        .filter-btn {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-btn:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .create-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            text-decoration: none;
-        }
-        
-        .create-btn:hover {
-            background-color: #e56600;
-            transform: translateY(-2px);
-        }
-        
-        .publications-table {
-            width: 100%;
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-        }
-        
-        .publications-table th {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 12px 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .publications-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .publications-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .publications-table tr:hover {
-            background-color: #f9f9f9;
-        }
-        
-        .action-btns {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .action-btn {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .action-btn:hover {
-            color: var(--accent-color);
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 30px;
-        }
-        
-        .page-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 5px;
-            background-color: white;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .page-btn.active {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            font-weight: 600;
-            border-color: var(--primary-color);
-        }
-        
-        .page-btn:hover:not(.active) {
-            background-color: #f5f5f5;
-        }
-        
-        .page-arrow {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 0 12px;
-            height: 40px;
-            border-radius: 5px;
-            background-color: white;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-        
-        .page-arrow:hover {
-            background-color: #f5f5f5;
-            color: var(--text-color);
-        }
-        
-        .page-arrow.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+    /* MAIN CONTENT */
+    .contenido-principal {
+        margin-top: 80px;
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        /* FOOTER */
-        .footer {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 3rem 0 2rem;
-            margin-top: 80px;
-        }
-        
-        .footer-logo {
-            margin-bottom: 15px;
-            max-width: 160px;
-        }
-        
-        .footer-section p {
-            margin-bottom: 15px;
-        }
-        
-        .footer-title {
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            font-size: 16px;
-            color: #333;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: var(--accent-color);
-        }
-        
-        .footer-links a {
-            color: #333;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-            position: relative;
-            padding-left: 15px;
-        }
-        
-        .footer-links a::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent-color);
-            transform: translateX(5px);
-            text-decoration: none;
-        }
-        
-        .footer-links a:hover::before {
-            opacity: 1;
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: white;
-            border-radius: 50%;
-            color: var(--accent-color);
-            font-size: 18px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .social-icon:hover {
-            background-color: var(--accent-color);
-            color: white;
-            transform: translateY(-5px);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            font-weight: 500;
-        }
+    .encabezado-historial {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
-        /* RESPONSIVE */
-        @media (max-width: 992px) {
-            .footer-section {
-                margin-bottom: 30px;
+    .titulo-historial {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-color);
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .titulo-historial::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        border-radius: 2px;
+    }
+
+    .botones-historial {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .boton-filtrar, .boton-crear {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .boton-filtrar {
+        background-color: var(--white);
+        color: var(--dark-color);
+        border: 2px solid var(--neutral-light);
+    }
+
+    .boton-filtrar:hover {
+        background-color: var(--light-color);
+        color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(113, 28, 70, 0.1);
+    }
+
+    .boton-crear {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+        border: 2px solid transparent;
+    }
+
+    .boton-crear:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
+    }
+
+    .icono-boton {
+        width: 16px;
+        height: 16px;
+        filter: brightness(0) saturate(100%);
+    }
+
+    .boton-filtrar .icono-boton {
+        filter: brightness(0) saturate(100%) invert(40%) sepia(0%) saturate(0%) hue-rotate(0deg);
+    }
+
+    .boton-crear .icono-boton {
+        filter: brightness(0) invert(1);
+    }
+
+    /* TABLE CONTAINER */
+    .contenedor-tabla {
+        background-color: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(113, 28, 70, 0.1);
+        overflow: hidden;
+        border: 1px solid var(--neutral-light);
+    }
+
+    .tabla-publicaciones {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .tabla-publicaciones thead {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+    }
+
+    .tabla-publicaciones th {
+        padding: 20px 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .tabla-publicaciones td {
+        padding: 15px;
+        border-bottom: 1px solid var(--neutral-light);
+        color: var(--dark-color);
+        vertical-align: middle;
+    }
+
+    .tabla-publicaciones tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .tabla-publicaciones tbody tr:hover {
+        background-color: var(--light-color);
+        transform: scale(1.01);
+    }
+
+    .icono-accion {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0.7;
+    }
+
+    .icono-accion:hover {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    .editar:hover {
+        filter: hue-rotate(200deg) saturate(150%);
+    }
+
+    .eliminar:hover {
+        filter: hue-rotate(0deg) saturate(150%) brightness(0.8);
+    }
+
+    /* PAGINATION */
+    .paginacion {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px;
+        background-color: var(--light-color);
+        border-top: 2px solid var(--neutral-light);
+    }
+
+    .paginacion button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        border: 2px solid var(--neutral-light);
+        background-color: var(--white);
+        color: var(--dark-color);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .paginacion button:hover:not(:disabled) {
+        background-color: var(--light-color);
+        color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(113, 28, 70, 0.1);
+    }
+
+    .paginacion button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: var(--neutral-light);
+    }
+
+    .paginacion img {
+        width: 16px;
+        height: 16px;
+        filter: brightness(0) saturate(100%) invert(40%);
+    }
+
+    .paginacion button:hover:not(:disabled) img {
+        filter: brightness(0) saturate(100%) invert(25%) sepia(98%) saturate(5468%) hue-rotate(312deg);
+    }
+
+    #info-pagina {
+        font-weight: 600;
+        color: var(--dark-color);
+        padding: 10px 20px;
+        background-color: var(--white);
+        border-radius: 8px;
+        border: 2px solid var(--neutral-light);
+    }
+
+    /* MODAL STYLES */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-contenido {
+        background-color: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
+        width: 90%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border: 1px solid var(--neutral-light);
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .modal-header h3 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.3rem;
+    }
+
+    .cerrar-modal {
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        color: var(--white);
+        transition: all 0.3s ease;
+    }
+
+    .cerrar-modal:hover {
+        color: var(--light-color);
+        transform: scale(1.1);
+    }
+
+    .modal-seccion {
+        padding: 20px;
+        border-bottom: 1px solid var(--neutral-light);
+    }
+
+    .modal-seccion:last-of-type {
+        border-bottom: none;
+    }
+
+    .modal-seccion label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-color);
+    }
+
+    .selector-filtro, .fecha-input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid var(--neutral-light);
+        border-radius: 8px;
+        background-color: var(--white);
+        color: var(--dark-color);
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .selector-filtro:focus, .fecha-input:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
+    }
+
+    .selector-filtro:disabled {
+        background-color: var(--neutral-light);
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .restablecer {
+        background: none;
+        border: none;
+        color: var(--secondary-color);
+        cursor: pointer;
+        font-size: 0.8rem;
+        text-decoration: underline;
+        transition: all 0.3s ease;
+    }
+
+    .restablecer:hover {
+        color: var(--accent-color);
+    }
+
+    .fecha-rapida {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .fecha-rapida button {
+        padding: 6px 12px;
+        border: 2px solid var(--neutral-light);
+        background-color: var(--white);
+        color: var(--dark-color);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+    }
+
+    .fecha-rapida button:hover {
+        background-color: var(--light-color);
+        border-color: var(--secondary-color);
+        color: var(--secondary-color);
+    }
+
+    .btn-aplicar {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 20px;
+        margin-bottom: 20px;
+        margin-top: 0;
+        width: calc(100% - 40px);
+    }
+
+    .btn-aplicar:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
+    }
+
+    /* USER PROFILE MODAL */
+    .profile-modal {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        width: 320px;
+        background-color: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
+        z-index: 1000;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        border: 1px solid var(--neutral-light);
+    }
+    
+    .profile-modal.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .profile-modal-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+        padding: 15px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    
+    .profile-modal-body {
+        padding: 20px;
+    }
+    
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
+        border-radius: 50%;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
+        border: 3px solid var(--neutral-light);
+    }
+    
+    .profile-picture img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .user-name {
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        color: var(--dark-color);
+    }
+    
+    .user-email {
+        text-align: center;
+        color: var(--dark-color);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        opacity: 0.8;
+    }
+    
+    .profile-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid var(--neutral-light);
+    }
+    
+    .profile-menu-item {
+        border-bottom: 1px solid var(--neutral-light);
+    }
+    
+    .profile-menu-link {
+        padding: 12px 0;
+        display: flex;
+        align-items: center;
+        color: var(--dark-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .profile-menu-link:hover {
+        color: var(--secondary-color);
+        transform: translateX(5px);
+    }
+    
+    .profile-menu-icon {
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+    }
+    
+    .logout-btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: var(--white);
+        text-align: center;
+        border: none;
+        border-radius: 8px;
+        margin-top: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .logout-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
+    }
+    
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        z-index: 999;
+        display: none;
+    }
+    
+    .modal-overlay.active {
+        display: block;
+    }
+
+    /* FOOTER */
+            .footer {
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                color: var(--white);
+                padding: 4rem 0 2rem;
+                margin-top: 80px;
             }
             
-            .search-form {
-                margin: 15px 0;
+            .footer-logo {
+                margin-bottom: 20px;
+                max-width: 160px;
             }
             
-            .publications-table {
-                overflow-x: auto;
+            .footer-section p {
+                margin-bottom: 20px;
+                opacity: 0.9;
+                line-height: 1.6;
+            }
+            
+            .footer-title {
+                font-weight: bold;
+                margin-bottom: 25px;
+                text-transform: uppercase;
+                font-size: 16px;
+                color: var(--white);
+                position: relative;
+                padding-bottom: 15px;
+            }
+            
+            .footer-title::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background-color: var(--light-color);
+                border-radius: 2px;
+            }
+            
+            .footer-links a {
+                color: var(--white);
+                text-decoration: none;
                 display: block;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                margin-top: 70px;
-            }
-            
-            .publications-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
+                margin-bottom: 12px;
+                transition: all 0.3s ease;
+                position: relative;
+                padding-left: 20px;
+                opacity: 0.9;
             }
             
-            .publications-actions {
-                width: 100%;
+            .footer-links a::before {
+                content: "→";
+                position: absolute;
+                left: 0;
+                color: var(--light-color);
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+            
+            .footer-links a:hover {
+                color: var(--light-color);
+                transform: translateX(8px);
+                text-decoration: none;
+                opacity: 1;
+            }
+            
+            .footer-links a:hover::before {
+                opacity: 1;
+            }
+            
+            .social-icons {
                 display: flex;
-                justify-content: space-between;
+                gap: 15px;
+                margin-top: 25px;
             }
             
-            .publications-table th,
-            .publications-table td {
-                padding: 10px;
+            .social-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                background-color: var(--white);
+                border-radius: 50%;
+                color: var(--primary-color);
+                font-size: 18px;
+                transition: all 0.3s ease;
+                text-decoration: none;
             }
+            
+            .social-icon:hover {
+                background-color: var(--light-color);
+                color: var(--accent-color);
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            
+            .copyright {
+                text-align: center;
+                margin-top: 40px;
+                padding-top: 30px;
+                border-top: 2px solid rgba(255, 255, 255, 0.2);
+                font-weight: 500;
+                opacity: 0.9;
+            }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+        .encabezado-historial {
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        @media (max-width: 576px) {
-            .pagination {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+        .botones-historial {
+            width: 100%;
+            justify-content: flex-start;
         }
-    </style>
+
+        footer {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .seccion-footer {
+            margin-bottom: 40px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .contenido-principal {
+            padding: 20px 10px;
+        }
+
+        .titulo-historial {
+            font-size: 1.6rem;
+        }
+
+        .contenedor-tabla {
+            overflow-x: auto;
+        }
+
+        .tabla-publicaciones {
+            min-width: 800px;
+        }
+
+        .paginacion {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .profile-modal {
+            width: 90%;
+            right: 5%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        header {
+            padding: 10px 0;
+        }
+
+        .contenedor-logo h1 {
+            font-size: 1.3rem;
+        }
+
+        .icono-perfil {
+            width: 30px;
+            height: 30px;
+        }
+
+        .titulo-historial {
+            font-size: 1.4rem;
+        }
+
+        .botones-historial {
+            flex-direction: column;
+        }
+
+        .boton-filtrar, .boton-crear {
+            justify-content: center;
+        }
+
+        .tabla-publicaciones th,
+        .tabla-publicaciones td {
+            padding: 10px 8px;
+            font-size: 0.8rem;
+        }
+    }
+  </style>
 </head>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Buscar todos los enlaces que contengan "Cambiar a proveedor"
-        const enlaces = document.querySelectorAll('a.profile-menu-link');
-        
-        enlaces.forEach(enlace => {
-            if (enlace.textContent.includes('Cambiar a comprador')) {
-                enlace.addEventListener('click', function(e) {
-                    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const enlaces = document.querySelectorAll('a.profile-menu-link');
+    
+    enlaces.forEach(enlace => {
+        if (enlace.textContent.includes('Cambiar a comprador')) {
+            enlace.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Crear el overlay de transición
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 99999;
+                    color: white;
+                    opacity: 0;
+                    transition: opacity 0.5s ease-out;
+                `;
+                
+                // Crear el texto
+                const texto = document.createElement('div');
+                texto.textContent = 'Cambiando a Comprador';
+                texto.style.cssText = `
+                    font-size: 2rem;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                    transform: translateY(20px);
+                    opacity: 0;
+                    transition: all 0.5s ease-out 0.2s;
+                `;
+                
+                // Crear el spinner
+                const spinner = document.createElement('div');
+                spinner.style.cssText = `
+                    width: 50px;
+                    height: 50px;
+                    border: 5px solid rgba(255,255,255,0.3);
+                    border-radius: 50%;
+                    border-top-color: white;
+                    animation: spin 1s ease-in-out infinite;
+                    transform: translateY(20px);
+                    opacity: 0;
+                    transition: all 0.5s ease-out 0.4s;
+                `;
+                
+                // Añadir elementos al overlay
+                overlay.appendChild(texto);
+                overlay.appendChild(spinner);
+                document.body.appendChild(overlay);
+                
+                // Animación de entrada
+                setTimeout(() => {
+                    overlay.style.opacity = '1';
                     
-                    // Crear el overlay
-                    const overlay = document.createElement('div');
-                    overlay.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: #e56600;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 99999;
-                        color: white;
-                        font-size: 2rem;
-                        font-weight: bold;
-                    `;
-                    overlay.textContent = 'Cambiando a Comprador';
-                    
-                    document.body.appendChild(overlay);
-                    
-                    // Redirigir después de 3 segundos
+                    setTimeout(() => {
+                        texto.style.transform = 'translateY(0)';
+                        texto.style.opacity = '1';
+                        
+                        setTimeout(() => {
+                            spinner.style.transform = 'translateY(0)';
+                            spinner.style.opacity = '1';
+                        }, 50);
+                    }, 50);
+                }, 10);
+                
+                // Redirigir después de 3 segundos (con animación de salida opcional)
+                setTimeout(() => {
+                    overlay.style.opacity = '1';
                     setTimeout(() => {
                         window.location.href = this.href;
-                    }, 3000);
-                });
-            }
-        });
+                    }, 500);
+                }, 2500);
+                
+                // Animación del spinner
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes spin {
+                        to { transform: translateY(0) rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            });
+        }
     });
-    </script>
+});
+</script>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -613,7 +1079,7 @@
             </div>
         </nav>
     </header>
-
+<!-- User Profile Modal -->
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="profile-modal" id="profileModal">
         <div class="profile-modal-header">
@@ -640,306 +1106,104 @@
             <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
         </div>
     </div>
+    
+  <main class="contenido-principal">
+      <div class="encabezado-historial">
+          <h2 class="titulo-historial">Historial de publicaciones</h2>
+          <div class="botones-historial">
+              <button class="boton-filtrar">Filtrar</button>
+              <button class="boton-crear" onclick="crear()">Crear publicación</button>
+          </div>
+      </div>
+      
+      <div class="contenedor-tabla">
+          <table class="tabla-publicaciones">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>Producto</th>
+                      <th>Plantel</th>
+                      <th>Catálogo</th>
+                      <th>Cantidad</th>
+                      <th>Costo unitario</th>
+                      <th>Fecha de publicación</th>
+                      <th></th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody id="cuerpo-tabla">
+              </tbody>
+          </table>
+          
+          <div class="paginacion">
+              <button id="btn-anterior" disabled>Anterior</button>
+              <span id="info-pagina">Página 1 de 1</span>
+              <button id="btn-siguiente">Siguiente</button>
+          </div>
+      </div>
+      <br>
+      <div id="modal-filtros" class="modal">
+          <div class="modal-contenido">
+              <div class="modal-header">
+                  <h3>Filtrar por</h3>
+                  <span class="cerrar-modal">&times;</span>
+              </div>
+              
+              <!-- Filtro por fechas -->
+              <div class="modal-seccion">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <label>Fechas</label>
+                      <button class="restablecer" id="reiniciar-fechas">Restablecer</button>
+                  </div>
+                  
+                  <div style="margin-top: 10px;">
+                      <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                          <div style="flex: 1;">
+                              <label>De</label>
+                              <input type="date" id="fecha-inicio" class="fecha-input">
+                          </div>
+                          <div style="flex: 1;">
+                              <label>A</label>
+                              <input type="date" id="fecha-fin" class="fecha-input">
+                          </div>
+                      </div>
+                      
+                      <div class="fecha-rapida">
+                          <button data-tipo="hoy">Hoy</button>
+                          <button data-tipo="semana">Esta semana</button>
+                          <button data-tipo="mes">Este mes</button>
+                      </div>
+                  </div>
+              </div>
+              
+              <!-- Filtro por plantel -->
+              <div class="modal-seccion">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <label>Plantel</label>
+                      <button class="restablecer" id="reiniciar-plantel">Restablecer</button>
+                  </div>
+                  <select id="filtro-plantel" class="selector-filtro">
+                      <option value="">Selecciona un plantel</option>
+                  </select>
+              </div>
+              
+              <!-- Filtro por catálogo -->
+              <div class="modal-seccion">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <label>Catálogo</label>
+                      <button class="restablecer" id="reiniciar-catalogo">Restablecer</button>
+                  </div>
+                  <select id="filtro-catalogo" class="selector-filtro" disabled>
+                      <option value="">Selecciona un catálogo</option>
+                  </select>
+              </div>
+              
+              <button id="aplicar-filtros" class="btn-aplicar">Aplicar filtros</button>
+          </div>
+      </div>
+  </main>
 
-    <div class="main-content">
-        <div class="container">
-            <div class="publications-header">
-                <h5 class="publications-title">Historial de publicaciones</h5>
-                <div class="publications-actions d-flex gap-3">
-                    <button class="filter-btn">
-                        <i class="fas fa-filter"></i>
-                        Filtrar
-                    </button>
-                    <button class="create-btn">
-                        <i class="fas fa-plus"></i>
-                        <a href="/agregar-producto" class="create-btn">
-                            Crear publicación
-                        </a>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="table-responsive">
-                <table class="publications-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Producto</th>
-                            <th>Plantel</th>
-                            <th>Catálogo</th>
-                            <th>Cantidad</th>
-                            <th>Costo unitario</th>
-                            <th>Fecha de publicación</th>
-                            <th>Estatus</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>16</td>
-                            <td>Juego de 4 marcadores</td>
-                            <td>CECyT 1</td>
-                            <td>Tienda campus</td>
-                            <td>2</td>
-                            <td>$50</td>
-                            <td>04/06/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>17</td>
-                            <td>Corrector de tinta</td>
-                            <td>CECyT 8</td>
-                            <td>Tienda campus</td>
-                            <td>1</td>
-                            <td>$35</td>
-                            <td>08/06/2023</td>
-                            <td>Disponible</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td>Juego de 3 gomas de migajón</td>
-                            <td>CECyT 1</td>
-                            <td>Tienda campus</td>
-                            <td>1</td>
-                            <td>$15</td>
-                            <td>03/08/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>19</td>
-                            <td>Cuaderno profesional</td>
-                            <td>CECyT 7</td>
-                            <td>Tienda campus</td>
-                            <td>3</td>
-                            <td>$25</td>
-                            <td>08/05/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>20</td>
-                            <td>Cuaderno profesional</td>
-                            <td>CECyT 6</td>
-                            <td>Tienda campus</td>
-                            <td>9</td>
-                            <td>$35</td>
-                            <td>26/12/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>21</td>
-                            <td>Bote de blanqueador</td>
-                            <td>CECyT 11</td>
-                            <td>Tienda campus</td>
-                            <td>2</td>
-                            <td>$212</td>
-                            <td>18/09/2023</td>
-                            <td>Disponible</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>Audífonos</td>
-                            <td>CECyT 13</td>
-                            <td>Tienda campus</td>
-                            <td>3</td>
-                            <td>$180</td>
-                            <td>19/02/2023</td>
-                            <td>Disponible</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>23</td>
-                            <td>Engrapadora</td>
-                            <td>CECyT 11</td>
-                            <td>Tienda campus</td>
-                            <td>1</td>
-                            <td>$90</td>
-                            <td>25/03/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>24</td>
-                            <td>Diurex</td>
-                            <td>CECyT 19</td>
-                            <td>Tienda campus</td>
-                            <td>3</td>
-                            <td>$5</td>
-                            <td>30/03/2023</td>
-                            <td>Disponible</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>25</td>
-                            <td>Calculadora Casio</td>
-                            <td>CECyT 3</td>
-                            <td>Tienda campus</td>
-                            <td>4</td>
-                            <td>$500</td>
-                            <td>20/07/2023</td>
-                            <td>Disponible</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>26</td>
-                            <td>Voltímetro</td>
-                            <td>CECyT 3</td>
-                            <td>Sistemas digitales</td>
-                            <td>10</td>
-                            <td>$850</td>
-                            <td>18/07/2023</td>
-                            <td>Disponible</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>27</td>
-                            <td>Regla T</td>
-                            <td>CECyT 7</td>
-                            <td>Dibujo técnico</td>
-                            <td>1</td>
-                            <td>$145</td>
-                            <td>05/08/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>28</td>
-                            <td>Voltímetro</td>
-                            <td>CECyT 9</td>
-                            <td>Sistemas digitales</td>
-                            <td>2</td>
-                            <td>$920</td>
-                            <td>06/04/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>29</td>
-                            <td>Memoria USB 128gb</td>
-                            <td>CECyT 9</td>
-                            <td>Programación</td>
-                            <td>8</td>
-                            <td>$130</td>
-                            <td>03/07/2023</td>
-                            <td>Agotado</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>30</td>
-                            <td>Desarmador de cruz</td>
-                            <td>CECyT 9</td>
-                            <td>Mecatrónica</td>
-                            <td>3</td>
-                            <td>$180</td>
-                            <td>29/06/2023</td>
-                            <td>Disponible</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="pagination">
-                <a href="#" class="page-arrow" aria-label="Página anterior">
-                    <i class="fas fa-arrow-left"></i>
-                    Anterior
-                </a>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">...</button>
-                <button class="page-btn">8</button>
-                <button class="page-btn">9</button>
-                <button class="page-btn">10</button>
-                <a href="#" class="page-arrow" aria-label="Página siguiente">
-                    Siguiente
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer">
+  <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 footer-section">
@@ -951,10 +1215,6 @@
                         <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 footer-section">
-                </div>
-                <div class="col-lg-4 col-md-6 footer-section">
-                </div>
             </div>
             <div class="copyright">
                 © 2023 GERMAIN
@@ -962,28 +1222,413 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // User Profile Toggle
-        const userProfileToggle = document.getElementById('userProfileToggle');
-        const profileModal = document.getElementById('profileModal');
-        const modalOverlay = document.getElementById('modalOverlay');
-        
-        userProfileToggle.addEventListener('click', () => {
-            profileModal.classList.toggle('active');
-            modalOverlay.classList.toggle('active');
-        });
-        
-        modalOverlay.addEventListener('click', () => {
-            profileModal.classList.remove('active');
-            modalOverlay.classList.remove('active');
-        });
-        
-        // Logout button
-        logoutBtn.addEventListener('click', function() {
+  <script>
+    document.querySelector('.boton-crear').addEventListener('click', function() {
+    window.location.href = '/agregar-producto';
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const userProfileToggle = document.getElementById('userProfileToggle');
+            const profileModal = document.getElementById('profileModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Toggle modal when clicking user icon
+            userProfileToggle.addEventListener('click', function() {
+                profileModal.classList.toggle('active');
+                modalOverlay.classList.toggle('active');
+            });
+            
+            // Close modal when clicking outside
+            modalOverlay.addEventListener('click', function() {
+                profileModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            });
+            
+            // Logout button functionality
+            logoutBtn.addEventListener('click', function() {
                 // Add your logout logic here
                 window.location.href = '/salida'; // Redirect to logout route
             });
-    </script>
+            
+            // Example: Load user profile picture from server
+            function loadUserProfilePicture() {
+                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
+                const userProfilePic = document.getElementById('userProfilePic');
+                
+                // Example: check if user has a profile picture
+                const hasProfilePicture = true; // This would be determined by your backend
+                
+                if (hasProfilePicture) {
+                    // Replace with actual user profile picture URL
+                    userProfilePic.src = "/api/placeholder/200/200";
+                } else {
+                    // Use default avatar if no profile picture exists
+                    userProfilePic.src = "/default-avatar.png";
+                }
+            }
+            
+            // Load user profile picture when the page loads
+            loadUserProfilePicture();
+
+// Cargar datos del usuario activo
+async function cargarDatosUsuario() {
+    try {
+        const response = await fetch('/api/usuario/detalle', { credentials: 'include' });
+        if (response.ok) {
+            const userData = await response.json();
+            
+            const userNameElement = document.querySelector('.user-name');
+            const userEmailElement = document.querySelector('.user-email');
+            const userProfilePic = document.getElementById('userProfilePic');
+            
+            if (userNameElement) {
+                userNameElement.textContent = `${userData.nombres} ${userData.apellidopat} ${userData.apellidomat}`;
+            }
+            
+            if (userEmailElement) {
+                userEmailElement.textContent = userData.correo;
+            }
+            
+            if (userProfilePic && userData.imagen_perfil) {
+                userProfilePic.src = `/showImage/${userData.imagen_perfil}`;
+            }
+        } else {
+            console.warn('Usuario no activo o no encontrado');
+        }
+    } catch (error) {
+        console.error('Error al cargar datos del usuario:', error);
+    }
+}
+
+cargarDatosUsuario();
+
+
+    // Paginación
+    const filasPorPagina = 15;
+    let paginaActual = 1;
+    let datosPublicaciones = [];
+    const cuerpoTabla = document.getElementById('cuerpo-tabla');
+    const btnAnterior = document.getElementById('btn-anterior');
+    const btnSiguiente = document.getElementById('btn-siguiente');
+    const infoPagina = document.getElementById('info-pagina');
+
+    //Modal de filtros
+    const modalFiltros = document.getElementById('modal-filtros');
+    const botonFiltrar = document.querySelector('.boton-filtrar');
+    const cerrarModal = document.querySelector('.cerrar-modal');
+    const botonAplicarFiltros = document.getElementById('aplicar-filtros');
+    const filtroPlantel = document.getElementById('filtro-plantel');
+    const filtroCatalogo = document.getElementById('filtro-catalogo');
+    const fechaInicioInput = document.getElementById('fecha-inicio');
+    const fechaFinInput = document.getElementById('fecha-fin');
+
+    function formatDate(date) {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    async function obtenerDatos(filtros = {}) {
+        try {
+            const usuarioResponse = await fetch('/api/usuario/actual', { credentials: 'include' });
+            if (!usuarioResponse.ok) throw new Error('No se pudo obtener el ID del usuario');
+            
+            const usuarioData = await usuarioResponse.json();
+            const usuarioId = usuarioData.usuarioId;
+            
+            const queryParams = new URLSearchParams();
+            
+            if (filtros.fechaInicio) queryParams.append('fechaInicio', filtros.fechaInicio);
+            if (filtros.fechaFin) queryParams.append('fechaFin', filtros.fechaFin);
+            if (filtros.plantelId) queryParams.append('plantelId', filtros.plantelId);
+            if (filtros.categoriaId) queryParams.append('categoriaId', filtros.categoriaId); 
+    
+            const response = await fetch(`/api/publicaciones/${usuarioId}?${queryParams.toString()}`, {
+                credentials: 'include'
+            });
+            
+            if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
+            
+            datosPublicaciones = await response.json();
+            mostrarDatos(paginaActual);
+        } catch (error) {
+            console.error('Error al obtener datos:', error);
+            cuerpoTabla.innerHTML = `<tr><td colspan="8">Error: ${error.message}</td></tr>`;
+        }
+    }
+
+    function mostrarDatos(pagina) {
+        cuerpoTabla.innerHTML = '';
+    
+        if (datosPublicaciones.length === 0) {
+            cuerpoTabla.innerHTML = `
+                <tr>
+                    <td colspan="8" style="text-align: center; padding: 20px;">
+                        No se encontraron publicaciones con los filtros aplicados.
+                    </td>
+                </tr>
+            `;
+            infoPagina.textContent = 'Página 0 de 0';
+            btnAnterior.disabled = true;
+            btnSiguiente.disabled = true;
+            return;
+        }
+    
+        const inicio = (pagina - 1) * filasPorPagina;
+        const fin = inicio + filasPorPagina;
+        const datosPagina = datosPublicaciones.slice(inicio, fin);
+    
+        datosPagina.forEach((publicacion, index) => {
+            const fila = document.createElement('tr');
+            fila.setAttribute('data-id', publicacion.id);
+    
+            // Formatear la fecha para mostrar solo YYYY-MM-DD
+            const fechaFormateada = publicacion.fecha.split('T')[0];
+    
+            fila.innerHTML = `
+                <td>${inicio + index + 1}</td>
+                <td>${publicacion.producto}</td>
+                <td>${publicacion.plantel}</td>
+                <td>${publicacion.catalogo}</td>
+                <td>${publicacion.cantidad}</td>
+                <td>${publicacion.costo}</td>
+                <td>${fechaFormateada}</td> <!-- Fecha formateada -->
+                <td>
+                    <img src="/editar.png" alt="Editar" class="icono-accion editar" data-id="${publicacion.id}">
+                </td>
+                <td>
+                    <img src="/eliminar.png" alt="Eliminar" class="icono-accion eliminar" data-id="${publicacion.id}">
+                </td>
+            `;
+    
+            cuerpoTabla.appendChild(fila);
+        });
+    
+        const totalPaginas = Math.ceil(datosPublicaciones.length / filasPorPagina);
+        infoPagina.textContent = `Página ${pagina} de ${totalPaginas}`;
+    
+        btnAnterior.disabled = pagina === 1;
+        btnSiguiente.disabled = pagina === totalPaginas || totalPaginas === 0;
+    
+        agregarEventosAcciones();
+    }
+
+    async function eliminarPublicacion(id) {
+        try {
+            const response = await fetch(`/api/publicaciones/${id}`, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Error al eliminar la publicación');
+            }
+            
+            const result = await response.json();
+            alert(result.message);
+            
+            datosPublicaciones = datosPublicaciones.filter(pub => pub.id != id);
+            
+            const totalPaginas = Math.ceil(datosPublicaciones.length / filasPorPagina);
+            if (paginaActual > totalPaginas && totalPaginas > 0) {
+                paginaActual = totalPaginas;
+            }
+            
+            mostrarDatos(paginaActual);
+        } catch (error) {
+            console.error('Error al eliminar publicación:', error);
+            alert('Error al eliminar la publicación: ' + error.message);
+        }
+    }
+
+    function agregarEventosAcciones() {
+        const botonesEditar = document.querySelectorAll('.editar');
+        const botonesEliminar = document.querySelectorAll('.eliminar');
+
+        botonesEditar.forEach(boton => {
+            boton.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                console.log(`Editar publicación con ID: ${id}`);
+                window.location.href = `/editar-producto?id=${id}`;
+            });
+        });
+
+        botonesEliminar.forEach(boton => {
+            boton.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                if (confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
+                    eliminarPublicacion(id);
+                }
+            });
+        });
+    }
+
+    async function cargarPlanteles() {
+        try {
+            const response = await fetch('http://localhost:3001/api/planteles', {
+                credentials: 'include' 
+            });
+    
+            if (!response.ok) throw new Error('Error al cargar planteles');
+    
+            const planteles = await response.json();
+    
+            filtroPlantel.innerHTML = '<option value="">Selecciona un plantel</option>';
+            planteles.forEach(plantel => {
+                const option = document.createElement('option');
+                option.value = plantel.plantel_id;
+                option.textContent = plantel.nombre;
+                filtroPlantel.appendChild(option);
+            });
+    
+        } catch (error) {
+            console.error('Error al cargar planteles:', error);
+        }
+    }
+    
+
+    async function cargarCategorias(plantelId) {
+        try {
+            filtroCatalogo.innerHTML = '<option value="">Selecciona un catálogo</option>';
+            
+            if (!plantelId) {
+                filtroCatalogo.disabled = true;
+                return;
+            }
+    
+            const response = await fetch(`http://localhost:3001/api/categorias?plantelId=${plantelId}`);
+            if (!response.ok) throw new Error('Error al cargar categorías');
+            
+            const categorias = await response.json();
+            
+            categorias.forEach(categoria => {
+                const option = document.createElement('option');
+                option.value = categoria.categoria_id;
+                option.textContent = categoria.nombre;
+                filtroCatalogo.appendChild(option);
+            });
+            
+            filtroCatalogo.disabled = false;
+        } catch (error) {
+            console.error('Error al cargar categorías:', error);
+            filtroCatalogo.innerHTML = '<option value="">Error al cargar catálogos</option>';
+        }
+    }
+
+    filtroPlantel.addEventListener('change', function() {
+        filtroCatalogo.value = "";
+        cargarCategorias(this.value);
+    });
+
+    document.querySelectorAll('.fecha-rapida button').forEach(boton => {
+        boton.addEventListener('click', function() {
+            const tipo = this.getAttribute('data-tipo');
+            const hoy = new Date();
+            
+            switch(tipo) {
+                case 'hoy':
+                    fechaInicioInput.value = formatDate(hoy);
+                    fechaFinInput.value = formatDate(hoy);
+                    break;
+                case 'semana':
+                    const inicioSemana = new Date(hoy);
+                    inicioSemana.setDate(hoy.getDate() - hoy.getDay());
+                    const finSemana = new Date(hoy);
+                    finSemana.setDate(hoy.getDate() + (6 - hoy.getDay()));
+                    
+                    fechaInicioInput.value = formatDate(inicioSemana);
+                    fechaFinInput.value = formatDate(finSemana);
+                    break;
+                case 'mes':
+                    const inicioMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+                    const finMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+                    
+                    fechaInicioInput.value = formatDate(inicioMes);
+                    fechaFinInput.value = formatDate(finMes);
+                    break;
+            }
+        });
+    });
+
+    document.getElementById('reiniciar-fechas').addEventListener('click', function() {
+        fechaInicioInput.value = '';
+        fechaFinInput.value = '';
+    });
+
+    document.getElementById('reiniciar-plantel').addEventListener('click', function() {
+        filtroPlantel.value = '';
+        filtroCatalogo.innerHTML = '<option value="">Selecciona un catálogo</option>';
+        filtroCatalogo.disabled = true;
+    });
+
+    document.getElementById('reiniciar-catalogo').addEventListener('click', function() {
+        filtroCatalogo.value = '';
+    });
+
+    // Mostrar/ocultar modal
+    botonFiltrar.addEventListener('click', function() {
+        modalFiltros.style.display = 'flex';
+    });
+
+    cerrarModal.addEventListener('click', function() {
+        modalFiltros.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === modalFiltros) {
+            modalFiltros.style.display = 'none';
+        }
+    });
+
+botonAplicarFiltros.addEventListener('click', function() {
+    const fechaInicio = fechaInicioInput.value;
+    const fechaFin = fechaFinInput.value;
+    const plantelId = filtroPlantel.value;
+    const categoriaId = filtroCatalogo.value;
+    
+    const filtros = {};
+    
+    if (fechaInicio) filtros.fechaInicio = fechaInicio;
+    if (fechaFin) filtros.fechaFin = fechaFin;
+    if (plantelId) filtros.plantelId = plantelId;
+    if (categoriaId && categoriaId !== "") filtros.categoriaId = categoriaId;
+    
+    paginaActual = 1;
+    obtenerDatos(filtros);
+    modalFiltros.style.display = 'none';
+});
+
+    btnAnterior.addEventListener('click', () => {
+        if (paginaActual > 1) {
+            paginaActual--;
+            mostrarDatos(paginaActual);
+        }
+    });
+
+    btnSiguiente.addEventListener('click', () => {
+        const totalPaginas = Math.ceil(datosPublicaciones.length / filasPorPagina);
+        if (paginaActual < totalPaginas) {
+            paginaActual++;
+            mostrarDatos(paginaActual);
+        }
+    });
+
+    cargarPlanteles();
+    obtenerDatos();
+});
+
+  </script>
 </body>
 </html>

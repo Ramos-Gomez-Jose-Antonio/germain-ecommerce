@@ -4,41 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Germain</title>
-    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="icon" href="/icond.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF9900;
-            --primary-hover: #E68A00;
-            --secondary-color: #FF6600;
-            --light-color: #f8f9fa;
-            --dark-color: #333333;
-            --text-color: #333333;
-            --border-color: #FF9900;
-            --light-gray: #f5f5f5;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            color: var(--text-color);
-            line-height: 1.6;
+            --primary-color: #4A1F43;
+            --secondary-color: #4a1f39;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
+            --text-color: #333;
+            --white: #ffffff;
         }
 
-        /* Navbar */
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
         .navbar {
-            background-color: #FF9900;
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.8rem;
-            color: #333 !important;
+            font-size: 1.5rem;
+            color: var(--white) !important;
             display: flex;
             align-items: center;
         }
@@ -52,209 +56,430 @@
         .navbar-logo:hover {
             transform: scale(1.05);
         }
-
-        .cart-icon {
-            font-size: 1.8rem;
-            margin-right: 15px;
-            color: #333;
-        }
         
-        /* Contenedor principal */
+        /* Registro */
         .register-container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 30px 10px;
+            background-color: var(--light-color);
+            min-height: calc(90vh - 80px);
         }
-        
-        /* Título */
-        .register-title {
-            color: #333;
-            font-weight: 600;
-            margin: 20px 0 30px;
-            text-align: center;
-            font-size: 24px;
-        }
-        
-        /* Contenedor de formulario y área de foto */
-        .register-content {
+
+        .register-wrapper {
+            background-color: var(--white);
             display: flex;
-            flex-direction: row;
-            width: 100%;
-            gap: 30px;
-            margin-bottom: 30px;
+            max-width: 1700px;
+            width: 450%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(113, 28, 70, 0.15);
+            border: 1px solid var(--neutral-light);
+            min-height: 800px;
         }
-        
-        /* Columna de formulario */
-        .form-column {
-            flex: 1;
-        }
-        
-        /* Columna de foto */
-        .photo-column {
-            flex: 1;
+
+        .register-photo-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            flex: 1.2;
+            padding: 60px 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
+            min-width: 400px;
         }
-        
-        /* Campos de formulario */
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #FF9900;
-            border-radius: 4px;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.2);
-        }
-        
-        /* Área de foto de perfil */
+
         .profile-photo-area {
-            width: 250px;
-            height: 250px;
-            border: 2px solid #FF9900;
+            width: 180px;
+            height: 180px;
+            background-color: var(--white);
             border-radius: 50%;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            margin-bottom: 20px;
-            background-color: #fff;
-            position: relative;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
-        
-        .photo-icon {
-            font-size: 50px;
-            color: #FF6600;
+
+        .profile-photo-area:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.4);
         }
-        
-        .profile-image {
+
+        .profile-photo-area i {
+            font-size: 4rem;
+            color: var(--primary-color);
+        }
+
+        .profile-photo-area img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: none;
         }
-        
-        /* Botón de subir foto */
-        .upload-btn-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
-        
+
         .btn-upload {
-            background-color: #FF9900;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 16px;
+            background-color: var(--accent-color);
             border: none;
-            cursor: pointer;
-        }
-        
-        .upload-btn-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        /* Botón de registro */
-        .btn-register {
-            background-color: #FFBA00;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: var(--white);
             font-weight: 600;
-            border-radius: 25px;
-            width: 100%;
-            max-width: 300px;
-            color: #333;
-            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-bottom: 10px;
         }
-        
+
+        .btn-upload:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-text {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .photo-text h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .photo-text p {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .register-form-section {
+            flex: 2;
+            padding: 30px 20px; 
+            background-color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .register-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 35px;
+            color: var(--dark-color);
+            text-align: center;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 2px solid var(--neutral-light);
+            background-color: var(--white);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            min-height: 50px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(85, 0, 42, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .password-container input {
+            font-size: 1rem;
+            padding: 14px 50px 14px 18px;
+            border-radius: 10px;
+            border: 2px solid var(--neutral-light);
+            background-color: var(--white);
+            transition: all 0.3s ease;
+            width: 100%;
+            min-height: 50px;
+        }
+
+        .password-container input:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(85, 0, 42, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .password-container i {
+            position: absolute;
+            right: 18px;
+            cursor: pointer;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .password-container i:hover {
+            color: var(--secondary-color);
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            padding: 16px 30px;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 30px;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            min-height: 55px;
+        }
+
         .btn-register:hover {
-            background-color: #FF9900;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(85, 0, 42, 0.3);
         }
-        
-        /* Línea divisoria */
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, #FF9900, transparent);
-            margin: 10px 0;
-            width: 100%;
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        
-        /* Sección de login */
+
         .login-section {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 25px;
+            font-size: 1rem;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .login-link {
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+            color: var(--accent-color);
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 15px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--white);
+            border-radius: 50%;
+            color: var(--accent-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
         
-        .login-link {
-            background-color: #FF6600;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            text-decoration: none;
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
             font-weight: 500;
         }
-        
-        .login-link:hover {
-            background-color: #E65C00;
-            color: white;
+
+        #adminPasswordContainer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff3cd;
+            border-radius: 10px;
+            border: 1px solid #ffeaa7;
         }
-        
-        /* Password visibility toggle */
-        .password-container {
-    position: relative;
-}
 
-    .password-container .form-control {
-    width: 100%;
-    padding-right: 40px;  /* agrega espacio a la derecha para que no tape el ojo */
-    }
+        #adminPasswordContainer small {
+            color: #856404;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: block;
+        }
 
-    .password-container .toggle-password {
-    position: absolute;
-    top: 50%;
-    right: 10px; /* distancia del borde derecho */
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #555; /* opcional: color del icono */
-    }
+        /* Espaciado específico para campos individuales */
+        .single-field {
+            margin-bottom: 25px;
+        }
 
-        
-        /* Alertas */
-        .alert {
-            border-radius: 4px;
-            padding: 12px;
+        .rol-field {
             margin-bottom: 20px;
-            width: 100%;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .register-content {
-                flex-direction: column-reverse;
+
+        @media (max-width: 992px) {
+            .register-wrapper {
+                flex-direction: column;
+                max-width: 800px;
             }
-            
-            .photo-column {
-                margin-bottom: 30px;
+
+            .register-photo-section {
+                flex-direction: row;
+                justify-content: center;
+                padding: 40px 20px;
+                min-width: auto;
+            }
+
+            .register-form-section {
+                padding: 40px 30px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .profile-photo-area {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 20px 15px;
+            }
+
+            .register-form-section {
+                padding: 30px 20px;
+            }
+
+            .register-title {
+                font-size: 1.8rem;
+            }
+
+            .profile-photo-area {
+                width: 120px;
+                height: 120px;
+            }
+
+            .photo-text h4 {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -268,127 +493,123 @@
             </a>
         </div>
     </nav>
-    <!-- Register Section -->
-    <section class="register-container">
-        <h1 class="register-title">Registro</h1>
-        
-        <% if (typeof messages !== 'undefined' && messages.error) { %>
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle me-2"></i>
-                <strong><%= messages.error %></strong>
-            </div>
-        <% } %>
-        
-        <% if (typeof messages !== 'undefined' && messages.success) { %>
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle me-2"></i>
-                <strong><%= messages.success %></strong>
-            </div>
-        <% } %>
-        
-        <div class="register-content">
-            <div class="form-column">
-                <form action="/register" method="POST" enctype="multipart/form-data" id="registerForm">
-                    <!-- Nombre -->
-                    <input type="text" name="nombre" placeholder="Nombre" class="form-control" required />
-                
-                    <!-- Apellido Paterno -->
-                    <input type="text" name="apellidoPaterno" placeholder="Apellido Paterno" class="form-control" required />
-                
-                    <!-- Apellido Materno -->
-                    <input type="text" name="apellidoMaterno" placeholder="Apellido Materno" class="form-control" required />
-                
-                    <!-- Nombre de usuario -->
-                    <input type="text" name="username" placeholder="Nombre de usuario" class="form-control" required />
-                
-                    <!-- Teléfono -->
-                    <input type="tel" name="telefono" placeholder="Número telefónico" class="form-control" required />
-                
-                    <!-- Email -->
-                    <input type="email" name="email" placeholder="Correo electrónico" class="form-control" required />
-                
-                    <!-- Password -->
-                    <input type="password" name="password" placeholder="Contraseña" id="passwordInput" class="form-control" required />
 
-                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
-                    <!-- Confirmar Password -->
-                    <input type="password" name="confirmPassword" placeholder="Confirmar Contraseña" id="passwordOutput" class="form-control" required />
-                    <i class="fas fa-eye toggle-password" id="togglePasswor"></i>
-                    <!-- Foto de perfil -->
-                    <input class="btn-upload" type="file" name="profilePhoto" accept="image/*" id="profilePhotoInput" hidden>
-                
-                    <!-- Botón de registro -->
-                    <button type="submit" class="btn-register">Crear Cuenta</button>
+    <section class="register-container">
+        <div class="register-wrapper">
+            <!-- Sección de foto de perfil -->
+            <div class="register-photo-section">
+                <div class="profile-photo-area" id="photoPreviewArea">
+                    <i class="fas fa-user-plus photo-icon" id="photoPlaceholder"></i>
+                    <img src="#" alt="Foto de perfil" id="photoPreview" class="profile-image">
+                </div>
+                <button type="button" class="btn-upload" id="triggerUpload">
+                    <i class="fas fa-camera me-2"></i>Subir foto
+                </button>
+                <div class="photo-text">
+                    <h4>Foto de Perfil</h4>
+                    <p>Añade una foto para personalizar tu cuenta y hacer tu perfil más atractivo</p>
+                </div>
+            </div>
+
+            <!-- Sección del formulario -->
+            <div class="register-form-section">
+                <h1 class="register-title">Crear Nueva Cuenta</h1>
+                <form action="/register" method="POST" enctype="multipart/form-data" id="registerForm">
+                    <!-- Input oculto para el archivo -->
+                    <input type="file" name="profilePhoto" accept="image/*" id="profilePhotoInput" style="display: none;">
+                    
+                    <!-- Nombres -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="nombre" placeholder="Nombre *" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="apellidoPaterno" placeholder="Apellido Paterno *" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="apellidoMaterno" placeholder="Apellido Materno *" required />
+                        </div>
+                    </div>
+
+                    <!-- Contacto -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Correo electrónico *" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" name="telefono" placeholder="Número telefónico *" required />
+                        </div>
+                    </div>
+
+                    <!-- Usuario -->
+                    <div class="form-group single-field">
+                        <input type="text" name="username" placeholder="Nombre de usuario *" required />
+                    </div>
+
+                    <!-- Contraseñas -->
+                    <div class="form-row">
+                        <div class="password-container">
+                            <input type="password" name="password" placeholder="Contraseña *" id="passwordInput" required />
+                            <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                        </div>
+                        <div class="password-container">
+                            <input type="password" name="confirmPassword" placeholder="Confirmar Contraseña *" id="passwordOutput" required />
+                            <i class="fas fa-eye toggle-password" id="toggleConfirmPassword"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tipo de cuenta -->
+                    <div class="form-group rol-field">
+                        <label for="rolSelect">Tipo de cuenta:</label>
+                        <select name="rol" id="rolSelect" required>
+                            <option value="comprador" selected>Comprador</option>
+                            <option value="proveedor">Proveedor</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+
+                    <!-- Contraseña de administrador -->
+                    <div id="adminPasswordContainer" style="display: none;">
+                        <div class="password-container">
+                            <input type="password" name="adminPassword" placeholder="Contraseña de administrador" id="adminPasswordInput" />
+                            <i class="fas fa-eye toggle-password" id="toggleAdminPassword"></i>
+                        </div>
+                        <small>Para registrarte como administrador, ingresa la contraseña especial proporcionada por el sistema.</small>
+                    </div>
+
+                    <button type="submit" class="btn-register">
+                        <i class="fas fa-user-plus me-2"></i>Crear Cuenta
+                    </button>
                 </form>
                 
-            </div>
-            
-            <div class="photo-column">
-                <div class="profile-photo-area" id="photoPreviewArea">
-                    <i class="fas fa-image photo-icon" id="photoPlaceholder"></i>
-                    <img src="#" alt="Foto de perfil" id="photoPreview" class="profile-image">
-                    <div class="photo-upload-icon">
-                    </div>
-                </div>
-                <div class="upload-btn-wrapper">
-                    <button class="btn-upload" id="triggerUpload">
-                        <i class="fas fa-plus me-2"></i>Subir foto
-                    </button>
+                <div class="login-section">
+                    <span>¿Ya tienes una cuenta?</span>
+                    <a href="/login" class="login-link">Iniciar Sesión</a>
                 </div>
             </div>
-        </div>
-        
-        <!-- Submit button -->
-        <button action="/register" type="submit" class="btn-register" id="submitButton">
-            Crear Cuenta
-        </button>
-        
-        <!-- Divider -->
-        <div class="divider"></div>
-        
-        <!-- Login section -->
-        <div class="login-section">
-            <p>¿Ya tienes una cuenta?</p>
-            <a href="/login" class="login-link">Iniciar Sesión</a>
         </div>
     </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>
 
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    
     <script>
-        // Función para mostrar/ocultar contraseña
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('passwordInput');
-            const icon = this;
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        });
-
-        document.getElementById('togglePasswor').addEventListener('click', function() {
-            const passwordInput = document.getElementById('passwordOutput');
-            const icon = this;
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        });
-
-        // Función para manejar la subida y vista previa de la foto
+        // Funcionalidad de subida de foto
         document.getElementById('triggerUpload').addEventListener('click', function() {
             document.getElementById('profilePhotoInput').click();
         });
@@ -411,41 +632,38 @@
             }
         });
 
-        // Función para enviar el formulario
-        document.getElementById('submitButton').addEventListener('click', function() {
-            // Validar el formulario
-            const form = document.getElementById('registerForm');
+        // Funcionalidad de mostrar/ocultar contraseñas
+        function togglePasswordVisibility(inputId, toggleId) {
+            const input = document.getElementById(inputId);
+            const toggle = document.getElementById(toggleId);
             
-            // Verificar si todos los campos requeridos están completos
-            const requiredFields = form.querySelectorAll('[required]');
-            let isValid = true;
-            
-            requiredFields.forEach(field => {
-                if (!field.value) {
-                    isValid = false;
-                    field.classList.add('is-invalid');
+            toggle.addEventListener('click', function() {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    toggle.classList.remove('fa-eye');
+                    toggle.classList.add('fa-eye-slash');
                 } else {
-                    field.classList.remove('is-invalid');
+                    input.type = 'password';
+                    toggle.classList.remove('fa-eye-slash');
+                    toggle.classList.add('fa-eye');
                 }
             });
-            
-            // Si todo está bien, enviar el formulario
-            if (isValid) {
-                form.submit();
+        }
+
+        // Aplicar funcionalidad a todos los campos de contraseña
+        togglePasswordVisibility('passwordInput', 'togglePassword');
+        togglePasswordVisibility('passwordOutput', 'toggleConfirmPassword');
+        togglePasswordVisibility('adminPasswordInput', 'toggleAdminPassword');
+
+        // Mostrar/ocultar campo de contraseña de administrador
+        document.getElementById('rolSelect').addEventListener('change', function() {
+            const adminPasswordContainer = document.getElementById('adminPasswordContainer');
+            if (this.value === 'administrador') {
+                adminPasswordContainer.style.display = 'block';
+                document.getElementById('adminPasswordInput').required = true;
             } else {
-                // Mostrar una alerta si hay campos faltantes
-                const alertDiv = document.createElement('div');
-                alertDiv.className = 'alert alert-danger';
-                alertDiv.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i><strong>Por favor completa todos los campos requeridos.</strong>';
-                
-                // Insertar la alerta al principio del formulario
-                const container = document.querySelector('.register-container');
-                container.insertBefore(alertDiv, container.firstChild);
-                
-                // Desaparecer después de 3 segundos
-                setTimeout(() => {
-                    alertDiv.remove();
-                }, 3000);
+                adminPasswordContainer.style.display = 'none';
+                document.getElementById('adminPasswordInput').required = false;
             }
         });
     </script>

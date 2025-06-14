@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Germain - Método de Pago</title>
-    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <title>Checkout - Germain</title>
+    <link rel="icon" href="/icond.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF9900;
-            --secondary-color: #44006b;
-            --accent-color: #FF7200;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
+            --primary-color: #4A1F43;
+            --secondary-color: #4a1f39;
+            --accent-color: #55002A;
+            --light-color: #EAEAEA;
+            --neutral-light: #DEDEDE;
+            --dark-color: #5D5D5D;
             --text-color: #333;
-            --light-orange-1: #FFF3E0;
-            --light-orange-2: #FFEACC;
+            --white: #ffffff;
+            --light-purple-1: #F5EFF7;
+            --light-purple-2: #E8DAEF;
         }
         
         * {
@@ -25,9 +27,13 @@
             box-sizing: border-box;
         }
 
+        a {
+            text-decoration: none;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
+            background-color: var(--light-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
@@ -36,7 +42,7 @@
         /* HEADER & NAVBAR */
         .navbar {
             background-color: var(--primary-color) !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
@@ -44,7 +50,7 @@
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
-            color: white !important;
+            color: var(--white) !important;
             display: flex;
             align-items: center;
         }
@@ -59,139 +65,420 @@
             transform: scale(1.05);
         }
 
-        .header-section {
-            background-color: var(--primary-color);
-            padding: 15px 0;
-            color: white;
+        .search-form {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: 2px solid var(--neutral-light);
+            box-shadow: 0 2px 10px rgba(113, 28, 70, 0.1);
+            font-size: 0.9rem;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            color: var(--light-color);
+            transform: scale(1.1);
         }
         
-        .header-title {
-            font-weight: 700;
+        /* USER PROFILE MODAL */
+        .profile-modal {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
+            z-index: 1000;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
+        }
+        
+        .profile-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .profile-modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .profile-modal-body {
+            padding: 20px;
+        }
+        
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
+            border: 3px solid var(--neutral-light);
+        }
+        
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .user-email {
+            text-align: center;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .profile-menu {
+            list-style: none;
+            padding: 0;
             margin: 0;
+            border-top: 1px solid var(--neutral-light);
         }
         
-        /* PAYMENT SECTION */
+        .profile-menu-item {
+            border-bottom: 1px solid var(--neutral-light);
+        }
+        
+        .profile-menu-link {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-menu-link:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .profile-menu-icon {
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
+        }
+        
+        /* Overlay for closing modal when clicking outside */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 999;
+            display: none;
+        }
+        
+        .modal-overlay.active {
+            display: block;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb-container {
+            background-color: var(--neutral-light);
+            padding: 10px 0;
+            margin-top: 80px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-item a:hover {
+            color: var(--accent-color);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-color);
+        }
+
+        /* PAYMENT CONTAINER */
         .payment-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 0 15px;
+            padding: 40px 0;
         }
-        
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* PAYMENT METHOD */
+        .payment-method {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--neutral-light);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: var(--white);
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-color);
+            background-color: var(--light-purple-1);
+        }
+
+        .payment-method.selected {
+            border-color: var(--accent-color);
+            background-color: var(--light-purple-2);
+        }
+
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .card-icon-img {
+            height: 24px;
+        }
+
         .card {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.05);
+            margin-bottom: 20px;
+            background-color: var(--white);
+            border: 1px solid var(--neutral-light);
         }
-        
+
         .card-header {
-            background-color: white;
-            border-bottom: 1px solid #f0f0f0;
-            padding: 20px;
+            background-color: var(--light-purple-1);
+            color: var(--dark-color);
             font-weight: 600;
-            font-size: 1.1rem;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--light-purple-2);
         }
-        
+
         .card-body {
             padding: 20px;
         }
-        
-        .card-option {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+
+        .form-group {
+            margin-bottom: 20px;
         }
-        
-        .card-option:last-child {
-            border-bottom: none;
-        }
-        
-        .card-radio {
-            margin-right: 15px;
-        }
-        
-        .card-icon {
-            margin-right: 10px;
-            color: #666;
-        }
-        
-        .form-control {
-            padding: 12px 15px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        
+
         .form-label {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 5px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark-color);
         }
-        
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid var(--neutral-light);
+            transition: all 0.3s ease;
+            background-color: var(--white);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(85, 0, 42, 0.25);
+        }
+
         .form-row {
             display: flex;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-        
-        .form-group {
+
+        .form-row .form-group {
             flex: 1;
+            margin-bottom: 0;
         }
-        
+
+        /* ORDER SUMMARY */
+        .order-summary {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.05);
+            border: 1px solid var(--neutral-light);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--neutral-light);
+        }
+
         .btn-payment {
+            display: block;
             width: 100%;
             padding: 12px;
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: var(--white);
             border: none;
-            color: white;
+            border-radius: 50px;
             font-weight: 600;
-            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
-        
+
         .btn-payment:hover {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(128, 0, 74, 0.3);
+            color: var(--white);
         }
-        
+
+        .btn-return {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .btn-return:hover {
+            color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
         .secure-badge {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            color: #28a745;
-            font-size: 0.85rem;
-            margin-top: 10px;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
-        
+
         .secure-icon {
-            margin-right: 5px;
-        }
-        
-        .btn-return {
-            color: var(--accent-color);
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 15px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-align: left;
-            padding: 0;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-return:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
+            color: #28a745;
+            margin-right: 8px;
         }
 
         /* FOOTER */
         .footer {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
             padding: 3rem 0 2rem;
             margin-top: 80px;
         }
@@ -203,6 +490,7 @@
         
         .footer-section p {
             margin-bottom: 15px;
+            opacity: 0.9;
         }
         
         .footer-title {
@@ -210,7 +498,7 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             font-size: 16px;
-            color: #333;
+            color: var(--white);
             position: relative;
             padding-bottom: 10px;
         }
@@ -222,32 +510,34 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background-color: var(--accent-color);
+            background-color: var(--light-color);
         }
         
         .footer-links a {
-            color: #333;
+            color: var(--white);
             text-decoration: none;
             display: block;
             margin-bottom: 10px;
             transition: all 0.3s ease;
             position: relative;
             padding-left: 15px;
+            opacity: 0.9;
         }
         
         .footer-links a::before {
             content: "→";
             position: absolute;
             left: 0;
-            color: var(--accent-color);
+            color: var(--light-color);
             opacity: 0;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
-            color: var(--accent-color);
+            color: var(--light-color);
             transform: translateX(5px);
             text-decoration: none;
+            opacity: 1;
         }
         
         .footer-links a:hover::before {
@@ -266,17 +556,17 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: white;
+            background-color: var(--white);
             border-radius: 50%;
-            color: var(--accent-color);
+            color: var(--primary-color);
             font-size: 18px;
             transition: all 0.3s ease;
             text-decoration: none;
         }
         
         .social-icon:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background-color: var(--light-color);
+            color: var(--accent-color);
             transform: translateY(-5px);
         }
         
@@ -284,75 +574,203 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-weight: 500;
+            opacity: 0.9;
         }
-        
+
         /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .order-summary {
+                margin-top: 30px;
+            }
+            
+            .search-form {
+                margin: 15px 0;
+            }
+        }
+
         @media (max-width: 768px) {
             .form-row {
                 flex-direction: column;
-                gap: 0;
+                gap: 20px;
             }
             
-            .footer-section {
-                margin-bottom: 30px;
+            .breadcrumb-container {
+                margin-top: 70px;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header-section">
-        <div class="container">
-          <a class="navbar-brand" href="/">
-            <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
-        </a>
-        </div>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <form class="search-form mx-auto">
+                    </form>
+                    
+                    <div class="nav-icons">
+                        <a href="/carrito-compra" class="nav-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                        <span class="nav-icon" id="userProfileToggle">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <div class="payment-container">
-        <div class="card">
-            
+    <!-- User Profile Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-modal-header">
+                Perfil
+            </div>
+            <div class="profile-modal-body">
+                <div class="profile-picture">
+                    <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+                </div>
+                <h4 class="user-name">Nombre de usuario</h4>
+                <p class="user-email">Correo del usuario</p>
+            <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
         </div>
+    </div>
+
+    <div class="breadcrumb-container">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="/carrito-compra">Carrito</a></li>
+                    <li class="breadcrumb-item active">Checkout</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container payment-container">
+        <h2 class="section-title">Finalizar compra</h2>
         
-        <div class="card">
-            <div class="card-header">AGREGAR TARJETA NUEVA</div>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label class="form-label">Titular de la tarjeta</label>
-                        <input type="text" class="form-control" placeholder="Jaime Minor Gómez">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Número de tarjeta</label>
-                        <input type="text" class="form-control" placeholder="5126-9426-7716-9200">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Fecha de expiración</label>
-                            <input type="text" class="form-control" placeholder="02 / 2030">
+        <div class="row g-4">
+            <!-- Sección de Métodos de Pago -->
+            <div class="col-lg-7">
+                <div class="card mb-4">
+                    <div class="card-header">MÉTODO DE PAGO</div>
+                    <div class="card-body">
+                        <div class="payment-method" onclick="selectPayment('paypal')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="paypal">
+                                <label class="form-check-label d-flex align-items-center" for="paypal">
+                                    <i class="fab fa-cc-paypal fa-2x text-primary me-3"></i>
+                                    <h5 class="mb-0">Pagar con PayPal</h5>
+                                </label>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">CVC</label>
-                            <input type="text" class="form-control" placeholder="428">
+
+                        <div class="payment-method selected" onclick="selectPayment('card')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="card" checked>
+                                <label class="form-check-label d-flex align-items-center" for="card">
+                                    <i class="fas fa-credit-card fa-2x text-secondary me-3"></i>
+                                    <h5 class="mb-0">Tarjeta de Crédito/Débito</h5>
+                                    <div class="card-icons">
+                                        <img src="https://img.icons8.com/color/48/000000/visa.png" class="card-icon-img">
+                                        <img src="https://img.icons8.com/color/48/000000/mastercard.png" class="card-icon-img">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Formulario de Tarjeta -->
+                        <div id="cardForm">
+                            <form class="mt-4">
+                                <div class="form-group">
+                                    <label class="form-label">Titular de la tarjeta</label>
+                                    <input type="text" class="form-control" placeholder="Ej. Juan Pérez" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Número de tarjeta</label>
+                                    <input type="text" class="form-control" placeholder="0000 0000 0000 0000" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha de expiración</label>
+                                        <input type="month" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">CVC/CVV</label>
+                                        <input type="text" class="form-control" placeholder="123" maxlength="3" required>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Botón de PayPal -->
+                        <div id="paypalButton" class="mt-4" style="display: none;">
+                            <button class="btn-payment">
+                                <i class="fab fa-paypal"></i> Continuar con PayPal
+                            </button>
+                        </div>
+
+                        <div class="secure-badge mt-4">
+                            <i class="fas fa-lock secure-icon"></i>
+                            Transacción segura - SSL
                         </div>
                     </div>
+                </div>
+
+                <a href="/carrito-compra" class="btn-return">
+                    <i class="fas fa-arrow-left me-2"></i>Volver al carrito
+                </a>
+            </div>
+
+            <!-- Resumen del Pedido -->
+            <div class="col-lg-5">
+                <div class="order-summary">
+                    <h4 class="mb-4">Resumen del Pedido</h4>
+                    <div class="summary-item">
+                        <span>Subtotal:</span>
+                        <span>$1,450.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Envío:</span>
+                        <span>$50.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Impuestos:</span>
+                        <span>$145.00</span>
+                    </div>
+                    <hr>
+                    <div class="summary-item total">
+                        <span>Total:</span>
+                        <span>$1,645.00</span>
+                    </div>
                     
-                    <button href="/carrito-compra" type="submit" class="btn-payment">
-                        <i class="fas fa-plus-circle"></i> Agregar método de pago
+                    <button class="btn-payment mt-4" onclick="processPayment()">
+                        <i class="fas fa-shopping-bag me-2"></i>Confirmar Compra
                     </button>
                     
-                    <div class="secure-badge">
-                        <i class="fas fa-lock secure-icon"></i>
-                        Conexión segura
+                    <div class="order-date text-end mt-3 text-muted">
+                        <!-- Fecha actual con JavaScript -->
+                        <script>
+                            const today = new Date();
+                            document.write(today.toLocaleDateString('es-MX'));
+                        </script>
                     </div>
-                </form>
-                <a class="navbar-brand" href="/carrito-compra">
-                  <button class="btn-return"><h5>Regresar</h5></button>
-              </a>
+                </div>
             </div>
         </div>
     </div>
@@ -364,32 +782,102 @@
                     <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
                     <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
                     <div class="social-icons">
-                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 footer-section">
-                    <h5 class="footer-title">COMPAÑÍA</h5>
-                    <div class="footer-links">
-                        <a href="/conocenos">Conócenos</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 footer-section">
-                    <h5 class="footer-title">AYUDA</h5>
-                    <div class="footer-links">
-                        <a href="/detalles">Detalles de entrega</a>
-                        <a href="/terycon">Términos y condiciones</a>
-                        <a href="/pprivacidad">Política de privacidad</a>
-                    </div>
-                </div>
-            </div>
             <div class="copyright">
-                © 2023 GERMAIN
+                © 2025 GERMAIN
             </div>
         </div>
     </footer>
 
+    <script>
+        function selectPayment(method) {
+            const userProfileToggle = document.getElementById('userProfileToggle');
+            const profileModal = document.getElementById('profileModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Mostrar/ocultar modal
+            userProfileToggle.addEventListener('click', function() {
+                profileModal.classList.toggle('active');
+                modalOverlay.classList.toggle('active');
+            });
+            
+            modalOverlay.addEventListener('click', function() {
+                profileModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            });
+            
+            logoutBtn.addEventListener('click', function() {
+                window.location.href = '/salida';
+            });
+
+            // Cargar datos del usuario
+            async function cargarDatosUsuario() {
+                try {
+                    const response = await fetch('/api/usuario/detalle', { credentials: 'include' });
+                    if (response.ok) {
+                        const userData = await response.json();
+                        
+                        const userNameElement = document.querySelector('.user-name');
+                        const userEmailElement = document.querySelector('.user-email');
+                        const userProfilePic = document.getElementById('userProfilePic');
+                        
+                        if (userNameElement) {
+                            userNameElement.textContent = `${userData.nombres} ${userData.apellidopat} ${userData.apellidomat}`;
+                        }
+                        
+                        if (userEmailElement) {
+                            userEmailElement.textContent = userData.correo;
+                        }
+                        
+                        if (userProfilePic && userData.imagen_perfil) {
+                            userProfilePic.src = `/showImage/${userData.imagen_perfil}`;
+                        }
+                    } else {
+                        console.warn('Usuario no activo o no encontrado');
+                    }
+                } catch (error) {
+                    console.error('Error al cargar datos del usuario:', error);
+                }
+            }
+            cargarDatosUsuario();
+            const cardForm = document.getElementById('cardForm');
+            const paypalButton = document.getElementById('paypalButton');
+            
+            if (method === 'card') {
+                cardForm.style.display = 'block';
+                paypalButton.style.display = 'none';
+            } else {
+                cardForm.style.display = 'none';
+                paypalButton.style.display = 'block';
+            }
+            
+            // Agregar estilo visual al método seleccionado
+            document.querySelectorAll('.payment-method').forEach(item => {
+                if (method === item.querySelector('input').id) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+
+        function processPayment() {
+            // Simulación de pago
+            alert('¡Pago procesado con éxito!\nRedirigiendo a la página de confirmación...');
+            // window.location.href = '/confirmacion';
+        }
+
+        // Configura el método de pago predeterminado cuando carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            selectPayment('card');
+        });
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
