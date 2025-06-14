@@ -1551,19 +1551,41 @@ app.get('/producto/:id', checkAuthenticated, async (req, res) => {
    ESTADÍSTICAS DE PRODUCTOS
    ================================================== */
 
-// Datos para gráficas
-app.get('/data', checkAuthenticated, async (req, res) => {
+app.get('/data-planteles', checkAuthenticated, async (req, res) => {
     try {
         const [results] = await db.execute(`
-            SELECT c.nombre, COUNT(p.producto_id) AS count
-            FROM categoria c
-            LEFT JOIN producto p ON c.categoria_id = p.categoria_id
-            GROUP BY c.nombre
-            ORDER BY c.nombre
+            SELECT pl.nombre, COUNT(p.producto_id) AS count
+            FROM plantel pl
+            LEFT JOIN producto p ON pl.plantel_id = p.plantel_id
+            GROUP BY pl.nombre
+            ORDER BY 
+                CASE 
+                    WHEN pl.nombre = 'CECyT 1' THEN 1
+                    WHEN pl.nombre = 'CECyT 2' THEN 2
+                    WHEN pl.nombre = 'CECyT 3' THEN 3
+                    WHEN pl.nombre = 'CECyT 4' THEN 4
+                    WHEN pl.nombre = 'CECyT 5' THEN 5
+                    WHEN pl.nombre = 'CECyT 6' THEN 6
+                    WHEN pl.nombre = 'CECyT 7' THEN 7
+                    WHEN pl.nombre = 'CECyT 8' THEN 8
+                    WHEN pl.nombre = 'CECyT 9' THEN 9
+                    WHEN pl.nombre = 'CECyT 10' THEN 10
+                    WHEN pl.nombre = 'CECyT 11' THEN 11
+                    WHEN pl.nombre = 'CECyT 12' THEN 12
+                    WHEN pl.nombre = 'CECyT 13' THEN 13
+                    WHEN pl.nombre = 'CECyT 14' THEN 14
+                    WHEN pl.nombre = 'CECyT 15' THEN 15
+                    WHEN pl.nombre = 'CECyT 16' THEN 16
+                    WHEN pl.nombre = 'CECyT 17' THEN 17
+                    WHEN pl.nombre = 'CECyT 18' THEN 18
+                    WHEN pl.nombre = 'CECyT 19' THEN 19
+                    WHEN pl.nombre = 'CET 1' THEN 20
+                    ELSE 21
+                END
         `);
         res.json(results);
     } catch (error) {
-        console.error('Error ejecutando la consulta:', error);
+        console.error('Error ejecutando la consulta de planteles:', error);
         res.status(500).send('Error en el servidor');
     }
 });
