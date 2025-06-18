@@ -888,7 +888,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="quantity-btn" id="increaseQuantity">+</button>
                 </div>
 
-                <button class="add-to-cart-btn" id="addToCartBtn">Agregar al carrito</button>
+                <button type="button" class="add-to-cart-btn" id="addToCartBtn">Agregar al carrito</button>
             </div>
         </div>
     </div>
@@ -931,10 +931,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const logoutBtn         = document.getElementById('logoutBtn');
         const decreaseBtn       = document.getElementById('decreaseQuantity');
         const increaseBtn       = document.getElementById('increaseQuantity');
-        const qtyInput          = document.getElementById('quantityInput');
-        const maxQty            = parseInt(qtyInput.getAttribute('max'));
-        const addToCartBtn      = document.getElementById('addToCartBtn');
         const mainImg           = document.getElementById('mainProductImg');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const qtyInput     = document.getElementById('quantityInput');
+        const maxQty       = parseInt(qtyInput.getAttribute('max'), 10) || 1;
+        const productId    = <%= producto.producto_id %>;
 
         // — Modal usuario —
         userProfileToggle.addEventListener('click', () => {
@@ -976,37 +977,44 @@ document.addEventListener('DOMContentLoaded', function() {
         qtyInput.value = v;
         });
 
-        // — Agregar al carrito sin redirigir —
-        addToCartBtn.addEventListener('click', async () => {
-        const qty = parseInt(qtyInput.value) || 1;
+        // — Agregar al carrito sin recargar —
+        addToCartBtn.addEventListener('click', async (e) => {
+        e.preventDefault();  // evita cualquier comportamiento por defecto
+
+        let qty = parseInt(qtyInput.value, 10) || 1;
+        if (qty < 1) qty = 1;
+        if (qty > maxQty) qty = maxQty;
 
         try {
-            const res = await fetch('/carrito-compra', {
+        const res = await fetch('/carrito-compra', {
             method: 'POST',
-            credentials: 'same-origin',
-            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',               // enviar siempre la cookie de sesión
+            headers: {
+            'Content-Type': 'application/json',
+            'Accept':       'application/json' // esperamos JSON de vuelta
+            },
             body: JSON.stringify({
-                producto_id: <%= producto.producto_id %>,
-                cantidad: qty
+            producto_id: productId,
+            cantidad:    qty
             })
-            });
-            const data = await res.json();
-
-            if (data.success) {
-            alert(`Se agregaron ${qty} <%= producto.nombre %> al carrito.`);
-            // Si la vista del carrito está abierta, la refrescamos
-            if (typeof window.fetchAndShowData === 'function') {
-                window.fetchAndShowData();
-            }
-            } else {
-            alert('Error del servidor: ' + (data.error || 'No se pudo agregar el producto al carrito.'));
-            }
-        } catch (err) {
-            console.error('Error al agregar al carrito:', err);
-            alert('Ocurrió un error al agregar el producto.');
-        }
         });
+
+        const data = await res.json();
+        if (data.success) {
+            alert(`Se agregaron ${qty} <%= producto.nombre %> al carrito.`);
+            // Si el carrito está abierto en otra pestaña/vista, lo refrescamos
+            if (typeof window.fetchAndShowData === 'function') {
+            window.fetchAndShowData();
+            }
+        } else {
+            alert('Error del servidor: ' + (data.error || 'No se pudo agregar el producto.'));
+        }
+        } catch (err) {
+        console.error('Error al agregar al carrito:', err);
+        alert('Ocurrió un error al agregar el producto.');
+        }
     });
+});
 
     // — Carga datos de usuario —
     async function cargarDatosUsuario() {

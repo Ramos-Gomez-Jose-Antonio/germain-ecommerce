@@ -1697,46 +1697,51 @@ app.get('/productos-carrito-compra', checkAuthenticated, async (req, res) => {
   }
 });
 
-// Agregar producto al carrito
 app.post('/carrito-compra', checkAuthenticated, async (req, res) => {
   try {
-    // 1) Lectura de inputs y usuario
+    // 1) Parámetros y usuario
     const userMail    = req.user.correo;
     const id_producto = parseInt(req.body.producto_id, 10);
     const cantidadReq = Math.max(1, parseInt(req.body.cantidad, 10) || 1);
 
-    // 2) Validar producto
+    // 2) SELECT enriquecido con plantel, categoría y stock
     const [[producto]] = await db.execute(
-      `SELECT producto_id, nombre, precio, nombre_imagen
-         FROM producto
-        WHERE producto_id = ?`,
+      `SELECT
+         p.producto_id,
+         p.nombre,
+         p.precio,
+         p.nombre_imagen,
+         p.plantel_id,
+         pl.nombre AS plantel_nombre,
+         p.categoria_id,
+         c.nombre AS categoria_nombre,
+         p.cantidad AS stock
+       FROM producto p
+       JOIN plantel   pl ON p.plantel_id   = pl.plantel_id
+       JOIN categoria c  ON p.categoria_id = c.categoria_id
+       WHERE p.producto_id = ?`,
       [id_producto]
     );
-    if (!producto) {
-      return res.status(404).json({ error: 'Producto no encontrado' });
-    }
+    if (!producto) return res.status(404).json({ success:false, error: 'Producto no encontrado' });
 
     // 3) Obtener usuario_id
     const [[{ usuario_id }]] = await db.execute(
-      `SELECT usuario_id
-         FROM usuarios
-        WHERE correo = ?`,
+      `SELECT usuario_id FROM usuarios WHERE correo = ?`,
       [userMail]
     );
 
     // 4) Buscar o crear carrito
     let carrito_id;
     const [c] = await db.execute(
-      'SELECT carrito_id FROM carritos WHERE usuario_id = ?',
-      [usuario_id]             // <-- usar usuario_id, no id_usuario
+      `SELECT carrito_id FROM carritos WHERE usuario_id = ?`,
+      [usuario_id]
     );
     if (c.length === 0) {
-      const [insertCarrito] = await db.execute(
-        'INSERT INTO carritos (usuario_id) VALUES (?)',
+      const [{ insertId }] = await db.execute(
+        `INSERT INTO carritos (usuario_id) VALUES (?)`,
         [usuario_id]
       );
-      carrito_id = insertCarrito.insertId;
-      // inicializar elementos_carrito
+      carrito_id = insertId;
       await db.execute(
         `INSERT INTO elementos_carrito
            (carrito_id, productos_comprados, precio_total, cantidad_total, historial_compra_id)
@@ -1747,59 +1752,79 @@ app.post('/carrito-compra', checkAuthenticated, async (req, res) => {
       carrito_id = c[0].carrito_id;
     }
 
-    // 5) Cargamos la fila existente:
-    let [ec] = await db.execute(
-    'SELECT * FROM elementos_carrito WHERE carrito_id = ?',
-    [carrito_id]
+    // 5) Leer la fila existente de elementos_carrito
+    const [[elemento]] = await db.execute(
+      `SELECT productos_comprados FROM elementos_carrito WHERE carrito_id = ?`,
+      [carrito_id]
     );
-    if (ec.length === 0) {
-    // … creas la fila …
-    [ec] = await db.execute(/* … */);
-    }
-    const elemento = ec[0];
 
-    // 6) Parse seguro con try/catch
+    // 6) Parse muy seguro de productos_comprados
     let productosExistentes;
-    try {
-    productosExistentes = JSON.parse(elemento.productos_comprados);
-    if (!Array.isArray(productosExistentes)) {
+    const raw = elemento.productos_comprados;
+    if (Array.isArray(raw)) {
+      productosExistentes = raw;
+    } else {
+      try {
+        productosExistentes = JSON.parse(raw || '[]');
+        if (!Array.isArray(productosExistentes)) productosExistentes = [];
+      } catch {
         productosExistentes = [];
-    }
-    } catch {
-    productosExistentes = [];
+      }
     }
 
-    // Ahora empujas tu nuevo producto
-    productosExistentes.push({
-    producto_id: producto.producto_id,
-    nombre:      producto.nombre,
-    precio:      parseFloat(producto.precio),
-    imagen:      producto.nombre_imagen,
-    cantidad:    cantidadReq
-    });
+    // 7) Comprobar stock y preparar merge
+    const idx = productosExistentes.findIndex(p => p.producto_id === producto.producto_id);
+    const existenteQty = idx > -1 ? productosExistentes[idx].cantidad : 0;
 
-    // Recalculas totales…
+    if (existenteQty + cantidadReq > producto.stock) {
+      return res.json({
+        success: false,
+        error: `Sólo quedan ${producto.stock - existenteQty} unidades disponibles.`,
+      });
+    }
+
+    if (idx > -1) {
+      // ya existe, sumamos cantidades
+      productosExistentes[idx].cantidad = existenteQty + cantidadReq;
+    } else {
+      // nuevo, lo agregamos
+      productosExistentes.push({
+        producto_id:      producto.producto_id,
+        nombre:           producto.nombre,
+        precio:           parseFloat(producto.precio),
+        imagen:           `/showImage/${producto.nombre_imagen}`,
+        cantidad:         cantidadReq,
+        plantel_id:       producto.plantel_id,
+        plantel_nombre:   producto.plantel_nombre,
+        categoria_nombre: producto.categoria_nombre
+      });
+    }
+
+    // 8) Recalcular totales
     const nuevoTotal = productosExistentes
-    .reduce((sum, p) => sum + p.precio * p.cantidad, 0);
+      .reduce((sum, p) => sum + p.precio * p.cantidad, 0);
     const nuevaCantidadTotal = productosExistentes
-    .reduce((sum, p) => sum + p.cantidad, 0);
+      .reduce((sum, p) => sum + p.cantidad, 0);
 
-    // 7) Guardas con JSON.stringify sobre un array limpio
+    // 9) Guardar en la base (JSON.stringify + stock OK)
     await db.execute(
-    `UPDATE elementos_carrito
-        SET productos_comprados = ?,
-            precio_total       = ?,
-            cantidad_total     = ?
+      `UPDATE elementos_carrito
+          SET productos_comprados = ?,
+              precio_total       = ?,
+              cantidad_total     = ?
         WHERE carrito_id = ?`,
-    [JSON.stringify(productosExistentes), nuevoTotal, nuevaCantidadTotal, carrito_id]
+      [
+        JSON.stringify(productosExistentes),
+        nuevoTotal,
+        nuevaCantidadTotal,
+        carrito_id
+      ]
     );
 
-    // 8) Responder éxito
     return res.json({ success: true });
-
   } catch (error) {
-    console.error('Error al agregar producto al carrito:', error);
-    return res.status(500).json({ error: 'Error interno del servidor' });
+    console.error('Error al agregar producto:', error);
+    return res.status(500).json({ success:false, error: 'Error interno' });
   }
 });
 
@@ -1832,7 +1857,13 @@ app.delete('/carrito-compra/:id_producto', checkAuthenticated, async (req, res) 
     if (rc.length === 0) return res.status(404).json({ error: 'Carrito no encontrado' });
 
     const carrito_id = rc[0].carrito_id;
-    const productos = JSON.parse(rc[0].productos_comprados);
+    let productos;
+    if (Array.isArray(rc[0].productos_comprados)) {
+    productos = rc[0].productos_comprados;
+    } else {
+    // si viene como string, lo parseamos; si es null/"" usamos '[]'
+    productos = JSON.parse(rc[0].productos_comprados || '[]');
+    }
 
     // 3) Filtrar producto
     const nuevosProductos = productos.filter(p => p.producto_id !== id_producto_a_eliminar);
@@ -1866,6 +1897,90 @@ app.delete('/carrito-compra/:id_producto', checkAuthenticated, async (req, res) 
   } catch (error) {
     console.error('Error al eliminar el producto:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+app.post('/actualizar-cantidad/:id_producto', checkAuthenticated, async (req, res) => {
+  try {
+    const correo       = req.session.user?.correo;
+    if (!correo) return res.status(401).json({ success:false, error: 'Usuario no autenticado' });
+
+    const id_producto  = parseInt(req.params.id_producto, 10);
+    const cambio       = parseInt(req.body.change, 10);  // +1 o -1
+
+    // 1) Obtener usuario_id
+    const [u] = await db.execute(
+      'SELECT usuario_id FROM usuarios WHERE correo = ?',
+      [correo]
+    );
+    if (u.length === 0) return res.status(404).json({ success:false, error: 'Usuario no encontrado' });
+    const usuario_id = u[0].usuario_id;
+
+    // 2) Obtener stock del producto
+    const [[{ stock }]] = await db.execute(
+      'SELECT cantidad AS stock FROM producto WHERE producto_id = ?',
+      [id_producto]
+    );
+    if (stock == null) return res.status(404).json({ success:false, error: 'Producto no existe' });
+
+    // 3) Cargar carrito + productos actuales
+    const [rc] = await db.execute(`
+      SELECT ec.carrito_id, ec.productos_comprados
+      FROM carritos c
+      JOIN elementos_carrito ec ON c.carrito_id = ec.carrito_id
+      WHERE c.usuario_id = ?`,
+      [usuario_id]
+    );
+    if (rc.length === 0) return res.status(404).json({ success:false, error: 'Carrito no encontrado' });
+
+    const carrito_id   = rc[0].carrito_id;
+    const raw          = rc[0].productos_comprados;
+    const productosArr = Array.isArray(raw)
+      ? raw
+      : JSON.parse(raw || '[]');
+
+    // 4) Ajustar cantidad para el item concreto
+    let errorMsg = null;
+    const nuevosProductos = productosArr.map(p => {
+      if (p.producto_id === id_producto) {
+        const deseada = p.cantidad + cambio;
+        if (deseada > stock) {
+          errorMsg = `Sólo quedan ${stock} unidades de “${p.nombre}” disponibles.`;
+          // no cambiamos la cantidad, o bien podríamos setear p.cantidad = stock
+        } else if (deseada < 1) {
+          p.cantidad = 1;
+        } else {
+          p.cantidad = deseada;
+        }
+      }
+      return p;
+    });
+
+    if (errorMsg) {
+      return res.json({ success:false, error: errorMsg });
+    }
+
+    // 5) Filtrar (en caso de que quieras eliminar si llega a 0)
+    const filtered = nuevosProductos.filter(p => p.cantidad > 0);
+
+    // 6) Recalcular totales
+    const nuevoTotal         = filtered.reduce((s, p) => s + p.precio * p.cantidad, 0);
+    const nuevaCantidadTotal = filtered.reduce((s, p) => s + p.cantidad,     0);
+
+    // 7) Guardar
+    await db.execute(
+      `UPDATE elementos_carrito
+         SET productos_comprados = ?,
+             precio_total        = ?,
+             cantidad_total      = ?
+       WHERE carrito_id = ?`,
+      [ JSON.stringify(filtered), nuevoTotal, nuevaCantidadTotal, carrito_id ]
+    );
+
+    return res.json({ success:true, nuevosProductos: filtered, nuevoPrecioTotal: nuevoTotal });
+  } catch (error) {
+    console.error('Error al actualizar cantidad:', error);
+    return res.status(500).json({ success:false, error: 'Error interno del servidor' });
   }
 });
 
@@ -1909,7 +2024,6 @@ app.delete('/vaciar-carrito', checkAuthenticated, async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
-
 
 /* ==================================================
    ENVÍO DE CORREOS ELECTRÓNICOS

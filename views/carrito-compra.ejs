@@ -977,19 +977,19 @@
           </div>
           <div class="item-details">
             <h5 class="item-title">${prod.nombre}</h5>
-            <p class="item-info">CECyT ${prod.plantel_id || ''} – ${prod.plantel_nombre || ''}</p>
+            <p class="item-info"> CECyT ${prod.plantel_id} – ${prod.categoria_nombre || ''}</p>
             <div class="item-price">$${prod.precio}</div>
           </div>
           <div class="quantity-control">
-            <button class="quantity-btn decrement-btn" data-id="${prod.producto_id}">
+            <button type="button" class="quantity-btn decrement-btn" data-id="${prod.producto_id}">
               <i class="fas fa-minus"></i>
             </button>
             <input type="text" class="quantity-input" value="${prod.cantidad}" readonly>
-            <button class="quantity-btn increment-btn" data-id="${prod.producto_id}">
+            <button type="button" class="quantity-btn increment-btn" data-id="${prod.producto_id}">
               <i class="fas fa-plus"></i>
             </button>
           </div>
-          <button class="remove-item" data-id="${prod.producto_id}">
+          <button type="button" class="remove-item" data-id="${prod.producto_id}">
             <i class="fas fa-times"></i>
           </button>`;
         productList.appendChild(div);
@@ -1050,21 +1050,21 @@
   }
 
   async function actualizarCantidad(id, change) {
-    try {
-      const res = await fetch(`/actualizar-cantidad/${id}`, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ change })
-      });
-      const j = await res.json();
-      if (j.success) fetchAndShowData();
-      else alert(j.message || 'Error al actualizar cantidad');
-    } catch (e) {
-      console.error(e);
-      alert('Error al actualizar la cantidad. Intenta de nuevo.');
+        try {
+            const res = await fetch(`/actualizar-cantidad/${id}`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ change })
+            });
+            const j = await res.json();
+            if (j.success) fetchAndShowData();
+            else alert(j.error || 'Error al actualizar cantidad');
+        } catch (e) {
+            console.error(e);
+            alert('Error al actualizar la cantidad. Intenta de nuevo.');
+        }
     }
-  }
 
   async function eliminarProducto(id) {
     try {
