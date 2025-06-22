@@ -660,39 +660,38 @@
 
         <div class="product-table">
             <table class="table table-hover">
-                <thead>
-                    <tr>
+                    <thead>
+                        <tr>
                         <th>Producto</th>
-                        <th>Certificado</th>
-                        <th>Complejo</th>
+                        <th>Catálogo</th>
+                        <th>Cantidad</th>
                         <th>Costo unitario</th>
                         <th>Fecha de publicación</th>
                         <th>Usuario</th>
-                        <th>Estatus</th>
                         <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% productos.forEach(producto => { %>
-                    <tr>
-                        <td><%= producto.nombre %></td>
-                        <td><%= producto.certificado %></td>
-                        <td><%= producto.complejo %></td>
-                        <td>$<%= producto.precio %></td>
-                        <td><%= producto.fecha %></td>
-                        <td><%= producto.usuario %></td>
-                        <td class="<%= producto.estatus === 'Disponible' ? 'status-available' : 'status-unavailable' %>">
-                            <%= producto.estatus %>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-danger">
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% productos.forEach(producto => { %>
+                        <tr id="producto-row-<%= producto.producto_id %>">
+                            <td><%= producto.nombre %></td>
+                            <td><%= producto.catalogo %></td>
+                            <td><%= producto.cantidad %></td>
+                            <td>$<%= producto.costo_unitario %></td>
+                            <td><%= producto.fecha %></td>
+                            <td><%= producto.usuario %></td>
+                            <td>
+                            <button 
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="eliminarProducto(<%= producto.producto_id %>)"
+                            >
                                 <i class="fas fa-trash"></i>
                             </button>
-                        </td>
-                    </tr>
-                    <% }); %>
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                    </table>
         </div>
     </div>
 
@@ -1061,7 +1060,23 @@
                 return container;
             }
 
-
+            function eliminarProducto(productoId) {
+    if (!confirm('¿Seguro que quieres eliminar este producto?')) return;
+    fetch(`/api/publicaciones/${productoId}`, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById(`producto-row-${productoId}`).remove();
+          showToast(data.message || 'Producto eliminado', 'success');
+        } else {
+          showToast(data.error || 'No se pudo eliminar', 'danger');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        showToast('Error en la petición', 'danger');
+      });
+  }
 
 
             document.querySelector('.btn-primary.action-btn').addEventListener('click', function() {
