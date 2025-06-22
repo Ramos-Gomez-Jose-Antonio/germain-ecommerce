@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos del Plantel - Germain </title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    :root {
+        --primary-color: #4A1F43;
+        --secondary-color: #4a1f39;
+        --accent-color: #55002A;
+        --light-color: #EAEAEA;
+        --neutral-light: #DEDEDE;
+        --dark-color: #5D5D5D;
+        --text-color: #333;
+        --white: #ffffff;
+    }
+    * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-color);
+        color: var(--text-color);
+        padding-top: 70px;
+        line-height: 1.6;
+    }
+    /* HEADER & NAVBAR */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--white) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            height: 40px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .search-form {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: 2px solid var(--neutral-light);
+            box-shadow: 0 2px 10px rgba(113, 28, 70, 0.1);
+            font-size: 0.9rem;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 74, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            color: var(--light-color);
+            transform: scale(1.1);
+        }
+        
+        .dashboard-btn {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
+        }
+        
+        /* USER PROFILE MODAL */
+        .profile-modal {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(113, 28, 70, 0.2);
+            z-index: 1000;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid var(--neutral-light);
+        }
+        
+        .profile-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .profile-modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .profile-modal-body {
+            padding: 20px;
+        }
+        
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--light-color), var(--neutral-light));
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(113, 28, 70, 0.15);
+            border: 3px solid var(--neutral-light);
+        }
+        
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .user-email {
+            text-align: center;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .profile-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid var(--neutral-light);
+        }
+        
+        .profile-menu-item {
+            border-bottom: 1px solid var(--neutral-light);
+        }
+        
+        .profile-menu-link {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-menu-link:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .profile-menu-icon {
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(85, 0, 42, 0.3);
+        }
+        
+        /* Overlay for closing modal when clicking outside */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 999;
+            display: none;
+        }
+        
+        .modal-overlay.active {
+            display: block;
+        }
+
+    .navbar {
+        background-color: var(--primary-color) !important;
+        box-shadow: 0 4px 15px rgba(113, 28, 70, 0.3);
+        padding: 15px 0;
+    }
+
+    .plantel-header {
+        background-color: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(113, 28, 70, 0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .plantel-banner {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    #mainPlantelImageContainer {
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(113, 28, 70, 0.15);
+        border: 3px solid var(--white);
+        margin-right: 25px;
+        flex-shrink: 0;
+    }
+
+    #mainPlantelImage {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    #mainPlantelImageContainer:hover #mainPlantelImage {
+        transform: scale(1.05);
+    }
+
+    .plantel-info {
+        flex-grow: 1;
+    }
+
+    #plantelNameTitle {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+    }
+
+    .plantel-actions {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .product-table {
+        background-color: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(113, 28, 70, 0.1);
+        overflow: hidden;
+    }
+
+    .table th {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 12px;
+    }
+
+    .table td {
+        padding: 12px;
+        vertical-align: middle;
+    }
+
+    .action-btn {
+        margin-right: 8px;
+        transition: all 0.2s ease;
+        font-weight: 500;
+        padding: 8px 15px;
+        border-radius: 30px;
+        border: none;
+        background-color: var(--neutral-light);
+        color: var(--dark-color);
+    }
+
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(113, 28, 70, 0.15);
+        color: var(--white);
+        background-color: var(--accent-color);
+    }
+
+    #editPlantelBtn {
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: white;
+        border: none;
+    }
+
+    #editPlantelBtn:hover {
+        box-shadow: 0 5px 10px rgba(85, 0, 42, 0.3);
+    }
+
+    #deletePlantelBtn {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    #deletePlantelBtn:hover {
+        background-color: #c82333;
+        box-shadow: 0 5px 10px rgba(220, 53, 69, 0.3);
+    }
+
+    .status-available {
+        color: green;
+        font-weight: 600;
+    }
+
+    .status-unavailable {
+        color: red;
+        font-weight: 600;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+        font-weight: bold;
+    }
+
+    .modal-title {
+        font-weight: 600;
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+
+    .remove-categoria {
+        transition: all 0.2s ease;
+        color: var(--accent-color);
+        background-color: transparent;
+        border: 1px solid var(--accent-color);
+        padding: 5px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .remove-categoria:hover {
+        background-color: #dc3545 !important;
+        color: white !important;
+        border-color: #dc3545 !important;
+    }
+
+    #editCategoriasContainer .input-group {
+        margin-bottom: 10px;
+    }
+
+    .toast-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1100;
+    }
+
+    .toast {
+        border-radius: 10px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: var(--white);
+        border-left: 5px solid var(--primary-color);
+        transition: opacity 0.3s ease;
+    }
+    /* FOOTER */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            margin-bottom: 20px;
+            max-width: 160px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .footer-title {
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--light-color);
+            border-radius: 2px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 20px;
+            opacity: 0.9;
+        }
+        
+        .footer-links a::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--light-color);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light-color);
+            transform: translateX(8px);
+            text-decoration: none;
+            opacity: 1;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: var(--white);
+            border-radius: 50%;
+            color: var(--primary-color);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--light-color);
+            color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 235, 216, 0.2);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .footer-section {
+                margin-bottom: 40px;
+            }
+            
+            .search-form {
+                margin: 15px 0;
+            }
+            
+            .dashboard-btn {
+                margin: 15px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 70px;
+            }
+            
+            .stats-number {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-card {
+                margin-bottom: 15px;
+            }
+            
+            .chart-container {
+                margin-bottom: 15px;
+            }
+        }
+</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/admin">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="navbar-logo">
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <form class="search-form mx-auto">
+                    </form>
+                    
+                    <div class="nav-icons">
+                        <span class="nav-icon" id="userProfileToggle">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- User Profile Modal -->
+     <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-modal-header">
+                Perfil de Administrador
+            </div>
+            <div class="profile-modal-body">
+                <div class="profile-picture">
+                    <img src="/api/placeholder/200/200" alt="Profile Picture" id="userProfilePic">
+                </div>
+                <h4 class="user-name">Nombre de usuario</h4>
+                <p class="user-email">Correo del usuario</p>
+            <button class="logout-btn" id="logoutBtn">Cerrar sesión</button>
+            </div>
+        </div>
+
+    <div class="container">
+        <div class="plantel-header">
+            <div class="plantel-banner">
+                <div id="mainPlantelImageContainer">
+                    <img id="mainPlantelImage" 
+                         src="/images/planteles/<%= plantel.imagen || 'default.png' %>" 
+                         alt="<%= plantel.nombre %>">
+                </div>
+                <div class="plantel-info">
+                    <h1 id="plantelNameTitle"><%= plantel.nombre %></h1>
+                    <div class="plantel-actions btn-group">
+                        <button class="btn btn-primary action-btn">
+                            <i class="fas fa-filter me-1"></i> Filtrar
+                        </button>
+                        <button class="btn btn-warning action-btn" id="editPlantelBtn">
+                            <i class="fas fa-edit me-1"></i> Editar
+                        </button>
+                        <button class="btn btn-danger action-btn" id="deletePlantelBtn">
+                            <i class="fas fa-trash me-1"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-table">
+            <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th>Producto</th>
+                        <th>Catálogo</th>
+                        <th>Cantidad</th>
+                        <th>Costo unitario</th>
+                        <th>Fecha de publicación</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% productos.forEach(producto => { %>
+                        <tr id="producto-row-<%= producto.producto_id %>">
+                            <td><%= producto.nombre %></td>
+                            <td><%= producto.catalogo %></td>
+                            <td><%= producto.cantidad %></td>
+                            <td>$<%= producto.costo_unitario %></td>
+                            <td><%= producto.fecha %></td>
+                            <td><%= producto.usuario %></td>
+                            <td>
+                            <button 
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="eliminarProducto(<%= producto.producto_id %>)"
+                            >
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                    </table>
+        </div>
+    </div>
+
+    <!-- Modal de edición -->
+    <div class="modal fade" id="editPlantelModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editor plantel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPlantelForm">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Plantel</label>
+                            <input type="text" class="form-control" id="editPlantelNombre" value="<%= plantel.nombre %>">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Cambiar imagen</label>
+                            <input type="file" class="form-control" id="editPlantelImagen" accept="image/*">
+                            <div class="mt-2">
+                                <img id="currentPlantelImage" 
+                                     src="/images/planteles/<%= plantel.imagen || 'default.png' %>" 
+                                     style="max-width: 200px; max-height: 200px; border-radius: 5px;">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Catalogos del Plantel</label>
+                            <div id="editCategoriasContainer">
+                                <!-- Las categorías existentes se cargarán aquí -->
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="addEditCategoriaBtn">
+                                <i class="fas fa-plus me-1"></i> Añadir Categoría
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="saveEditPlantelBtn">
+                        <i class="fas fa-check me-1"></i> Aceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para eliminar -->
+    <div class="modal fade" id="deletePlantelModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Eliminar plantel</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar el plantel "<strong><%= plantel.nombre %></strong>"?</p>
+                    <p class="text-danger">Esta acción no se puede deshacer y se eliminarán todos los productos asociados.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmDeletePlantelBtn">
+                        <i class="fas fa-trash me-1"></i> Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 footer-section">
+                    <img src="/germainsitio.png" alt="Germain Logo" class="footer-logo">
+                    <p>Contamos con los mejores productos dedicados para tu experiencia en el nivel medio superior.</p>
+                    <div class="social-icons">
+                        <a href="https://www.youtube.com/channel/UCtE5jvPKJ91QQBjPoAIJdwg" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/germain_404?s=11" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/germain_404/?igsh=MXZ1Nmx2aXpxc2wyaw%3D%3D&utm_source=qr" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 GERMAIN
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userProfileToggle = document.getElementById('userProfileToggle');
+            const profileModal = document.getElementById('profileModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Mostrar/ocultar modal
+            userProfileToggle.addEventListener('click', function() {
+                profileModal.classList.toggle('active');
+                modalOverlay.classList.toggle('active');
+            });
+            
+            modalOverlay.addEventListener('click', function() {
+                profileModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            });
+            
+            logoutBtn.addEventListener('click', function() {
+                window.location.href = '/salida';
+            });
+
+            // Cargar datos del usuario
+            async function cargarDatosUsuario() {
+                try {
+                    const response = await fetch('/api/usuario/detalle', { credentials: 'include' });
+                    if (response.ok) {
+                        const userData = await response.json();
+                        
+                        const userNameElement = document.querySelector('.user-name');
+                        const userEmailElement = document.querySelector('.user-email');
+                        const userProfilePic = document.getElementById('userProfilePic');
+                        
+                        if (userNameElement) {
+                            userNameElement.textContent = `${userData.nombres} ${userData.apellidopat} ${userData.apellidomat}`;
+                        }
+                        
+                        if (userEmailElement) {
+                            userEmailElement.textContent = userData.correo;
+                        }
+                        
+                        if (userProfilePic && userData.imagen_perfil) {
+                            userProfilePic.src = `/showImage/${userData.imagen_perfil}`;
+                        }
+                    } else {
+                        console.warn('Usuario no activo o no encontrado');
+                    }
+                } catch (error) {
+                    console.error('Error al cargar datos del usuario:', error);
+                }
+            }
+            cargarDatosUsuario();
+            
+            // Example: Load user profile picture from server
+            function loadUserProfilePicture() {
+                // This is a placeholder. In a real application, you would fetch the user's profile picture from the server
+                const userProfilePic = document.getElementById('userProfilePic');
+                
+                // Example: check if user has a profile picture
+                const hasProfilePicture = true; // This would be determined by your backend
+                
+                if (hasProfilePicture) {
+                    // Replace with actual user profile picture URL
+                    userProfilePic.src = "/api/placeholder/200/200";
+                } else {
+                    // Use default avatar if no profile picture exists
+                    userProfilePic.src = "/default-avatar.png";
+                }
+            }
+            
+            // Load user profile picture when the page loads
+            loadUserProfilePicture();
+            const editModal = new bootstrap.Modal(document.getElementById('editPlantelModal'));
+            const deleteModal = new bootstrap.Modal(document.getElementById('deletePlantelModal'));
+            const plantelId = <%= plantel.plantel_id %>;
+            
+            // Botón de editar - abre el modal de edición
+            document.getElementById('editPlantelBtn').addEventListener('click', async function() {
+                try {
+                    const response = await fetch(`/api/planteles/${plantelId}/categorias`);
+                    if (!response.ok) throw new Error('Error al cargar categorías');
+                    
+                    const categorias = await response.json();
+                    const container = document.getElementById('editCategoriasContainer');
+                    container.innerHTML = '';
+                    
+                    categorias.forEach(categoria => {
+                        addCategoriaInput(container, categoria.nombre);
+                    });
+                    
+                    editModal.show();
+                } catch (error) {
+                    console.error('Error:', error);
+                    showToast('Error al cargar las categorías del plantel', 'danger');
+                }
+            });
+            
+            // Botón para añadir nueva categoría
+            document.getElementById('addEditCategoriaBtn').addEventListener('click', function() {
+                addCategoriaInput(document.getElementById('editCategoriasContainer'));
+            });
+            
+            // Vista previa de imagen al seleccionar nueva
+            document.getElementById('editPlantelImagen').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('currentPlantelImage').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+            //guardaer cambios
+            
+         document.getElementById('saveEditPlantelBtn').addEventListener('click', async function() {
+    const saveBtn = this;
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Guardando...';
+
+    try {
+        const nombre = document.getElementById('editPlantelNombre').value.trim();
+        const imagenInput = document.getElementById('editPlantelImagen');
+        const categoriasInputs = document.querySelectorAll('#editCategoriasContainer input[type="text"]');
+        
+        if (!nombre) {
+            showToast('El nombre del plantel es requerido', 'warning');
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<i class="fas fa-check me-1"></i> Aceptar';
+            return;
+        }
+
+        const categorias = Array.from(categoriasInputs)
+            .map(input => input.value.trim())
+            .filter(cat => cat.length > 0);
+
+        const formData = new FormData();
+        formData.append('nombre', nombre);
+        formData.append('categorias', JSON.stringify(categorias));
+        
+        if (imagenInput.files && imagenInput.files.length > 0) {
+            formData.append('imagen', imagenInput.files[0]);
+        }
+
+        const response = await fetch(`/api/planteles/${plantelId}`, {
+            method: 'PUT',
+            body: formData
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Error al actualizar');
+        }
+
+        const data = await response.json();
+        
+        editModal.hide();
+        showToast(data.message, 'success');
+
+        // Actualizar el título y la imagen en la vista principal
+        document.getElementById('plantelNameTitle').textContent = nombre;
+
+        const newImageUrl = `/images/planteles/${data.imageName}?t=${Date.now()}`;
+        const imgElements = [
+            document.getElementById('mainPlantelImage'),
+            document.getElementById('currentPlantelImage')
+        ];
+
+        imgElements.forEach(img => {
+            if (img) img.src = newImageUrl;
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+        showToast(error.message || 'Error al actualizar plantel', 'danger');
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fas fa-check me-1"></i> Aceptar';
+    }
+});
+
+            
+            // Botón de eliminar
+            document.getElementById('deletePlantelBtn').addEventListener('click', function() {
+                deleteModal.show();
+            });
+            
+            // Confirmar eliminación
+           document.getElementById('confirmDeletePlantelBtn').addEventListener('click', async function() {
+    const deleteBtn = document.getElementById('confirmDeletePlantelBtn');
+    deleteBtn.disabled = true;
+    deleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Eliminando...';
+    
+    try {
+        const response = await fetch(`/api/planteles/${plantelId}`, {
+            method: 'DELETE'
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al eliminar');
+        }
+        
+        deleteModal.hide();
+        showToast('Plantel eliminado correctamente', 'success');
+        
+        // Redirigir después de un breve retraso
+        setTimeout(() => {
+            window.location.href = '/admin';
+        }, 1500);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showToast(error.message || 'Error al eliminar plantel', 'danger');
+    } finally {
+        deleteBtn.disabled = false;
+        deleteBtn.innerHTML = '<i class="fas fa-trash me-1"></i> Eliminar';
+    }
+});
+            
+            // Función para añadir inputs de categoría
+            function addCategoriaInput(container, value = '') {
+                const div = document.createElement('div');
+                div.className = 'input-group mb-2';
+                div.innerHTML = `
+                    <input type="text" class="form-control" placeholder="Nombre de categoría" value="${value}">
+                    <button class="btn btn-outline-danger remove-categoria" type="button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+                
+                div.querySelector('.remove-categoria').addEventListener('click', function() {
+                    div.remove();
+                });
+            }
+            
+            // Función para mostrar notificaciones
+            function showToast(message, type = 'success') {
+                const toastContainer = document.getElementById('toastContainer') || createToastContainer();
+                const toast = document.createElement('div');
+                
+                toast.className = `toast align-items-center text-white bg-${type} border-0`;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+                
+                toastContainer.appendChild(toast);
+                new bootstrap.Toast(toast).show();
+                
+                setTimeout(() => toast.remove(), 5000);
+            }
+            
+            function createToastContainer() {
+                const container = document.createElement('div');
+                container.id = 'toastContainer';
+                container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+                document.body.appendChild(container);
+                return container;
+            }
+
+            function eliminarProducto(productoId) {
+    if (!confirm('¿Seguro que quieres eliminar este producto?')) return;
+    fetch(`/api/publicaciones/${productoId}`, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById(`producto-row-${productoId}`).remove();
+          showToast(data.message || 'Producto eliminado', 'success');
+        } else {
+          showToast(data.error || 'No se pudo eliminar', 'danger');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        showToast('Error en la petición', 'danger');
+      });
+  }
+
+
+            document.querySelector('.btn-primary.action-btn').addEventListener('click', function() {
+            const filterModal = `
+                <div class="modal fade" id="filterModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Filtrar Productos</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre del Producto</label>
+                                    <input type="text" class="form-control" id="filterNombre">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Certificado</label>
+                                    <input type="text" class="form-control" id="filterCertificado">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Estatus</label>
+                                    <select class="form-select" id="filterEstatus">
+                                        <option value="">Todos</option>
+                                        <option value="Disponible">Disponible</option>
+                                        <option value="No disponible">No disponible</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="applyFilterBtn">Aplicar Filtros</button>
+                                <button type="button" class="btn btn-outline-danger" id="resetFilterBtn">Restablecer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Agregar el modal al DOM si no existe
+            if (!document.getElementById('filterModal')) {
+                document.body.insertAdjacentHTML('beforeend', filterModal);
+                const modal = new bootstrap.Modal(document.getElementById('filterModal'));
+                
+                // Mostrar el modal
+                modal.show();
+                
+                // Aplicar filtros
+                document.getElementById('applyFilterBtn').addEventListener('click', function() {
+                    applyFilters();
+                    modal.hide();
+                });
+                
+                // Restablecer filtros
+                document.getElementById('resetFilterBtn').addEventListener('click', function() {
+                    document.getElementById('filterNombre').value = '';
+                    document.getElementById('filterCertificado').value = '';
+                    document.getElementById('filterEstatus').value = '';
+                    applyFilters();
+                    modal.hide();
+                });
+            } else {
+                const modal = new bootstrap.Modal(document.getElementById('filterModal'));
+                modal.show();
+            }
+        });
+        
+        // Función para aplicar los filtros
+        function applyFilters() {
+            const nombreFilter = document.getElementById('filterNombre')?.value.toLowerCase() || '';
+            const certificadoFilter = document.getElementById('filterCertificado')?.value.toLowerCase() || '';
+            const estatusFilter = document.getElementById('filterEstatus')?.value || '';
+            
+            const rows = document.querySelectorAll('.product-table tbody tr');
+            
+            rows.forEach(row => {
+                const nombre = row.cells[0].textContent.toLowerCase();
+                const certificado = row.cells[1].textContent.toLowerCase();
+                const estatus = row.cells[6].textContent;
+                
+                const nombreMatch = nombre.includes(nombreFilter);
+                const certificadoMatch = certificado.includes(certificadoFilter);
+                const estatusMatch = !estatusFilter || estatus === estatusFilter;
+                
+                if (nombreMatch && certificadoMatch && estatusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        });
+    </script>
+</body>
+</html>
